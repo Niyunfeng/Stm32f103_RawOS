@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdarg.h>
 
+#include "debug_uart.h"
+
 static RAW_MUTEX mutex_printf_obj;
 
 
@@ -33,7 +35,7 @@ static void printchar(char **str, int c)
 	
 	else {
 	 
-// 		user_put_char(c);//加入自己的发送代码
+        debug_putchar(c);
 	}
 }
 
