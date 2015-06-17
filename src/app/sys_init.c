@@ -1,4 +1,5 @@
 #include <raw_api.h>
+#include <debug_uart.h>
 
 /******************************************************************************/
 #define SYS_INIT_TASK_STK_SIZE 	(128)
@@ -16,12 +17,15 @@ typedef struct init_task_t
 /******************************************************************************/
 
 void sys_led_init(RAW_U8 prio);
+void shell_init(RAW_U8 prio);
+
 
 /******************************************************************************/
 
 static const init_task_t sys_init_arry[]  = 
 {
 	{sys_led_init, 			CONFIG_RAW_PRIO_MAX - 3 }, 		// 系统指示灯
+    {shell_init, 			CONFIG_RAW_PRIO_MAX - 10},		// shell
 };
 
 static void sys_init_task(void *pdat)
@@ -30,13 +34,20 @@ static void sys_init_task(void *pdat)
  	RAW_U8 i;
 	
 	raw_sys_tick_init();   //第一个任务启动时开启系统tick定时器
+	// debug_uart 初始化
+	debug_serial_init();
 	
+	raw_printf("\r\n-------------  raw-os  ----------------\r\n");
 	// 任务初始化
 	for(i=0; i<ARRAY_SIZE(sys_init_arry); i++)
 	{
 		sys_init_arry[i].init_task( sys_init_arry[i].prio );
 	}
 	
+	raw_printf("\r\n---------------------------------------\r\n");
+	
+	raw_task_resume(get_shell_task_obj()); 		// 唤醒shell_deamon
+    
 	for(;;)
 	{	
 		raw_task_suspend(raw_task_identify());

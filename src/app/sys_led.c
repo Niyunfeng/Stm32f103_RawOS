@@ -45,7 +45,9 @@ static void sys_led_task(void *pdat)
 {
 	(void)pdat;
 	
+	raw_printf("sys_led init...\r\t\t\t\t");
 	sys_len_init();
+	raw_printf("[OK]\n");
 	
 	for(;;)
 	{
