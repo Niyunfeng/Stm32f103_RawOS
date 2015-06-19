@@ -1,9 +1,3 @@
-#include <stm32f10x.h>
-
-#include <raw_api.h>
-
-#include "serial_fifo.h"
-#include "cli.h"
 #include "debug_uart.h"
 
 /******************************************************************************/

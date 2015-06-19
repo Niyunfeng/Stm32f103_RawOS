@@ -350,7 +350,7 @@
               <MiscControls>--c99</MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\src\app;..\src\raw-os\kernel\include;..\src\raw-os\port;..\src\raw-os\kernel\extension\include;..\src\stm32f103;..\src\stm32f103\driver\inc;..\src\lib;..\src\cli</IncludePath>
+              <IncludePath>..\src\app;..\src\raw-os\kernel\include;..\src\raw-os\port;..\src\raw-os\kernel\extension\include;..\src\stm32f103;..\src\stm32f103\driver\inc;..\src\lib;..\src\cli;..\src\app\key;..\src\app\pub</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -410,6 +410,16 @@
               <FileName>debug_uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\src\app\debug_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>key.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\app\key\key.c</FilePath>
+            </File>
+            <File>
+              <FileName>pub.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\app\pub\pub.c</FilePath>
             </File>
           </Files>
         </Group>

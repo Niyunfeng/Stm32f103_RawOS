@@ -3,6 +3,8 @@
 
 #include "stm32f10x.h"
 #include "raw_api.h"
+#include "serial_fifo.h"
+#include "cli.h"
 
 #define DEBUG_UART 				USART1
 #define DEBUG_BaudRate          115200

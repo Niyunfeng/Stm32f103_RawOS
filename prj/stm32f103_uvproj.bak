@@ -350,7 +350,7 @@
               <MiscControls>--c99</MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\src\app;..\src\raw-os\kernel\include;..\src\raw-os\port;..\src\raw-os\kernel\extension\include;..\src\stm32f103;..\src\stm32f103\driver\inc;..\src\lib</IncludePath>
+              <IncludePath>..\src\app;..\src\raw-os\kernel\include;..\src\raw-os\port;..\src\raw-os\kernel\extension\include;..\src\stm32f103;..\src\stm32f103\driver\inc;..\src\lib;..\src\cli</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -406,6 +406,11 @@
               <FileType>1</FileType>
               <FilePath>..\src\app\sys_led.c</FilePath>
             </File>
+            <File>
+              <FileName>debug_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\app\debug_uart.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -415,6 +420,11 @@
               <FileName>raw_config.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\src\raw-os\kernel\include\raw_config.h</FilePath>
+            </File>
+            <File>
+              <FileName>cli_config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\src\cli\cli_config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -730,6 +740,41 @@
               <FileName>serial_fifo.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\src\lib\serial_fifo.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>cli</GroupName>
+          <Files>
+            <File>
+              <FileName>cli.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\cli\cli.c</FilePath>
+            </File>
+            <File>
+              <FileName>cli_port.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\cli\cli_port.c</FilePath>
+            </File>
+            <File>
+              <FileName>cli_readline.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\cli\cli_readline.c</FilePath>
+            </File>
+            <File>
+              <FileName>cli_simple.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\cli\cli_simple.c</FilePath>
+            </File>
+            <File>
+              <FileName>cmds.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\cli\cmds.c</FilePath>
+            </File>
+            <File>
+              <FileName>command.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\cli\command.c</FilePath>
             </File>
           </Files>
         </Group>
