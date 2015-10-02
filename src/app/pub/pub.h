@@ -111,15 +111,15 @@ typedef union
     u16 Val;
 }_DEF_UINT16_BIT;
 
-void Pub_Nvic_Config(uint8_t Irq_Chanl,uint8_t Preemp,uint8_t Sub); //设置中断的优先级
-void Pub_Gpio_Output_OD(GPIO_TypeDef* GPIOx,uint16_t Pin);          //设置端口为开漏输出口
-void Pub_Gpio_Output_OUTPP(GPIO_TypeDef* GPIOx,uint16_t Pin);       //设置端口为推挽输出口
-void Pub_Gpio_Output_AFPP(GPIO_TypeDef* GPIOx,uint16_t Pin);        //设置端口为复用推挽输出口
-void Pub_Gpio_Input_AIN(GPIO_TypeDef* GPIOx,uint16_t Pin);          //设置端口为模拟输入口
-void Pub_Gpio_Input_IPD(GPIO_TypeDef* GPIOx,uint16_t Pin);          //设置端口为下拉输入口
-void Pub_Gpio_Input_INFLOATING(GPIO_TypeDef* GPIOx,uint16_t Pin);   //设置端口为浮空输入口
-void Pub_Gpio_Input_IPU(GPIO_TypeDef* GPIOx,uint16_t Pin);          //设置端口为上拉输入口
-void Pub_Uart_Hardware_Cfg(USART_TypeDef* USARTx,uint32_t Bps);     //设置串口的硬件配置脚
-void Pub_Uart_Int_Cfg(USART_TypeDef* USARTx);                       //设置串口的中断配置
+void Pub_Nvic_Config(uint8_t Irq_Chanl,uint8_t Preemp,uint8_t Sub);         //设置中断的优先级
+void Pub_Gpio_Output_OD(GPIO_TypeDef* GPIOx,uint16_t Pin);                  //设置端口为开漏输出口
+void Pub_Gpio_Output_OUTPP(GPIO_TypeDef* GPIOx,uint16_t Pin);               //设置端口为推挽输出口
+void Pub_Gpio_Output_AFPP(GPIO_TypeDef* GPIOx,uint16_t Pin);                //设置端口为复用推挽输出口
+void Pub_Gpio_Input_AIN(GPIO_TypeDef* GPIOx,uint16_t Pin);                  //设置端口为模拟输入口
+void Pub_Gpio_Input_IPD(GPIO_TypeDef* GPIOx,uint16_t Pin);                  //设置端口为下拉输入口
+void Pub_Gpio_Input_INFLOATING(GPIO_TypeDef* GPIOx,uint16_t Pin);           //设置端口为浮空输入口
+void Pub_Gpio_Input_IPU(GPIO_TypeDef* GPIOx,uint16_t Pin);                  //设置端口为上拉输入口
+void Pub_Uart_Hardware_Cfg(USART_TypeDef* USARTx,uint32_t Bps);             //设置串口的硬件配置脚
+void Pub_Uart_Int_Cfg(USART_TypeDef* USARTx,FunctionalState NewState);      //设置串口的中断配置
 
 #endif

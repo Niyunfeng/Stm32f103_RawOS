@@ -147,16 +147,16 @@ void Pub_Uart_Hardware_Cfg(USART_TypeDef* USARTx,uint32_t Bps)
 	USART_Init(USARTx, &USART_InitStructure);
 }
 
+
+
 /*-----------------------------------------------------------
 ** 功能描述: 设置串口的中断配置
 ** 入口参数: USARTx :串口号
 ** 出口参数: 无
 -------------------------------------------------------------*/
-void Pub_Uart_Int_Cfg(USART_TypeDef* USARTx)
+void Pub_Uart_Int_Cfg(USART_TypeDef* USARTx,FunctionalState NewState)
 {
-    #if EN_UART_IT_RX == 1
-        USART_ITConfig(USARTx, USART_IT_RXNE , ENABLE);	    //开启串口接收中断
-    #endif
+    USART_ITConfig(USARTx, USART_IT_RXNE , NewState);	    //开启串口接收中断
     
     //USART_ITConfig(USARTx, USART_IT_IDLE , ENABLE);	//开启空闲,帧错,噪声,校验错中断 
 	USART_Cmd(USARTx, ENABLE); 						    //打开串口

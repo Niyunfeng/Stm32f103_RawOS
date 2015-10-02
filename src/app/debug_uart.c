@@ -6,15 +6,6 @@ static  PORT_STACK 				debug_shell_task_stk[DEBUG_SHELL_TASK_STK_SIZE];
 static  RAW_TASK_OBJ 			debug_shell_task_obj;
 /******************************************************************************/
 
-static struct
-{
-	GPIO_TypeDef *port;
-	uint16_t pin;
-}
-DEBUG_UART_RX = { GPIOA, GPIO_Pin_10 },
-DEBUG_UART_TX = { GPIOA, GPIO_Pin_9  };
-
-
 /******************************************************************************/
 
 #define DEBUG_FIFO_DEPTH 			(4*16)
@@ -24,43 +15,63 @@ DEFINE_FIFO(debug_rx, DEBUG_FIFO_DEPTH, DEBUG_FIFO_BLOCK_SIZE);
 RAW_MUTEX debug_tx_mutex;
 
 /******************************************************************************/
-
+static void debug_usart1_init(void);
+static void debug_usart2_init(void);
+static void debug_usart3_init(void);
+static void debug_usart4_init(void);
 
 static void debug_uart_init(void)
 {
-	USART_InitTypeDef USART_InitStructure;
-	NVIC_InitTypeDef NVIC_InitStructure;
-	GPIO_InitTypeDef GPIO_InitStructure;
+    USART_DeInit(DEBUG_UART);
+    
+    if(DEBUG_UART == USART1)        debug_usart1_init();
+    else if(DEBUG_UART == USART2)   debug_usart2_init();
+    else if(DEBUG_UART == USART3)   debug_usart3_init();
+    else if(DEBUG_UART == UART4)    debug_usart4_init();
+}
 
-	/* Enable GPIO clock */
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1|RCC_APB2Periph_GPIOA, ENABLE);	//使能USART1，GPIOA时钟
+static void debug_usart1_init(void)
+{
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1 | RCC_APB2Periph_AFIO, ENABLE);
+    Pub_Gpio_Output_AFPP(GPIOA, GPIO_Pin_9);
+    Pub_Gpio_Input_INFLOATING(GPIOA, GPIO_Pin_10);
+    Pub_Uart_Hardware_Cfg(USART1,DEBUG_BaudRate);
+    Pub_Nvic_Config(USART1_IRQn, 0, 0);
+    Pub_Uart_Int_Cfg(USART1,ENABLE);
+}
 
-//	/* Enable USART clock */
-	DEBUG_UART_CLK_INIT(DEBUG_UART_CLK, ENABLE);
-	
-	GPIO_InitStructure.GPIO_Pin = DEBUG_UART_TX.pin;
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
-	GPIO_Init(DEBUG_UART_TX.port, &GPIO_InitStructure);
-	
-	GPIO_InitStructure.GPIO_Pin = DEBUG_UART_RX.pin;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;//
-	GPIO_Init(DEBUG_UART_RX.port, &GPIO_InitStructure);
+static void debug_usart2_init(void)
+{
+    RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
+    Pub_Gpio_Output_AFPP(GPIOA, GPIO_Pin_2);
+    Pub_Gpio_Input_INFLOATING(GPIOA, GPIO_Pin_3);
+    Pub_Uart_Hardware_Cfg(USART2,DEBUG_BaudRate);
+    Pub_Nvic_Config(USART2_IRQn, 0, 0);
+    Pub_Uart_Int_Cfg(USART2,ENABLE);
+}
 
-	USART_StructInit(&USART_InitStructure);
-	USART_InitStructure.USART_BaudRate = DEBUG_BaudRate;
-	USART_Init(DEBUG_UART, &USART_InitStructure);
+static void debug_usart3_init(void)
+{
+    RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART3, ENABLE);
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
+    Pub_Gpio_Output_AFPP(GPIOB, GPIO_Pin_10);
+    Pub_Gpio_Input_INFLOATING(GPIOB, GPIO_Pin_11);
+    Pub_Uart_Hardware_Cfg(USART3,DEBUG_BaudRate);
+    Pub_Nvic_Config(USART3_IRQn, 0, 0);
+    Pub_Uart_Int_Cfg(USART3,ENABLE);
+}
 
-	/* Enable the USARTx Interrupt */
-	NVIC_InitStructure.NVIC_IRQChannel = DEBUG_UART_IRQ;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 3;
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-	NVIC_Init(&NVIC_InitStructure);
-
-	USART_ITConfig(DEBUG_UART, USART_IT_RXNE, ENABLE);
-	/* Enable USART */
-	USART_Cmd(DEBUG_UART, ENABLE);
+static void debug_usart4_init(void)
+{
+    RCC_APB1PeriphClockCmd(RCC_APB1Periph_UART4, ENABLE);
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
+    Pub_Gpio_Output_AFPP(GPIOC, GPIO_Pin_10);
+    Pub_Gpio_Input_INFLOATING(GPIOC, GPIO_Pin_11);
+    Pub_Uart_Hardware_Cfg(UART4,DEBUG_BaudRate);
+    Pub_Nvic_Config(UART4_IRQn, 0, 0);
+    Pub_Uart_Int_Cfg(UART4,ENABLE);    
+    
 }
 
 static int debug_fifo_read(unsigned char *buf)

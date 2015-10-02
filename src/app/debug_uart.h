@@ -5,21 +5,46 @@
 #include "raw_api.h"
 #include "serial_fifo.h"
 #include "cli.h"
+#include "pub.h"
 
-#define DEBUG_UART 				USART1
+//使用具体的串口
+#define SerialPort              2
+//定义串口波特率
 #define DEBUG_BaudRate          115200
-
-#define DEBUG_UART_CLK 			RCC_APB2Periph_USART1
-#define DEBUG_UART_CLK_INIT 	RCC_APB2PeriphClockCmd
-
-#define DEBUG_UART_IRQ 			USART1_IRQn
-#define DEBUG_UART_IRQ_HANDLER 	USART1_IRQHandler
-
-#define DEBUG_UART_AF 			GPIO_AF_USART1
 
 #define DEBUG_UART_TXE 			(1<<7)
 #define DEBUG_UART_RXNE 		(1<<5)
 
+#if SerialPort == 1
+
+    #define DEBUG_UART 				USART1
+    
+    #define DEBUG_UART_IRQ 			USART1_IRQn
+    #define DEBUG_UART_IRQ_HANDLER 	USART1_IRQHandler
+
+#elif SerialPort == 2
+
+    #define DEBUG_UART 				USART2
+
+    #define DEBUG_UART_IRQ 			USART2_IRQn
+    #define DEBUG_UART_IRQ_HANDLER 	USART2_IRQHandler
+
+#elif SerialPort == 3
+
+    #define DEBUG_UART 				USART3
+
+    #define DEBUG_UART_IRQ 			USART3_IRQn
+    #define DEBUG_UART_IRQ_HANDLER 	USART3_IRQHandler
+
+
+#elif SerialPort == 4
+
+    #define DEBUG_UART 				UART4
+
+    #define DEBUG_UART_IRQ 			UART4_IRQn
+    #define DEBUG_UART_IRQ_HANDLER 	UART4_IRQHandler
+
+#endif
 void debug_serial_init(void);
 RAW_TASK_OBJ *get_shell_task_obj(void);
 void shell_init(unsigned char prio);

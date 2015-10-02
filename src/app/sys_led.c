@@ -14,7 +14,7 @@ static struct
 	uint16_t pin;
 }SYS_LED[] =
 {
-	{GPIOC, GPIO_Pin_13},
+	{GPIOB, GPIO_Pin_5},
 };
 
 static void sys_len_init(void)
