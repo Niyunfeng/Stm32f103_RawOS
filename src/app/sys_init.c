@@ -1,5 +1,6 @@
 #include <raw_api.h>
 #include <debug_uart.h>
+#include "sys_delay.h"
 
 /******************************************************************************/
 #define SYS_INIT_TASK_STK_SIZE 	(128)
@@ -26,8 +27,8 @@ void sys_uart_init(RAW_U8 prio);
 static const init_task_t sys_init_arry[]  = 
 {
 	{sys_led_init, 			CONFIG_RAW_PRIO_MAX - 3 }, 		// 系统指示灯
-    {shell_init, 			CONFIG_RAW_PRIO_MAX - 10},		// shell
-    {sys_uart_init,         CONFIG_RAW_PRIO_MAX - 20},      // uart
+//    {shell_init, 			CONFIG_RAW_PRIO_MAX - 10},		// shell
+//    {sys_uart_init,         CONFIG_RAW_PRIO_MAX - 20},      // uart
 //    {sys_key_init,          CONFIG_RAW_PRIO_MAX - 20},
 };
 

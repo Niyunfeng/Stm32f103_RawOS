@@ -451,6 +451,11 @@
               <FileType>1</FileType>
               <FilePath>..\src\app\pub\pub.c</FilePath>
             </File>
+            <File>
+              <FileName>sys_delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\app\sys_delay.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
