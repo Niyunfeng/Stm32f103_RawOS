@@ -1,7 +1,7 @@
 #include "sys_uart.h"
 #include <stdarg.h>
 
-#define SYS_UART_TASK_STK_SIZE		(1024)
+#define SYS_UART_TASK_STK_SIZE		(512)
 static	PORT_STACK					sys_uart_task_stk[SYS_UART_TASK_STK_SIZE];
 static	RAW_TASK_OBJ				sys_uart_task_obj;
 
@@ -19,46 +19,65 @@ RAW_SEMAPHORE Sem1;
 struct raw_fifo Fifo;
 RAW_U8 Buff_Fifo[128];//fifo的大小
 
-static void USART_Configuration(u32 bound)
-{
-	//GPIO 端口设置
-	GPIO_InitTypeDef GPIO_InitStructure;
-	USART_InitTypeDef USART_InitStructure;
-	NVIC_InitTypeDef NVIC_InitStructure;
-	
-	//USART NVIC 配置
-	NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority =0;
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-	NVIC_Init(&NVIC_InitStructure);	
-	
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1 | RCC_APB2Periph_GPIOA, ENABLE);	//使能USART1，GPIOA时钟
-    
-	//USART1_TX
-	USART_DeInit(USART1);															//复位串口1  
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9; 										//PA.9
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;									//复用推挽输出
-	GPIO_Init(GPIOA, &GPIO_InitStructure); 											//初始化PA9
-   
-	//USART1_RX
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;							//浮空输入
-	GPIO_Init(GPIOA, &GPIO_InitStructure);  										//初始化PA10
-  
-	//USART 初始化设置
-	USART_InitStructure.USART_BaudRate = bound;										//一般设置为9600;
-	USART_InitStructure.USART_WordLength = USART_WordLength_8b;						//字长为8位数据格式
-	USART_InitStructure.USART_StopBits = USART_StopBits_1;							//一个停止位
-	USART_InitStructure.USART_Parity = USART_Parity_No;								//无校验位
-	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None; //无硬件数据流控制
-	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;					//收发模式
+static void USART_Configuration(void);
+static void sys_usart1_init(void);
+static void sys_usart2_init(void);
+static void sys_usart3_init(void);
+static void sys_usart4_init(void);
 
-	USART_Init(USART1, &USART_InitStructure); 										//初始化串口
-	USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);									//开启中断
-	///////////////////////////////////////////////////////////   
-    USART_Cmd(USART1, ENABLE);                    									//使能串口 																//默认为接收模式
+
+static void USART_Configuration(void)
+{
+    USART_DeInit(SYS_UARTX);
+    
+    if(SYS_UARTX == USART1)        sys_usart1_init();
+    else if(SYS_UARTX == USART2)   sys_usart2_init();
+    else if(SYS_UARTX == USART3)   sys_usart3_init();
+    else if(SYS_UARTX == UART4)    sys_usart4_init();
+}
+
+static void sys_usart1_init(void)
+{
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1 | RCC_APB2Periph_AFIO, ENABLE);
+    Pub_Gpio_Output_AFPP(GPIOA, GPIO_Pin_9);
+    Pub_Gpio_Input_INFLOATING(GPIOA, GPIO_Pin_10);
+    Pub_Uart_Hardware_Cfg(USART1,SYS_UART_BAUDRATE);
+    Pub_Nvic_Config(USART1_IRQn, 0, 0);
+    Pub_Uart_Int_Cfg(USART1,ENABLE);
+}
+
+static void sys_usart2_init(void)
+{
+    RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
+    Pub_Gpio_Output_AFPP(GPIOA, GPIO_Pin_2);
+    Pub_Gpio_Input_INFLOATING(GPIOA, GPIO_Pin_3);
+    Pub_Uart_Hardware_Cfg(USART2,SYS_UART_BAUDRATE);
+    Pub_Nvic_Config(USART2_IRQn, 0, 0);
+    Pub_Uart_Int_Cfg(USART2,ENABLE);
+}
+
+static void sys_usart3_init(void)
+{
+    RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART3, ENABLE);
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
+    Pub_Gpio_Output_AFPP(GPIOB, GPIO_Pin_10);
+    Pub_Gpio_Input_INFLOATING(GPIOB, GPIO_Pin_11);
+    Pub_Uart_Hardware_Cfg(USART3,SYS_UART_BAUDRATE);
+    Pub_Nvic_Config(USART3_IRQn, 0, 0);
+    Pub_Uart_Int_Cfg(USART3,ENABLE);
+}
+
+static void sys_usart4_init(void)
+{
+    RCC_APB1PeriphClockCmd(RCC_APB1Periph_UART4, ENABLE);
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
+    Pub_Gpio_Output_AFPP(GPIOC, GPIO_Pin_10);
+    Pub_Gpio_Input_INFLOATING(GPIOC, GPIO_Pin_11);
+    Pub_Uart_Hardware_Cfg(UART4,SYS_UART_BAUDRATE);
+    Pub_Nvic_Config(UART4_IRQn, 0, 0);
+    Pub_Uart_Int_Cfg(UART4,ENABLE);    
+    
 }
 
 //*------------------------------------------------------------------------------------------------
@@ -69,7 +88,7 @@ static void USART_Configuration(u32 bound)
 //*			   len      :发送缓冲长度
 //* 出口参数 : 无
 //*------------------------------------------------------------------------------------------------
-void USART_SendBuf(USART_TypeDef* USARTx, RAW_U8 * buf, RAW_U16 len)
+void USARTx_SendBuf(USART_TypeDef* USARTx, RAW_U8 * buf, RAW_U16 len)
 {
 	RAW_U8 t = 0;
 	for (t=0; t<len; t++)
@@ -81,12 +100,12 @@ void USART_SendBuf(USART_TypeDef* USARTx, RAW_U8 * buf, RAW_U16 len)
 }
 
 //串口中断函数
-void USART1_IRQHandler(void)                	
+void SYS_UARTX_IRQ_HANDLER(void)                	
 {
-	if(USART_GetITStatus(USART1,USART_IT_RXNE)!= RESET)//中断产生
+	if(USART_GetITStatus(SYS_UARTX,USART_IT_RXNE)!= RESET)//中断产生
 	{
-        USART_ClearITPendingBit(USART1, USART_IT_RXNE);
-		Uart1_RxInt();
+        USART_ClearITPendingBit(SYS_UARTX, USART_IT_RXNE);
+		Uartx_RxInt();
 	}
 }
 
@@ -96,13 +115,13 @@ void USART1_IRQHandler(void)
 //* 入口参数 : 无
 //* 出口参数 : 无
 //*------------------------------------------------------------------------------------------------
-void Uart1_RxInt(void)
+void Uartx_RxInt(void)
 {
 	RAW_U8 aa[128]={0};
 	RAW_U8 *bb=aa;
 	RAW_U8 len=0;
 
-	*bb = USART1->DR;
+	*bb = SYS_UARTX->DR;
 	bb++;
 	len++;
 	fifo_in(&Fifo, aa, len);
@@ -118,7 +137,7 @@ void Uart1_RxInt(void)
 //*				: timeout:接收超时参数
 //* 出口参数	: 无
 //*------------------------------------------------------------------------------------------------
-RAW_U32 Uart_Receive_T(RAW_U8 *buffer, RAW_U32 size, RAW_U32 timeout)
+RAW_U32 Uartx_Receive_T(RAW_U8 *buffer, RAW_U32 size, RAW_U32 timeout)
 {
     RAW_U32 len=0;
 	RAW_U32 tmplen=0;
@@ -168,7 +187,7 @@ int GetCmd(RAW_S8 *str, RAW_S32 cnt, RAW_U32 timeout)
     
 	while(1)
 	{
-		len = Uart_Receive_T(&key, 1, timeout);
+		len = Uartx_Receive_T(&key, 1, timeout);
 		if (len == 1) {
 			str[i++] = key;
 		}
@@ -210,8 +229,8 @@ int _sys_exit(int x)
 int fputc(int ch, FILE *f)
 {
 /* 将Printf内容发往串口 */
-  USART_SendData(USART1, (unsigned char) ch);
-  while (!(USART1->SR & USART_FLAG_TXE));
+  USART_SendData(SYS_UARTX, (unsigned char) ch);
+  while (!(SYS_UARTX->SR & USART_FLAG_TXE));
  
   return (ch);
 }
@@ -305,12 +324,12 @@ void Uart_printf(uint8_t *Data,...)
 			switch ( *++Data )
 			{
 				case 'r':							          //回车符
-					USART_SendData(USART1, 0x0d);
+					USART_SendData(SYS_UARTX, 0x0d);
 					Data ++;
 					break;
 
 				case 'n':							          //换行符
-					USART_SendData(USART1, 0x0a);	
+					USART_SendData(SYS_UARTX, 0x0a);	
 					Data ++;
 					break;
 				
@@ -327,8 +346,8 @@ void Uart_printf(uint8_t *Data,...)
 					s = va_arg(ap, const char *);
           for ( ; *s; s++) 
 					{
-						USART_SendData(USART1,*s);
-						while( USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET );
+						USART_SendData(SYS_UARTX,*s);
+						while( USART_GetFlagStatus(SYS_UARTX, USART_FLAG_TC) == RESET );
           }
 					Data++;
           break;
@@ -338,8 +357,8 @@ void Uart_printf(uint8_t *Data,...)
           itoa(d, buf, 10);
           for (s = buf; *s; s++) 
 					{
-						USART_SendData(USART1,*s);
-						while( USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET );
+						USART_SendData(SYS_UARTX,*s);
+						while( USART_GetFlagStatus(SYS_UARTX, USART_FLAG_TC) == RESET );
           }
 					Data++;
           break;
@@ -348,33 +367,34 @@ void Uart_printf(uint8_t *Data,...)
 				    break;
 			}		 
 		} /* end of else if */
-		else USART_SendData(USART1, *Data++);
-		while( USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET );
+		else USART_SendData(SYS_UARTX, *Data++);
+		while( USART_GetFlagStatus(SYS_UARTX, USART_FLAG_TC) == RESET );
 	}
 
 }
 
 void sys_uart_task(void  * pdat)
 {
+    (void) pdat;
+    
 	RAW_S8 cmd[128];
     RAW_U8 len = 0;
     
-	USART_Configuration(115200);
-	
-    (void) pdat;
-	fifo_init(&Fifo, Buff_Fifo, 128);
-	printf("\rfifo_alloc...\r\n");
+    raw_printf("sys_usart init...\r\t\t\t\t");
+	USART_Configuration();
     
+	fifo_init(&Fifo, Buff_Fifo, 128);
 	raw_semaphore_create(&Sem1,(RAW_U8 *)"sem1", 0);
-    printf("\rraw_semaphore_create...\r\n");
+    
+    raw_printf("[OK]\n");
 	
 	for(;;)
 	{
-		len = GetCmd(cmd, 128, 10);//超时5毫秒，接收数据长度在128个字节
+		len = GetCmd(cmd, 128, 10);//超时10毫秒，接收数据长度在128个字节
         if(len)//判断是否接收到数据
         {
             //if(cmd[0] == 0 && cmd[1] == 1)//判断数据有效性
-                USART_SendBuf(USART1, (RAW_U8 *)cmd, len);
+                USARTx_SendBuf(SYS_UARTX, (RAW_U8 *)cmd, len);
         }
 	}
 }

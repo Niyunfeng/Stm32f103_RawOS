@@ -27,8 +27,8 @@ void sys_uart_init(RAW_U8 prio);
 static const init_task_t sys_init_arry[]  = 
 {
 	{sys_led_init, 			CONFIG_RAW_PRIO_MAX - 3 }, 		// 系统指示灯
-//    {shell_init, 			CONFIG_RAW_PRIO_MAX - 10},		// shell
-//    {sys_uart_init,         CONFIG_RAW_PRIO_MAX - 20},      // uart
+    {shell_init, 			CONFIG_RAW_PRIO_MAX - 10},		// shell
+    {sys_uart_init,         CONFIG_RAW_PRIO_MAX - 20},      // uart
 //    {sys_key_init,          CONFIG_RAW_PRIO_MAX - 20},
 };
 
@@ -41,6 +41,8 @@ static void sys_init_task(void *pdat)
 	// debug_uart 初始化
 	debug_serial_init();
 	
+    delay_init();
+    
 	raw_printf("\r\n-------------  raw-os  ----------------\r\n");
 	// 任务初始化
 	for(i=0; i<ARRAY_SIZE(sys_init_arry); i++)

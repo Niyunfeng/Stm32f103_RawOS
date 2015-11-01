@@ -1,4 +1,4 @@
-﻿#ifndef __CLI_CONFIG_H__
+#ifndef __CLI_CONFIG_H__
 #define __CLI_CONFIG_H__
 
 #define CONFIG_SYS_PROMPT 	"raw-os# "	// 系统命令提示符
@@ -8,7 +8,7 @@
 #define CONFIG_SYS_MAXARGS 	(5) 	//
 #define CONFIG_SYS_HELP_CMD_WIDTH 	"8"
 
-#define CLI_POOL_SIZE 	1024 		// CLI 缓冲池大小
+//#define CLI_POOL_SIZE 	1024 		// CLI 缓冲池大小
 
 #define CONFIG_AUTO_COMPLETE 	 	// 自动补全
 #define CONFIG_CMDLINE_EDITING 	 	// 使能历史命令

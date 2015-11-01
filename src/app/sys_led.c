@@ -1,8 +1,5 @@
 #include <stm32f10x.h>
-
 #include <raw_api.h>
-
-#include "sys_delay.h"
 
 /******************************************************************************/
 #define SYS_LED_TASK_STK_SIZE 	(128)
@@ -34,13 +31,15 @@ static void sys_len_init(void)
 	}
 }
 
+//根据LED电路设置引脚电平
 static void sys_led_on(unsigned char n)
 {
-	SYS_LED[n].port->BSRR = SYS_LED[n].pin;	//置位
+	SYS_LED[n].port->BRR = SYS_LED[n].pin;  //复位
 }
 static void sys_led_off(unsigned char n)
 {
-	SYS_LED[n].port->BRR = SYS_LED[n].pin; //复位
+    SYS_LED[n].port->BSRR = SYS_LED[n].pin;	//置位
+	
 }
 
 static void sys_led_task(void *pdat)
