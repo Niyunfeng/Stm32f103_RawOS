@@ -29,27 +29,27 @@
 #ifndef PORT_H
 #define PORT_H
 
+#include <port_extension.h>
+
+
 /*function prototype for task context switch during interrupt*/
 void raw_int_switch(void);
 RAW_VOID  *port_stack_init(PORT_STACK  *p_stk_base, RAW_U32 stk_size,  RAW_VOID   *p_arg, RAW_TASK_ENTRY p_task);
 void port_task_switch(void);
-void raw_start_first_task(void);
-
+void raw_start_first_task(void); 
+void port_system_error_process(RAW_OS_ERROR error_type, void *arg1, void *arg2, void *arg3, void *arg4, void *arg5, void *arg6);
+void port_isr_stack_check(void);
 void raw_sys_tick_init(void);
 
-//extern void raw_printk(const char *p_fmt, ...);
-extern int raw_printf(const char *format, ...);
-#define raw_printk raw_printf
+extern int printf(const char *, ...) ;
 
-#define  RAW_ASSERT(CON)        if (!(CON)) {volatile RAW_U8 dummy = 0; raw_printk("file is %s, line is %d\n",__FILE__, __LINE__);raw_printk("aborted task is %s\n", raw_task_active->task_name); while (dummy==0);}
 
-//#define  RAW_ASSERT(CON)        if (!(CON)) {volatile RAW_U8 dummy = 0; while (dummy == 0);}
+//#define  RAW_ASSERT(CON)        if (!(CON)) {volatile RAW_U8 dummy = 0; raw_printk("file is %s, line is %d\n",__FILE__, __LINE__);raw_printk("aborted task is %s\n", raw_task_active->task_name); while (dummy==0);}
+
+#define  RAW_ASSERT(CON)        if (!(CON)) {volatile RAW_U8 dummy = 0; OS_CPU_SR_Save();while (dummy == 0);}
 
 
 #define  CONTEXT_SWITCH()    	port_task_switch();          
-
-
-
 
 
 #if (CONFIG_RAW_USER_HOOK > 0)
@@ -69,7 +69,6 @@ RAW_VOID raw_task_switch_hook(void);
 RAW_VOID raw_tick_hook(void);
 
 RAW_VOID raw_idle_coroutine_hook(void);
-
 
 #endif
 

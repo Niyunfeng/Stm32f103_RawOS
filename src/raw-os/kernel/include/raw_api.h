@@ -55,14 +55,14 @@ extern "C" {
 #include <raw_event.h>
 #include <raw_block.h>
 #include <raw_byte.h>
-#include <raw_mqueue.h>
-#include <raw_task_0.h>
 #include <raw_stm.h>
 #include <raw_idle_event.h>
 #include <raw_stat.h>
 #include <raw_trace.h>
 #include <port.h>
 #include <raw_internal.h>
+//产品发布前去掉下面宏
+#include <simple_printf.h>
 
 #ifdef __cplusplus
 }

@@ -61,7 +61,7 @@ RAW_OS_ERROR raw_semaphore_create(RAW_SEMAPHORE *semaphore_ptr, RAW_U8 *name_ptr
 		return RAW_NULL_OBJECT;
 	}
 
-	if (initial_count == RAW_SEMAPHORE_MAX_COUNT) {
+	if (initial_count == (RAW_PROCESSOR_UINT) - 1) {
 
 		return RAW_SEMAPHORE_OVERFLOW;
 
@@ -74,6 +74,7 @@ RAW_OS_ERROR raw_semaphore_create(RAW_SEMAPHORE *semaphore_ptr, RAW_U8 *name_ptr
 	
 	/*Init resource*/
 	semaphore_ptr->count     = initial_count;                                 
+	semaphore_ptr->peak_count = initial_count; 
 	
 	semaphore_ptr->common_block_obj.name = name_ptr;  
 	
@@ -108,7 +109,7 @@ RAW_OS_ERROR semaphore_put(RAW_SEMAPHORE *semaphore_ptr, RAW_U8 opt_wake_all)
 	/*if no block task on this list just return*/
 	if (is_list_empty(block_list_head)) {        
 	    
-		if (semaphore_ptr->count == RAW_SEMAPHORE_MAX_COUNT) {
+		if (semaphore_ptr->count == (RAW_PROCESSOR_UINT) - 1) {
 
 			RAW_CRITICAL_EXIT();
 			TRACE_SEMAPHORE_OVERFLOW(raw_task_active, semaphore_ptr);
@@ -116,7 +117,12 @@ RAW_OS_ERROR semaphore_put(RAW_SEMAPHORE *semaphore_ptr, RAW_U8 opt_wake_all)
 
 		}
 		/*increase resource*/
-		semaphore_ptr->count++;                                      
+		semaphore_ptr->count++;
+
+		if (semaphore_ptr->count > semaphore_ptr->peak_count) {
+
+			semaphore_ptr->peak_count = semaphore_ptr->count;
+		}	
 	    
 		RAW_CRITICAL_EXIT();
 		
@@ -194,14 +200,6 @@ RAW_OS_ERROR raw_semaphore_put(RAW_SEMAPHORE *semaphore_ptr)
 	
 	#endif
 
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-	
-	if (raw_int_nesting && raw_sched_lock) {
-		return int_msg_post(RAW_TYPE_SEM, semaphore_ptr, 0, 0, 0, 0);
-	}
-	
-	#endif
-	
 	return semaphore_put(semaphore_ptr, WAKE_ONE_SEM);
 }
 
@@ -235,14 +233,6 @@ RAW_OS_ERROR raw_semaphore_put_notify(RAW_SEMAPHORE *semaphore_ptr)
 	
 	#endif
 
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-	
-	if (raw_int_nesting) {
-		return int_msg_post(RAW_TYPE_SEM, semaphore_ptr, 0, 0, 0, 0);
-	}
-	
-	#endif
-	
 	return semaphore_put(semaphore_ptr, WAKE_ONE_SEM);
 }
 
@@ -277,17 +267,7 @@ RAW_OS_ERROR raw_semaphore_put_all(RAW_SEMAPHORE *semaphore_ptr)
 	
 	#endif
 
-
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-
-	if (raw_int_nesting) {
-		return int_msg_post(RAW_TYPE_SEM_ALL, semaphore_ptr, 0, 0, 0, 0);
-	}
-	
-	#endif
-	
 	return semaphore_put(semaphore_ptr, WAKE_ALL_SEM);
-	
 }
 
 
@@ -562,7 +542,7 @@ RAW_OS_ERROR raw_semaphore_delete(RAW_SEMAPHORE *semaphore_ptr)
 
 	block_list_head = &semaphore_ptr->common_block_obj.block_list;
 	
-	semaphore_ptr->common_block_obj.object_type = 0;
+	semaphore_ptr->common_block_obj.object_type = RAW_OBJ_TYPE_NONE;
 	/*All task blocked on this queue is waken up*/
 	while (!is_list_empty(block_list_head)) {
 		delete_pend_obj(raw_list_entry(block_list_head->next, RAW_TASK_OBJ, task_list));	

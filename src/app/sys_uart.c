@@ -16,6 +16,7 @@ volatile RAW_U8 *pWrite=TmpBuf; //串口fifo读指针
 缓冲区
 */
 RAW_SEMAPHORE Sem1;	
+RAW_SEMAPHORE Sem2;	
 struct raw_fifo Fifo;
 RAW_U8 Buff_Fifo[128];//fifo的大小
 
@@ -23,8 +24,6 @@ static void USART_Configuration(void);
 static void sys_usart1_init(void);
 static void sys_usart2_init(void);
 static void sys_usart3_init(void);
-static void sys_usart4_init(void);
-
 
 static void USART_Configuration(void)
 {
@@ -33,7 +32,6 @@ static void USART_Configuration(void)
     if(SYS_UARTX == USART1)        sys_usart1_init();
     else if(SYS_UARTX == USART2)   sys_usart2_init();
     else if(SYS_UARTX == USART3)   sys_usart3_init();
-    else if(SYS_UARTX == UART4)    sys_usart4_init();
 }
 
 static void sys_usart1_init(void)
@@ -68,17 +66,6 @@ static void sys_usart3_init(void)
     Pub_Uart_Int_Cfg(USART3,ENABLE);
 }
 
-static void sys_usart4_init(void)
-{
-    RCC_APB1PeriphClockCmd(RCC_APB1Periph_UART4, ENABLE);
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
-    Pub_Gpio_Output_AFPP(GPIOC, GPIO_Pin_10);
-    Pub_Gpio_Input_INFLOATING(GPIOC, GPIO_Pin_11);
-    Pub_Uart_Hardware_Cfg(UART4,SYS_UART_BAUDRATE);
-    Pub_Nvic_Config(UART4_IRQn, 0, 0);
-    Pub_Uart_Int_Cfg(UART4,ENABLE);    
-    
-}
 
 //*------------------------------------------------------------------------------------------------
 //* 函数名称 : USART_SendBuf
@@ -126,6 +113,7 @@ void Uartx_RxInt(void)
 	len++;
 	fifo_in(&Fifo, aa, len);
 	raw_semaphore_put(&Sem1);
+    raw_semaphore_put(&Sem2);
 }
 
 
@@ -385,12 +373,13 @@ void sys_uart_task(void  * pdat)
     
 	fifo_init(&Fifo, Buff_Fifo, 128);
 	raw_semaphore_create(&Sem1,(RAW_U8 *)"sem1", 0);
-    
+    raw_semaphore_create(&Sem2,(RAW_U8 *)"sem2", 0);
     raw_printf("[OK]\n");
 	
 	for(;;)
 	{
-		len = GetCmd(cmd, 128, 10);//超时10毫秒，接收数据长度在128个字节
+        raw_semaphore_get(&Sem2, RAW_WAIT_FOREVER);
+		len = GetCmd(cmd, 128, 1);//超时1个系统TICK，接收数据长度在128个字节
         if(len)//判断是否接收到数据
         {
             //if(cmd[0] == 0 && cmd[1] == 1)//判断数据有效性

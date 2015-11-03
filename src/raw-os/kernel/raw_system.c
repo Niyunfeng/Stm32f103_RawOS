@@ -52,13 +52,17 @@ void raw_finish_int(void)
 
 	RAW_SR_ALLOC();
 
-	USER_CPU_INT_DISABLE();
+	#if (CONFIG_RAW_ISR_STACK_CHECK > 0)
+	
+	/*if you have no idea how to implement this function just write a blank port function*/
+	port_isr_stack_check();
+	
+	#endif
 
-	/*prevent raw_int_nesting 0 enter, 0 means it is processed*/
-	if (raw_int_nesting == 0) {
-		USER_CPU_INT_ENABLE();                                  
-		return;
-	}
+	/*It should not be zero here*/
+	RAW_ASSERT(raw_int_nesting != 0);
+	
+	USER_CPU_INT_DISABLE();
 
 	raw_int_nesting--;
 	/*if still interrupt nested just return */
@@ -70,7 +74,6 @@ void raw_finish_int(void)
 	if (raw_sched_lock) { 
 
 		USER_CPU_INT_ENABLE(); 
-		/*if interrupt happen here, it may cause raw_int_nesting equal 0*/
 		return;
 	}
 
@@ -114,17 +117,6 @@ void raw_finish_int(void)
 */
 void raw_time_tick(void)
 {
-
-	#if (CONFIG_RAW_TASK_0 > 0)
-	
-	if (raw_int_nesting) {
-
-		RAW_ASSERT(0);
-			
-	}
-
-	#endif
-	
 	#if (CONFIG_RAW_USER_HOOK > 0)
 	raw_tick_hook();
 	#endif
@@ -145,6 +137,7 @@ void raw_time_tick(void)
 	#if (CONFIG_RAW_TIMER > 0)
 	call_timer_task();
 	#endif
+	
 }
 
 
@@ -179,6 +172,9 @@ RAW_OS_ERROR raw_enter_interrupt(void)
 	if (raw_int_nesting >= INT_NESTED_LEVEL) {  
 
 		RAW_CPU_ENABLE();
+		
+		port_system_error_process(RAW_EXCEED_INT_NESTED_LEVEL, 0, 0, 0, 0, 0, 0);
+		
 		return RAW_EXCEED_INT_NESTED_LEVEL;                                                                                      
 	}
 

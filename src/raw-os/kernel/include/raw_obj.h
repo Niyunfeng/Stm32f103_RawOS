@@ -49,7 +49,7 @@ typedef	struct raw_common_block_object {
 	LIST                      block_list;
 	RAW_U8                    *name;
 	RAW_U8                    block_way;
-	RAW_U8                    object_type;
+	RAW_OBJECT_TYPE           object_type;
 	
 } RAW_COMMON_BLOCK_OBJECT;
 
@@ -102,7 +102,7 @@ typedef struct raw_task_obj
 
 	LIST                     *tick_head;
 
-	void                 *msg;
+	void                     *msg;
 
 	MSG_SIZE_TYPE            msg_size;
 
@@ -112,8 +112,8 @@ typedef struct raw_task_obj
 	
 	RAW_U8                   *task_name;
 
-	RAW_U8                   task_state; 
-	RAW_U8                   block_status;
+	RAW_TASK_STATUS          task_state; 
+	RAW_BLOCK_STATE          block_status;
 
 	/*Task block on mutex, queue, semphore, event*/
 	RAW_COMMON_BLOCK_OBJECT  *block_obj; 
@@ -129,12 +129,15 @@ typedef struct raw_task_obj
 	#if (CONFIG_RAW_EVENT > 0)
 	RAW_U8                    raw_suspend_option;
 	RAW_U32                   raw_suspend_flags;
-	void                  *raw_additional_suspend_info;
+	void                      *raw_additional_suspend_info;
 	#endif
 
-	#if (CONFIG_RAW_TASK_TIME > 0)
-	TASK_INTER_TIME_TYPE          task_time_start;
-	TASK_INTER_TIME_TYPE          task_time_total;
+	#if (CONFIG_RAW_SYSTEM_STATISTICS > 0)
+	RAW_U32                    task_free_stack_size;
+	RAW_SYS_TIME_TYPE          task_time_total_run;
+	RAW_SYS_TIME_TYPE          task_time_total_run_prev;
+	RAW_HARD_TIME_TYPE         task_time_start;
+	RAW_HARD_TIME_TYPE         task_exec_time;
 	#endif
 		   
 } RAW_TASK_OBJ;

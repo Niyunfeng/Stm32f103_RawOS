@@ -177,8 +177,8 @@
             <DriverSelection>4099</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
-          <Flash2>Segger\JL2CM3.dll</Flash2>
-          <Flash3>"" ()</Flash3>
+          <Flash2>BIN\UL2CM3.DLL</Flash2>
+          <Flash3></Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -427,6 +427,16 @@
               <FilePath>..\src\app\sys_init.c</FilePath>
             </File>
             <File>
+              <FileName>pub.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\app\pub\pub.c</FilePath>
+            </File>
+            <File>
+              <FileName>sys_delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\app\sys_delay.c</FilePath>
+            </File>
+            <File>
               <FileName>sys_led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\src\app\sys_led.c</FilePath>
@@ -442,19 +452,14 @@
               <FilePath>..\src\app\debug_uart.c</FilePath>
             </File>
             <File>
+              <FileName>kerneltest.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\app\KernelTest\kerneltest.c</FilePath>
+            </File>
+            <File>
               <FileName>key.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\src\app\key\key.c</FilePath>
-            </File>
-            <File>
-              <FileName>pub.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\app\pub\pub.c</FilePath>
-            </File>
-            <File>
-              <FileName>sys_delay.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\app\sys_delay.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -647,11 +652,6 @@
               <FilePath>..\src\raw-os\kernel\raw_idle_event.c</FilePath>
             </File>
             <File>
-              <FileName>raw_mqueue.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\raw-os\kernel\raw_mqueue.c</FilePath>
-            </File>
-            <File>
               <FileName>raw_mutex.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\src\raw-os\kernel\raw_mutex.c</FilePath>
@@ -712,11 +712,6 @@
               <FilePath>..\src\raw-os\kernel\raw_task.c</FilePath>
             </File>
             <File>
-              <FileName>raw_task_0.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\raw-os\kernel\raw_task_0.c</FilePath>
-            </File>
-            <File>
               <FileName>raw_task_queue_size.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\src\raw-os\kernel\raw_task_queue_size.c</FilePath>
@@ -761,20 +756,30 @@
               <FileType>1</FileType>
               <FilePath>..\src\raw-os\port\raw_trace_port.c</FilePath>
             </File>
+            <File>
+              <FileName>port_error_process.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\raw-os\port\port_error_process.c</FilePath>
+            </File>
+            <File>
+              <FileName>port_extension.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\raw-os\port\port_extension.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>raw-os-extension</GroupName>
           <Files>
             <File>
-              <FileName>user_extension.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\raw-os\user_extension.c</FilePath>
-            </File>
-            <File>
               <FileName>simple_printf.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\src\raw-os\kernel\extension\lib\simple_printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>user_extension.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\raw-os\port\user_extension.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -817,14 +822,14 @@
               <FilePath>..\src\cli\cli_simple.c</FilePath>
             </File>
             <File>
-              <FileName>cmds.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\cli\cmds.c</FilePath>
-            </File>
-            <File>
               <FileName>command.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\src\cli\command.c</FilePath>
+            </File>
+            <File>
+              <FileName>cmds.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\cli\cmds.c</FilePath>
             </File>
           </Files>
         </Group>

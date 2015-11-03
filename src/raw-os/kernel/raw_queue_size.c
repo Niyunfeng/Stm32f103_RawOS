@@ -84,7 +84,7 @@ RAW_OS_ERROR raw_queue_size_create(RAW_QUEUE_SIZE  *p_q, RAW_U8 *p_name, RAW_MSG
 
 	p_q->queue_current_msg = 0;
 	p_q->peak_numbers = 0;
-	
+	p_q->queue_size_full_callback = 0;
 	p_q->queue_msg_size = number;
 	p_q->free_msg = msg_start;
 	
@@ -117,6 +117,21 @@ RAW_OS_ERROR raw_queue_size_create(RAW_QUEUE_SIZE  *p_q, RAW_U8 *p_name, RAW_MSG
 }
 
 
+RAW_OS_ERROR raw_queue_size_full_register(RAW_QUEUE_SIZE *p_q, QUEUE_SIZE_FULL_CALLBACK callback_full)
+{
+	RAW_SR_ALLOC();
+
+	if (raw_int_nesting) {
+
+		return RAW_NOT_CALLED_BY_ISR;	
+	}
+	
+	RAW_CPU_DISABLE();
+	p_q->queue_size_full_callback = callback_full;
+	RAW_CPU_ENABLE();
+
+	return RAW_SUCCESS;
+}
 
 RAW_OS_ERROR msg_size_post(RAW_QUEUE_SIZE *p_q, RAW_MSG_SIZE *p_void,  MSG_SIZE_TYPE size,  RAW_U8 opt_send_method, RAW_U8 opt_wake_all)             
 {
@@ -144,6 +159,11 @@ RAW_OS_ERROR msg_size_post(RAW_QUEUE_SIZE *p_q, RAW_MSG_SIZE *p_void,  MSG_SIZE_
 		RAW_CRITICAL_EXIT();
 
 		TRACE_QUEUE_SIZE_MSG_MAX(raw_task_active, p_q, p_void, size, opt_send_method);
+
+		if (p_q->queue_size_full_callback) {
+
+			p_q->queue_size_full_callback(p_q, p_void, size);
+		}
 		
 		return RAW_MSG_MAX;
 		
@@ -299,16 +319,6 @@ RAW_OS_ERROR raw_queue_size_receive(RAW_QUEUE_SIZE *p_q, RAW_TICK_TYPE wait_opti
 	
 	#endif
 
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-
-	if (raw_int_nesting) {
-		
-		return RAW_NOT_CALLED_BY_ISR;
-		
-	}
-	
-	#endif
-
 	RAW_CRITICAL_ENTER();
 	
 
@@ -432,17 +442,8 @@ RAW_OS_ERROR raw_queue_size_front_post(RAW_QUEUE_SIZE *p_q, void  *p_void, MSG_S
 		
 	#endif
 	
-
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-	
-	if (raw_int_nesting && raw_sched_lock) {
-		
-		return int_msg_post(RAW_TYPE_Q_SIZE_FRONT, p_q, p_void, size, 0, 0);
-	}
-	
-	#endif
-
 	return msg_size_post(p_q, p_void,size,SEND_TO_FRONT, WAKE_ONE_QUEUE);
+	
 }
 
 
@@ -494,17 +495,8 @@ RAW_OS_ERROR raw_queue_size_end_post(RAW_QUEUE_SIZE *p_q, void  *p_void, MSG_SIZ
 		
 	#endif
 
-
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-	
-	if (raw_int_nesting && raw_sched_lock) {
-		
-		return int_msg_post(RAW_TYPE_Q_SIZE_END, p_q, p_void, size, 0, 0);
-	}
-	
-	#endif
-	
 	return msg_size_post(p_q, p_void, size, SEND_TO_END, WAKE_ONE_QUEUE);
+	
 }
 
 
@@ -551,16 +543,8 @@ RAW_OS_ERROR raw_queue_size_all_post(RAW_QUEUE_SIZE *p_q, void  *p_void, MSG_SIZ
 		
 	#endif
 
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-	
-	if (raw_int_nesting) {
-		
-		return int_msg_post(RAW_TYPE_Q_SIZE_ALL, p_q, p_void, size, 0, opt);
-	}
-	
-	#endif
-	
 	return msg_size_post(p_q, p_void, size, opt, WAKE_ALL_QUEUE);
+	
 }
 
 
@@ -575,19 +559,19 @@ RAW_OS_ERROR raw_queue_size_all_post(RAW_QUEUE_SIZE *p_q, void  *p_void, MSG_SIZ
 *
 *
 * Returns			
-*		1: queue_size obj is full
-*		0: queue_size obj is not full
+*		RAW_QUEUE_SIZE_CHECK_FULL: queue_size obj is full
+*		RAW_QUEUE_SIZE_CHECK_NOT_FULL: queue_size obj is not full
 * 
 *Note(s)   
 *
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_queue_size_full_check(RAW_QUEUE_SIZE *p_q)
+RAW_OS_ERROR raw_queue_size_full_check(RAW_QUEUE_SIZE *p_q)
 {
 	RAW_SR_ALLOC();
 
-	RAW_U16 full_check_ret;
+	RAW_OS_ERROR full_check_ret;
 	
 	#if (RAW_QUEUE_FUNCTION_CHECK > 0)
 
@@ -596,17 +580,6 @@ RAW_U16 raw_queue_size_full_check(RAW_QUEUE_SIZE *p_q)
 		return RAW_NULL_OBJECT;
 	}
 
-	#endif
-
-
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-
-	if (raw_int_nesting) {
-		
-		return RAW_NOT_CALLED_BY_ISR;
-		
-	}
-	
 	#endif
 
 	RAW_CRITICAL_ENTER();
@@ -619,12 +592,12 @@ RAW_U16 raw_queue_size_full_check(RAW_QUEUE_SIZE *p_q)
 
 	if (p_q->queue_current_msg >= p_q->queue_msg_size) {   
 
-		full_check_ret = 1u;
+		full_check_ret = RAW_QUEUE_SIZE_CHECK_FULL;
 	}
 
 	else {
 
-		full_check_ret = 0u;
+		full_check_ret = RAW_QUEUE_SIZE_CHECK_NOT_FULL;
 
 	}
 
@@ -757,7 +730,7 @@ RAW_OS_ERROR raw_queue_size_delete(RAW_QUEUE_SIZE *p_q)
 
 	block_list_head = &p_q->common_block_obj.block_list;
 	
-	p_q->common_block_obj.object_type = 0;
+	p_q->common_block_obj.object_type = RAW_OBJ_TYPE_NONE;
 	/*All task blocked on this queue is waken up*/
 	while (!is_list_empty(block_list_head))  {
 		delete_pend_obj(raw_list_entry(block_list_head->next, RAW_TASK_OBJ, task_list));	
@@ -790,7 +763,7 @@ RAW_OS_ERROR raw_queue_size_delete(RAW_QUEUE_SIZE *p_q)
 *               queue_current_msg will be filled with the current used numbers of queue size msg.  			         
 * Returns			
 *              RAW_SUCCESS: raw os return success
-*              RAW_NOT_CALLED_BY_ISR: not called by isr when CONFIG_RAW_ZERO_INTERRUPT is open.
+*              
 * Note(s)    	
 *
 *             
@@ -819,16 +792,6 @@ RAW_OS_ERROR raw_queue_size_get_information(RAW_QUEUE_SIZE *p_q, MSG_SIZE_TYPE *
 		return RAW_NULL_POINTER;
 	}
 
-	
-	#endif
-
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-
-	if (raw_int_nesting) {
-		
-		return RAW_NOT_CALLED_BY_ISR;
-		
-	}
 	
 	#endif
 

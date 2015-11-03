@@ -41,15 +41,15 @@ void raw_stack_check(void)
 	task_stack_start = raw_task_active->task_stack_base;
 
 	/*statck check method 1*/
-	if (*task_stack_start) {
+	if (*task_stack_start != RAW_TASK_STACK_CHECK_WORD) {
 
-		RAW_ASSERT(0);
+		port_system_error_process(RAW_SYSTEM_CRITICAL_ERROR, 0, 0, 0, 0, 0, 0);
 	}
 
 	/*statck check method 2*/
 	if ((PORT_STACK *)(raw_task_active->task_stack) < task_stack_start) {
 
-		RAW_ASSERT(0);
+		port_system_error_process(RAW_SYSTEM_CRITICAL_ERROR, 0, 0, 0, 0, 0, 0);
 	}
 
 }
@@ -66,31 +66,31 @@ void raw_stack_check(void)
 	
 	task_stack_end = task_stack_start + raw_task_active->stack_size;
 
-	if (*(task_stack_end - 1)) {
+	if (*(task_stack_end - 1) != RAW_TASK_STACK_CHECK_WORD) {
 
-		RAW_ASSERT(0);
+		port_system_error_process(RAW_SYSTEM_CRITICAL_ERROR, 0, 0, 0, 0, 0, 0);
 	}
 
 	if ((PORT_STACK *)(raw_task_active->task_stack) > task_stack_end) {
 
-		RAW_ASSERT(0);
+		port_system_error_process(RAW_SYSTEM_CRITICAL_ERROR, 0, 0, 0, 0, 0, 0);
 	}
 
 }
 
 #endif
 
-#if (CONFIG_RAW_TASK_TIME > 0)
+#if (CONFIG_RAW_SYSTEM_STATISTICS > 0)
 
-void raw_task_time_check(void)
+void raw_statistics_check(void)
 {
-	PORT_TASK_TIMER_TYPE task_current_time;
-	PORT_TASK_TIMER_TYPE task_exec_time;
+	RAW_HARD_TIME_TYPE task_current_time;
+	RAW_HARD_TIME_TYPE task_exec_time;
 	
-	task_current_time = RAW_TASK_TIME_GET();
+	task_current_time = (RAW_HARD_TIME_TYPE)RAW_SYSTEM_TIME_GET();
 
-	task_exec_time  = task_current_time - (PORT_TASK_TIMER_TYPE)raw_task_active->task_time_start;
-	raw_task_active->task_time_total += task_exec_time;
+	task_exec_time  = task_current_time - raw_task_active->task_time_start;
+	raw_task_active->task_time_total_run += (RAW_SYS_TIME_TYPE)task_exec_time;
 	high_ready_obj->task_time_start = task_current_time;
 
 }
@@ -255,7 +255,9 @@ static void cpu_task(void *pa)
 		raw_sleep(RAW_TICKS_PER_SECOND / 10);
 
 		if (raw_idle_count < raw_idle_count_max) {
-			cpu_usuage = 100 - (RAW_U32)((raw_idle_count * 100) / raw_idle_count_max);
+			
+			/*since raw_idle_count is 64 bit so it is not easy to be overflowed*/
+			cpu_usuage = 10000 - (RAW_U32)((raw_idle_count * 10000) / raw_idle_count_max);
 		}
 
 		if (cpu_usuage > cpu_usuage_max) {

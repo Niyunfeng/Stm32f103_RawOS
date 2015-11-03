@@ -33,14 +33,6 @@
     #define SYS_UARTX_IRQ 			USART3_IRQn
     #define SYS_UARTX_IRQ_HANDLER 	USART3_IRQHandler
 
-
-#elif Sys_SerialPort == 4
-
-    #define SYS_UARTX 				UART4
-
-    #define SYS_UARTX_IRQ 			UART4_IRQn
-    #define SYS_UARTX_IRQ_HANDLER 	UART4_IRQHandler
-
 #endif
 
 #define SYS_UART_TXE        (1<<7)

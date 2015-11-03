@@ -52,17 +52,23 @@ typedef struct raw_queue_size
 	RAW_MSG_SIZE                  *write;                            
 	RAW_MSG_SIZE                  *read;                            
 	MSG_SIZE_TYPE                 queue_msg_size;                   
-	MSG_SIZE_TYPE                 queue_current_msg;   
+	MSG_SIZE_TYPE                 queue_current_msg;  
+	void                          (*queue_size_full_callback)(struct raw_queue_size *queue_size_ptr, void *queue_size_msg, MSG_SIZE_TYPE queue_msg_size);
+	
 		
 } RAW_QUEUE_SIZE;
 
 
+typedef void (*QUEUE_SIZE_FULL_CALLBACK)(RAW_QUEUE_SIZE *queue_size_ptr, void *queue_size_msg, MSG_SIZE_TYPE queue_msg_size);
+
+
 RAW_OS_ERROR raw_queue_size_create(RAW_QUEUE_SIZE  *p_q, RAW_U8 *p_name, RAW_MSG_SIZE *msg_start, MSG_SIZE_TYPE number);
+RAW_OS_ERROR raw_queue_size_full_register(RAW_QUEUE_SIZE *p_q, QUEUE_SIZE_FULL_CALLBACK callback_full);
 RAW_OS_ERROR raw_queue_size_receive (RAW_QUEUE_SIZE *p_q, RAW_TICK_TYPE wait_option, void  **msg_ptr, MSG_SIZE_TYPE *receive_size);
 RAW_OS_ERROR raw_queue_size_front_post(RAW_QUEUE_SIZE *p_q, void  *p_void, MSG_SIZE_TYPE size);
 RAW_OS_ERROR raw_queue_size_end_post(RAW_QUEUE_SIZE *p_q, void  *p_void, MSG_SIZE_TYPE size);
 RAW_OS_ERROR raw_queue_size_all_post(RAW_QUEUE_SIZE *p_q, void  *p_void, MSG_SIZE_TYPE size, RAW_U8 opt);
-RAW_U16      raw_queue_size_full_check(RAW_QUEUE_SIZE *p_q);
+RAW_OS_ERROR raw_queue_size_full_check(RAW_QUEUE_SIZE *p_q);
 RAW_OS_ERROR msg_size_post(RAW_QUEUE_SIZE *p_q, RAW_MSG_SIZE *p_void,  MSG_SIZE_TYPE size,  RAW_U8 opt_send_method, RAW_U8 opt_wake_all);             
 
 

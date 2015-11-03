@@ -57,22 +57,25 @@ typedef struct raw_queue
 	RAW_COMMON_BLOCK_OBJECT       common_block_obj;
 	RAW_MSG_Q                     msg_q;
 	void                      (*queue_send_notify)(struct raw_queue *queue_ptr);
+	void                      (*queue_full_callback)(struct raw_queue *queue_ptr, void *queue_msg);
 	
 } RAW_QUEUE;
 
 typedef void (*QUEUE_SEND_NOTIFY)(RAW_QUEUE *queue_ptr);
+typedef void (*QUEUE_FULL_CALLBACK)(RAW_QUEUE *queue_ptr, void *queue_msg);
 
 #define WAKE_ALL_QUEUE    0x1
 #define WAKE_ONE_QUEUE    0x0
 
 RAW_OS_ERROR raw_queue_create(RAW_QUEUE  *p_q, RAW_U8    *p_name, void **msg_start, MSG_SIZE_TYPE number);
+RAW_OS_ERROR raw_queue_full_register(RAW_QUEUE *p_q, QUEUE_FULL_CALLBACK callback_full);
 RAW_OS_ERROR raw_queue_front_post(RAW_QUEUE *p_q, void  *p_void);
 RAW_OS_ERROR raw_queue_end_post(RAW_QUEUE *p_q, void  *p_void);
 RAW_OS_ERROR raw_queue_receive (RAW_QUEUE *p_q, RAW_TICK_TYPE wait_option, void  **msg);
 RAW_OS_ERROR raw_queue_all_post(RAW_QUEUE *p_q, void  *p_void, RAW_U8 opt);
 RAW_OS_ERROR raw_queue_send_notify(RAW_QUEUE *p_q, QUEUE_SEND_NOTIFY notify_function);
 RAW_OS_ERROR raw_queue_post_notify(RAW_QUEUE *p_q, void *p_void);
-RAW_U16      raw_queue_full_check(RAW_QUEUE *p_q);
+RAW_OS_ERROR raw_queue_full_check(RAW_QUEUE *p_q);
 RAW_OS_ERROR msg_post(RAW_QUEUE *p_q, void *p_void, RAW_U8 opt_send_method, RAW_U8 opt_wake_all);
 
 #if (CONFIG_RAW_QUEUE_FLUSH > 0) 

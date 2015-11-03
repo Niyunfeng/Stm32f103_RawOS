@@ -29,8 +29,7 @@
 #ifndef RAW_CONFIG_H
 #define RAW_CONFIG_H
 
-/*enable system zero interrupt*/
-#define CONFIG_RAW_ZERO_INTERRUPT                                   1
+#define CONFIG_RAW_SYSTEM_STATISTICS                                0
 
 /*enable system embedded trace module*/
 #define CONFIG_RAW_TRACE_ENABLE                                     0
@@ -60,7 +59,7 @@
 #define CONFIG_SYSTEM_MEMOPT                                        0
 
 /*tick numbers per second*/
-#define RAW_TICKS_PER_SECOND                                        1000
+#define RAW_TICKS_PER_SECOND                                        100
 
 /*timer frequency = RAW_TICKS_PER_SECOND /  RAW_TIMER_RATE*/
 #define RAW_TIMER_RATE                                              1
@@ -77,8 +76,6 @@
 #define CONFIG_RAW_QUEUE                                            1
 #define CONFIG_RAW_QUEUE_BUFFER                                     1
 #define CONFIG_RAW_QUEUE_SIZE                                       1
-#define CONFIG_RAW_MQUEUE                                           1
-#define CONFIG_RAW_TASK_0                                           1
 #define CONFIG_RAW_IDLE_EVENT                                       0
 #define CONFIG_RAW_TASK_QUEUE_SIZE                                  1
 #define CONFIG_RAW_TASK_SEMAPHORE                                   1
@@ -93,6 +90,8 @@
 #define CONFIG_RAW_TASK_DELETE                                      1
 #define CONFIG_RAW_TASK_WAIT_ABORT                                  1
 #define CONFIG_RAW_TICK_TASK                                        1
+#define CONFIG_RAW_ISR_STACK_CHECK                                  1
+
 
 /*enable different semphore function*/
 
@@ -103,6 +102,10 @@
 /*enable different mutex function*/
 
 #define CONFIG_RAW_MUTEX_DELETE                                     1
+
+/*control mutex recursion levels, do not change it*/
+#define CONFIG_RAW_MUTEX_RECURSION_LEVELS                           3
+
 
 /*enable different event function*/
 
@@ -156,7 +159,7 @@
 #define RAW_BYTE_FUNCTION_CHECK                                     1
 
 /*Set idle task task size, adjust as you need*/
-#define IDLE_STACK_SIZE                                             128
+#define IDLE_STACK_SIZE                                             256
 
 
 #if (CONFIG_RAW_TIMER > 0)
@@ -164,22 +167,6 @@
 /*set timer task stack size, adjust as you need*/
 #define TIMER_STACK_SIZE                                            256
 #define TIMER_TASK_PRIORITY                                         5
-
-#endif
-
-#if (CONFIG_RAW_TASK_0 > 0)
-
-/*task 0 stack size*/
-#define TASK_0_STACK_SIZE                                           256
-
-/*Must be 2^n size!, such as 4, 8, 16,32, etc.......*/
-#define MAX_TASK_EVENT                                              32
-
-#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-
-#define OBJECT_INT_MSG_SIZE                                         20
-
-#endif
 
 #endif
 
@@ -193,11 +180,10 @@
 /*allowed interrupted nested level*/
 #define INT_NESTED_LEVEL                                            100
 
-#define CONFIG_RAW_TASK_TIME                                        0
 #define RAW_CONFIG_CPU_TIME                                         0
 #define RAW_SCHE_LOCK_MEASURE_CHECK                                 0
 #define RAW_CPU_INT_DIS_MEASURE_CHECK                               0
-#define RAW_CONFIG_CPU_TASK                                         0
+#define RAW_CONFIG_CPU_TASK                                         1
 #define CPU_TASK_PRIORITY                                           (CONFIG_RAW_PRIO_MAX - 2)
 #define CPU_STACK_SIZE                                              256
 
@@ -212,10 +198,6 @@
 
 #if ((CONFIG_RAW_SEMAPHORE == 0) && (CONFIG_RAW_TASK_SEMAPHORE >= 1))
 #error  "you need enable CONFIG_RAW_SEMAPHORE as well."
-#endif
-
-#if ((CONFIG_RAW_TASK_0 == 0) && (CONFIG_RAW_ZERO_INTERRUPT >= 1))
-#error  "doesn't support this option, please check your option."
 #endif
 
 #if ((CONFIG_RAW_MUTEX == 0) && (CONFIG_RAW_TIMER >= 1))

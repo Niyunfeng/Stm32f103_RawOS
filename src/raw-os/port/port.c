@@ -2,7 +2,6 @@
 
 #include <stm32f10x.h>
 
-#include "sys_delay.h"
 
 #define USE_FPU   /* ARMCC */ (  (defined ( __CC_ARM ) && defined ( __TARGET_FPU_VFP )) \
                   /* IAR */   || (defined ( __ICCARM__ ) && defined ( __ARMVFP__ )) \
@@ -16,9 +15,10 @@ void raw_sys_tick_init(void)
 void SysTick_Handler(void)
 {
     raw_enter_interrupt();
-    task_0_tick_post();
-    raw_finish_int();	
+	raw_time_tick();
+	raw_finish_int();		
 }
+
 
 RAW_VOID  *port_stack_init(PORT_STACK  *p_stk_base, RAW_U32 stk_size,  RAW_VOID   *p_arg, RAW_TASK_ENTRY p_task)
 {
@@ -32,7 +32,7 @@ RAW_VOID  *port_stack_init(PORT_STACK  *p_stk_base, RAW_U32 stk_size,  RAW_VOID 
 	
 	#if USE_FPU
 	
-	*(--stk)  = (RAW_U32)0xaa;                  /* R? : argument                                      */ 
+	*(--stk)    = (RAW_U32)0xaa;                  /* R? : argument                                      */ 
 	*(--stk)  = (RAW_U32)0xa;                   /* FPSCR : argument                                      */
 	*(--stk)  = (RAW_U32)0x15;                   /* S15 : argument                                               */        
 	*(--stk)  = (RAW_U32)0x14;                   /* S14 : argument                                      */
@@ -98,10 +98,9 @@ RAW_VOID  *port_stack_init(PORT_STACK  *p_stk_base, RAW_U32 stk_size,  RAW_VOID 
 }
 
 
+void port_isr_stack_check(void)
+{
 
 
-
-
-
-
+}
 

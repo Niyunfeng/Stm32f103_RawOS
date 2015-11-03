@@ -7,89 +7,59 @@
     GNU General Public License as published by the Free Software Foundation; 
     either version 3 of the License, or  (at your option) any later version.
 
-    raw os is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
-    without even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+    raw os is distributed in the hope that it will be useful, but WITHOUT ANY 
+WARRANTY; 
+    without even the implied warranty of  MERCHANTABILITY or FITNESS FOR A 
+PARTICULAR PURPOSE.  
     See the GNU General Public License for more details.
 
     You should have received a copy of the GNU Lesser General Public License
     along with this program. if not, write email to jorya.txj@gmail.com
                                       ---
 
-    A special exception to the LGPL can be applied should you wish to distribute
+    A special exception to the LGPL can be applied should you wish to 
+distribute
     a combined work that includes raw os, without being obliged to provide
     the source code for any proprietary components. See the file exception.txt
     for full details of how and when the exception can be applied.
 */
 
 
-/* 	2012-8  Created by jorya_txj
+/* 	2014-1  Created by jorya_txj
   *	xxxxxx   please added here
   */
 
-#include 	<raw_api.h>
+#ifndef PORT_EXTENSION_H
 
-#if (CONFIG_RAW_USER_HOOK > 0)
+#define PORT_EXTENSION_H
 
-
-RAW_VOID raw_os_init_hook()
-{
-
-}
+typedef  RAW_U32  PORT_TIMER_TYPE;
 
 
-
-RAW_VOID raw_task_delete_hook(RAW_TASK_OBJ *task_ptr)
-{
-
-
-}
+PORT_TIMER_TYPE user_cpu_time_get(void);
+RAW_HARD_TIME_TYPE user_sys_time_get(void);
 
 
-RAW_VOID raw_task_abort_hook(RAW_TASK_OBJ *task_ptr)
-{
+#if (RAW_CONFIG_CPU_TIME > 0)
 
+#define  RAW_CPU_TIME_GET()         user_cpu_time_get()
 
-}
+#else
 
+#define  RAW_CPU_TIME_GET()         0u
 
-RAW_VOID raw_idle_task_hook()
-{
+#endif
 
+#if (CONFIG_RAW_SYSTEM_STATISTICS > 0)
 
-}
+#define  RAW_SYSTEM_TIME_GET()         user_sys_time_get()
 
+#else
 
-RAW_VOID raw_task_switch_hook()
-{
-
-	
-
-}
-
-
-RAW_VOID raw_tick_hook()
-{
-
-
-
-}
-
-
-void task_create_hook(RAW_TASK_OBJ  *task_obj)
-{
-	
-	
-	
-}
-
-RAW_VOID raw_idle_coroutine_hook()
-{
-
-	__wfi();
-}
-
+#define  RAW_SYSTEM_TIME_GET()         0u
 
 #endif
 
 
+#endif
 

@@ -87,13 +87,29 @@ RAW_OS_ERROR raw_queue_create(RAW_QUEUE *p_q, RAW_U8 *p_name, void **msg_start, 
 	p_q->msg_q.current_numbers  = 0u;
 	p_q->msg_q.peak_numbers		= 0u;
 	p_q->queue_send_notify      = 0;
+	p_q->queue_full_callback    = 0;
 	p_q->common_block_obj.object_type = RAW_QUEUE_OBJ_TYPE;
-
+	
 	TRACE_QUEUE_CREATE(raw_task_active, p_q); 
 	
 	return RAW_SUCCESS;
 }
 
+RAW_OS_ERROR raw_queue_full_register(RAW_QUEUE *p_q, QUEUE_FULL_CALLBACK callback_full)
+{
+	RAW_SR_ALLOC();
+
+	if (raw_int_nesting) {
+
+		return RAW_NOT_CALLED_BY_ISR;	
+	}
+	
+	RAW_CPU_DISABLE();
+	p_q->queue_full_callback = callback_full;
+	RAW_CPU_ENABLE();
+
+	return RAW_SUCCESS;
+}
 
 RAW_OS_ERROR msg_post(RAW_QUEUE *p_q, void *p_void, RAW_U8 opt_send_method, RAW_U8 opt_wake_all)             
 {
@@ -116,6 +132,11 @@ RAW_OS_ERROR msg_post(RAW_QUEUE *p_q, void *p_void, RAW_U8 opt_send_method, RAW_
 		RAW_CRITICAL_EXIT();
 		
 		TRACE_QUEUE_MSG_MAX(raw_task_active, p_q, p_void, opt_send_method); 
+
+		if (p_q->queue_full_callback) {
+
+			p_q->queue_full_callback(p_q, p_void);
+		}
 		
 		return RAW_MSG_MAX;
 	}
@@ -243,16 +264,8 @@ RAW_OS_ERROR raw_queue_front_post(RAW_QUEUE *p_q, void *p_void)
 
 	TRACE_QUEUE_FP_TIME_RECORD(p_q, p_void);
 	
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-
-	if (raw_int_nesting && raw_sched_lock) {
-		
-		return int_msg_post(RAW_TYPE_Q_FRONT, p_q, p_void, 0, 0, 0);
-	}
-	
-	#endif
-	
 	return msg_post(p_q, p_void,SEND_TO_FRONT, WAKE_ONE_QUEUE);
+	
 }
 
 
@@ -298,16 +311,7 @@ RAW_OS_ERROR raw_queue_end_post(RAW_QUEUE *p_q, void *p_void)
 	#endif
 
 	TRACE_QUEUE_EP_TIME_RECORD(p_q, p_void);
-	
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-	
-	if (raw_int_nesting && raw_sched_lock) {
-		
-		return int_msg_post(RAW_TYPE_Q_END, p_q, p_void, 0, 0, 0);
-	}
-	
-	#endif
-	
+
 	return msg_post(p_q, p_void,  SEND_TO_END, WAKE_ONE_QUEUE);
 	
 }
@@ -353,15 +357,6 @@ RAW_OS_ERROR raw_queue_post_notify(RAW_QUEUE *p_q, void *p_void)
 	
 	#endif
 
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-	
-	if (raw_int_nesting) {
-		
-		return int_msg_post(RAW_TYPE_Q_END, p_q, p_void, 0, 0, 0);
-	}
-	
-	#endif
-	
 	return msg_post(p_q, p_void,  SEND_TO_END, WAKE_ONE_QUEUE);
 	
 }
@@ -409,16 +404,6 @@ RAW_OS_ERROR raw_queue_all_post(RAW_QUEUE *p_q, void *p_void, RAW_U8 opt)
 	#endif
 
 	TRACE_QUEUE_AP_TIME_RECORD(p_q, p_void, opt);
-	
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-	
-	if (raw_int_nesting) {
-		
-		return int_msg_post(RAW_TYPE_Q_ALL, p_q, p_void, 0, 0, opt);
-	}
-	
-	#endif
-	
 	
 	return msg_post(p_q, p_void, opt, WAKE_ALL_QUEUE);
 	
@@ -540,16 +525,6 @@ RAW_OS_ERROR raw_queue_receive(RAW_QUEUE *p_q, RAW_TICK_TYPE wait_option, void *
 	
 	#endif
 
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-
-	if (raw_int_nesting) {
-		
-		return RAW_NOT_CALLED_BY_ISR;
-		
-	}
-	
-	#endif
-	
 	RAW_CRITICAL_ENTER();
 
 	if (p_q->common_block_obj.object_type != RAW_QUEUE_OBJ_TYPE) {
@@ -616,19 +591,19 @@ RAW_OS_ERROR raw_queue_receive(RAW_QUEUE *p_q, RAW_TICK_TYPE wait_option, void *
 *
 *
 * Returns			
-*		1: queue obj is full
-*		0: queue obj is not full
+*		RAW_QUEUE_CHECK_FULL: queue obj is full
+*		RAW_QUEUE_CHECK_NOT_FULL: queue obj is not full
 * 
 *Note(s)   
 *
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_queue_full_check(RAW_QUEUE *p_q)
+RAW_OS_ERROR raw_queue_full_check(RAW_QUEUE *p_q)
 {
 	RAW_SR_ALLOC();
 
-	RAW_U16  full_check_ret;
+	RAW_OS_ERROR  full_check_ret;
 	
 	#if (RAW_QUEUE_FUNCTION_CHECK > 0)
 
@@ -637,16 +612,6 @@ RAW_U16 raw_queue_full_check(RAW_QUEUE *p_q)
 		return RAW_NULL_OBJECT;
 	}
 
-	#endif
-
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-
-	if (raw_int_nesting) {
-		
-		return RAW_NOT_CALLED_BY_ISR;
-		
-	}
-	
 	#endif
 
 	RAW_CRITICAL_ENTER();
@@ -659,12 +624,12 @@ RAW_U16 raw_queue_full_check(RAW_QUEUE *p_q)
 
 	if (p_q->msg_q.current_numbers >= p_q->msg_q.size) {  
 
-		full_check_ret = 1u;
+		full_check_ret = RAW_QUEUE_CHECK_FULL;
 	}
 
 	else {
 
-		full_check_ret = 0u;
+		full_check_ret = RAW_QUEUE_CHECK_NOT_FULL;
 
 	}
 
@@ -786,7 +751,7 @@ RAW_OS_ERROR raw_queue_delete(RAW_QUEUE *p_q)
 
 	block_list_head = &p_q->common_block_obj.block_list;
 	
-	p_q->common_block_obj.object_type = 0u;
+	p_q->common_block_obj.object_type = RAW_OBJ_TYPE_NONE;
 	
 	/*All task blocked on this queue is waken up*/
 	while (!is_list_empty(block_list_head))  {
@@ -819,7 +784,7 @@ RAW_OS_ERROR raw_queue_delete(RAW_QUEUE *p_q)
 *				         
 * Returns			
 *			RAW_SUCCESS: raw os return success
-*                   RAW_NOT_CALLED_BY_ISR: not called by isr when CONFIG_RAW_ZERO_INTERRUPT is open.
+*                  
 * Note(s)    	Commonly for debug purpose
 *
 *             
@@ -847,16 +812,6 @@ RAW_OS_ERROR raw_queue_get_information(RAW_QUEUE *p_q, RAW_MSG_INFO *msg_informa
 	
 	#endif
 
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-
-	if (raw_int_nesting) {
-		
-		return RAW_NOT_CALLED_BY_ISR;
-		
-	}
-	
-	#endif
-	
 	RAW_CRITICAL_ENTER();
 
 	if (p_q->common_block_obj.object_type !=  RAW_QUEUE_OBJ_TYPE) {

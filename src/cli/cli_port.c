@@ -6,6 +6,8 @@
 
 #include "debug_uart.h"
 
+#include "simple_printf.h"
+
 static int cli_putc(char c)
 {
 	debug_putchar(c);

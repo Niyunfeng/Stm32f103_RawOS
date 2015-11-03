@@ -2,10 +2,10 @@
 #include <simple_printf.h>
 #include <stdio.h>
 #include <stdarg.h>
-
 #include "debug_uart.h"
 
 static RAW_MUTEX mutex_printf_obj;
+
 
 
 void simple_printf_lock(void)
@@ -35,7 +35,7 @@ static void printchar(char **str, int c)
 	
 	else {
 	 
-        debug_putchar(c);
+		 debug_putc(c);
 	}
 }
 

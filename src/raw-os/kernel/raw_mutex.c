@@ -44,7 +44,7 @@
 * Returns	RAW_SUCCESS: raw os return success
 * Note(s)    	if policy is RAW_MUTEX_INHERIT_POLICY, then ceiling_prio is useless and you can assign any value to it.
 * 			RAW_BLOCKED_WAY_FIFO is not a recommanded way for mutex, RAW_BLOCKED_WAY_PRIO id prefered
-*                   if CONFIG_RAW_ZERO_INTERRUPT is set, then ceiling_prio 0 is not allowed!
+*                   
 *             
 ************************************************************************************************************************
 */
@@ -74,19 +74,6 @@ RAW_OS_ERROR raw_mutex_create(RAW_MUTEX *mutex_ptr, RAW_U8 *name_ptr, RAW_U8 pol
 	mutex_ptr->mtxlist 		= 0;
 
 	mutex_ptr->policy = policy;
-
-	#if (CONFIG_RAW_TASK_0 > 0)
-
-	if (policy == RAW_MUTEX_CEILING_POLICY) {
-		
-		if (ceiling_prio == 0) {
-		
-			return RAW_CEILING_PRIORITY_NOT_ALLOWED;
-		}
-	}
-	
-	#endif
-	
 	mutex_ptr->ceiling_prio = ceiling_prio;
 	mutex_ptr->common_block_obj.object_type = RAW_MUTEX_OBJ_TYPE;
 
@@ -117,6 +104,8 @@ RAW_U8 chg_pri_mutex(RAW_TASK_OBJ *tcb, RAW_U8 priority, RAW_OS_ERROR *error)
 	LIST *block_list_head;
 	
 	hi_pri  = priority;
+	
+	/*system highest priority*/
 	low_pri = 0u;
 	
 	mtxcb = (RAW_MUTEX	*)(tcb->block_obj);
@@ -143,7 +132,7 @@ RAW_U8 chg_pri_mutex(RAW_TASK_OBJ *tcb, RAW_U8 priority, RAW_OS_ERROR *error)
 			
 		  case RAW_MUTEX_CEILING_POLICY:
 			pri = mtxcb->ceiling_prio;
-			if ( pri > low_pri ) {
+			if (pri > low_pri) {
 				low_pri = pri;
 			}
 			break;
@@ -173,7 +162,7 @@ RAW_U8 chg_pri_mutex(RAW_TASK_OBJ *tcb, RAW_U8 priority, RAW_OS_ERROR *error)
 	if (priority < low_pri) {
 		
 		*error = RAW_EXCEED_CEILING_PRIORITY;
-		return RAW_EXCEED_CEILING_PRIORITY;
+		return low_pri;
 	}
 
 	*error = RAW_SUCCESS;
@@ -256,9 +245,10 @@ void mtx_chg_pri(RAW_TASK_OBJ *tcb, RAW_U8 oldpri)
 
 	mtxcb = (RAW_MUTEX	*)(tcb->block_obj);
 
-	/*mutex_recursion_levels can never deeper than 5 levles, anyway it is the design fault*/
-	if (mutex_recursion_levels > 5) {
+	/*mutex_recursion_levels can never deeper than certain levles, anyway it is the design fault*/
+	if (mutex_recursion_levels > CONFIG_RAW_MUTEX_RECURSION_LEVELS) {
 
+		port_system_error_process(RAW_MUTEX_RECURSION_LEVELS_EXCEEDED, 0, 0, 0, 0, 0, 0);
 		return;
 	}
 
@@ -394,10 +384,19 @@ RAW_OS_ERROR raw_mutex_get(RAW_MUTEX *mutex_ptr, RAW_TICK_TYPE wait_option)
 		return RAW_ERROR_OBJECT_TYPE;
 	}
 	
-		/*if the same task get the same mutex again, it causes deadlock*/ 
+		/*if the same task get the same mutex again, it causes mutex owner nested*/ 
 	if (raw_task_active == mutex_ptr->mtxtsk) {
+
+		if (mutex_ptr->owner_nested == (RAW_MUTEX_NESTED_TYPE) - 1) {
+			/*likely design error here, system must be stoped here!*/
+			port_system_error_process(RAW_MUTEX_NESTED_OVERFLOW, 0, 0, 0, 0, 0, 0);	
+		}
 		
-		mutex_ptr->owner_nested++;
+		else {
+			
+			mutex_ptr->owner_nested++;
+		}
+		
   		RAW_CRITICAL_EXIT();   
 		return RAW_MUTEX_OWNER_NESTED;
    }
@@ -685,7 +684,7 @@ RAW_OS_ERROR raw_mutex_delete(RAW_MUTEX *mutex_ptr)
 
 	block_list_head = &mutex_ptr->common_block_obj.block_list;
 	
-	mutex_ptr->common_block_obj.object_type = 0u;
+	mutex_ptr->common_block_obj.object_type = RAW_OBJ_TYPE_NONE;
 
 	if (mutex_ptr->mtxtsk) {
 		release_mutex(mutex_ptr->mtxtsk, mutex_ptr);

@@ -37,13 +37,6 @@
     #define DEBUG_UART_IRQ_HANDLER 	USART3_IRQHandler
 
 
-#elif SerialPort == 4
-
-    #define DEBUG_UART 				UART4
-
-    #define DEBUG_UART_IRQ 			UART4_IRQn
-    #define DEBUG_UART_IRQ_HANDLER 	UART4_IRQHandler
-
 #endif
 void debug_serial_init(void);
 RAW_TASK_OBJ *get_shell_task_obj(void);

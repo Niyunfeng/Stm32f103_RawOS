@@ -105,35 +105,18 @@ RAW_OS_ERROR raw_task_create(RAW_TASK_OBJ  *task_obj, RAW_U8  *task_name,  void 
 	#endif
 
 	RAW_CRITICAL_ENTER();
-	
-	 if (task_prio == IDLE_PRIORITY) {
-	 	
-	 	if (idle_task_exit) {
-			
-			RAW_CRITICAL_EXIT();
-			return RAW_IDLE_EXIT;
-				
-	 	}
-		
-	 	idle_task_exit = 1u;
-	}
 
-	#if (CONFIG_RAW_TASK_0 > 0)
-	
-	 if (task_prio == 0) {
-	 	
-	 	if (task_0_exit) {
-			
-			RAW_CRITICAL_EXIT();
-			return RAW_TASK_0_EXIT;
-				
-	 	}
-		
-	 	task_0_exit = 1u;
-	}
+	/*Idle task is only allowed to created once*/	
+	if (task_prio == IDLE_PRIORITY) {
 
-	#endif
-	
+		if (idle_task_exit) {
+
+			RAW_CRITICAL_EXIT();
+			return RAW_IDLE_EXIT;	
+		}
+
+		idle_task_exit = 1u;
+	}
 
 	RAW_CRITICAL_EXIT();
 	
@@ -174,16 +157,29 @@ RAW_OS_ERROR raw_task_create(RAW_TASK_OBJ  *task_obj, RAW_U8  *task_name,  void 
 		*p_stack++ = 0;                                            
 	          
 	}
-		
-	#if (CONFIG_RAW_USER_HOOK > 0)
-	task_create_hook(task_obj);
-	#endif
-	
-	task_obj->task_stack = port_stack_init(task_stack_base, stack_size, task_arg, task_entry);
+
 	task_obj->task_name  = task_name; 
 	task_obj->priority   = task_prio;
 	task_obj->bpriority  = task_prio;
 	task_obj->stack_size = stack_size;
+	
+	#if (RAW_CPU_STACK_DOWN > 0)
+	
+	p_stack = task_obj->task_stack_base;
+	*p_stack = RAW_TASK_STACK_CHECK_WORD;
+	
+	#else
+	
+	p_stack = (PORT_STACK *)(task_obj->task_stack_base) + task_obj->stack_size - 1;
+	*p_stack = RAW_TASK_STACK_CHECK_WORD;
+	
+	#endif
+
+	task_obj->task_stack = port_stack_init(task_stack_base, stack_size, task_arg, task_entry);
+		
+	#if (CONFIG_RAW_USER_HOOK > 0)
+	task_create_hook(task_obj);
+	#endif
 
 	TRACE_TASK_CREATE(task_obj);
 	
@@ -248,11 +244,16 @@ RAW_OS_ERROR raw_task_stack_check(RAW_TASK_OBJ  *task_obj, RAW_U32 *free_stack)
 		return RAW_NULL_POINTER;
 	}
 
+	if (task_obj->task_state == RAW_DELETED) {
+
+		return RAW_INVALID_TASK_STATE;
+	}
+
 	#endif
 
 	#if (RAW_CPU_STACK_DOWN > 0)
 	
-	task_stack = task_obj->task_stack_base;  
+	task_stack = task_obj->task_stack_base + 1;  
 	
 	while (*task_stack++ == 0) {                         
 		free_stk++;
@@ -260,7 +261,7 @@ RAW_OS_ERROR raw_task_stack_check(RAW_TASK_OBJ  *task_obj, RAW_U32 *free_stack)
 
 	#else
 	
-	task_stack = (PORT_STACK *)(task_obj->task_stack_base) + task_obj->stack_size - 1;
+	task_stack = (PORT_STACK *)(task_obj->task_stack_base) + task_obj->stack_size - 2;
 
 	while (*task_stack-- == 0) {
 		free_stk++;
@@ -312,7 +313,6 @@ RAW_OS_ERROR raw_disable_sche(void)
 	if (raw_sched_lock >= 250u)  {
 		
 		return RAW_SCHED_OVERFLOW;
-		
 	}
 	
 	#endif
@@ -372,39 +372,8 @@ RAW_OS_ERROR raw_enable_sche(void)
 	
 	#endif
 
-	#if (CONFIG_RAW_TASK_0 > 0)
-
-
-	if (raw_sched_lock == 1u) {
-		
-		#if (RAW_SCHE_LOCK_MEASURE_CHECK > 0)
-		
-		sche_disable_measure_stop();
-		
-		#endif
-		
-		hybrid_int_process();							  
-	}
-	
-	else {
-
-		RAW_CPU_DISABLE();
-		raw_sched_lock--;
-		RAW_CPU_ENABLE();
-		return RAW_SCHED_LOCKED;	
-	}
-
-	
-	#else
-	
 	RAW_CPU_DISABLE();
 
-	#if (RAW_SCHE_LOCK_MEASURE_CHECK > 0)
-
-	sche_disable_measure_stop();
-
-	#endif
-	
 	raw_sched_lock--;
 	
 	if (raw_sched_lock) {
@@ -413,11 +382,15 @@ RAW_OS_ERROR raw_enable_sche(void)
 		return RAW_SCHED_LOCKED;
 
 	}
-	
-	RAW_CPU_ENABLE();
+
+	#if (RAW_SCHE_LOCK_MEASURE_CHECK > 0)
+
+	sche_disable_measure_stop();
 
 	#endif
 	
+	RAW_CPU_ENABLE();
+
 	raw_sched ();
 	
 	return RAW_SUCCESS;
@@ -487,14 +460,13 @@ RAW_OS_ERROR raw_sleep(RAW_TICK_TYPE dly)
 	raw_sched();   
 
 	if (dly) {
-		/*task is timeout after sleep*/
+		/*Is task timeout normally after sleep?*/
 		error_status = block_state_post_process(raw_task_active, 0);
 	}
 
 	else {
 		
 		error_status = RAW_SUCCESS;
-
 	}
 	
 	return error_status;
@@ -601,23 +573,6 @@ RAW_OS_ERROR raw_task_suspend(RAW_TASK_OBJ *task_ptr)
 		return RAW_SUSPEND_TASK_NOT_ALLOWED;
 	}
 
-	#if (CONFIG_RAW_TASK_0 > 0)
-	
-	if (task_ptr->priority == 0) {
-		return RAW_SUSPEND_TASK_NOT_ALLOWED;
-	}
-	
-	#endif
-
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-
-	if (raw_int_nesting) {
-		
-		return int_msg_post(RAW_TYPE_SUSPEND, task_ptr, 0, 0, 0, 0);
-	}
-
-	#endif
-	
 	return task_suspend(task_ptr);
 	
 }
@@ -721,14 +676,6 @@ RAW_OS_ERROR raw_task_resume(RAW_TASK_OBJ *task_ptr)
 	
 	#endif	
 
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-
-	if (raw_int_nesting && raw_sched_lock) {
-		return int_msg_post(RAW_TYPE_RESUME, task_ptr, 0, 0, 0, 0);
-	}
-	
-	#endif
-	
 	return task_resume(task_ptr);
 }
 
@@ -840,11 +787,12 @@ RAW_OS_ERROR change_internal_task_priority(RAW_TASK_OBJ *task_ptr, RAW_U8 new_pr
 	
 			break;
 
-		case RAW_DLY:                             /* Nothing to do except change the priority in the OS_TCB */
+		case RAW_DLY:                            
 		case RAW_SUSPENDED:
 		case RAW_DLY_SUSPENDED:
 			
-			task_ptr->priority = new_priority;                        /* Set new task priority*/
+			 /* Set new task priority*/
+			task_ptr->priority = new_priority;                       
 			
 			break;
 
@@ -930,21 +878,6 @@ RAW_OS_ERROR raw_task_priority_change (RAW_TASK_OBJ *task_ptr, RAW_U8 new_priori
 		return RAW_CHANGE_PRIORITY_NOT_ALLOWED;
 	}
 
-	#if (CONFIG_RAW_TASK_0 > 0)
-	
-	if (task_ptr->priority == 0) {
-		
-		return RAW_CHANGE_PRIORITY_NOT_ALLOWED;
-	}
-
-	if (new_priority == 0) {             
-
-		return RAW_CHANGE_PRIORITY_NOT_ALLOWED;
-	}
-
-	#endif
-	
-	
    /*Not allowed change to idle priority*/
 	if (new_priority == IDLE_PRIORITY) {             
 
@@ -964,11 +897,14 @@ RAW_OS_ERROR raw_task_priority_change (RAW_TASK_OBJ *task_ptr, RAW_U8 new_priori
 	}
 
 	task_ptr->bpriority = new_priority;
+	
+	/*new pripority may change here!*/
 	new_priority = ret_pri;
 	
 	#else
 	
 	task_ptr->bpriority = new_priority;
+
 	#endif
 
 	*old_priority = task_ptr->priority;
@@ -1042,16 +978,6 @@ RAW_OS_ERROR raw_task_delete(RAW_TASK_OBJ *task_ptr)
 		return RAW_DELETE_TASK_NOT_ALLOWED;
 	}
 
-	#if (CONFIG_RAW_TASK_0 > 0)
-	
-	if (task_ptr->priority == 0) {
-		
-		return RAW_DELETE_TASK_NOT_ALLOWED;
-	}
-
-	#endif
-	
-
 	RAW_CRITICAL_ENTER();
 
 	if (task_ptr == raw_task_active) {
@@ -1101,13 +1027,13 @@ RAW_OS_ERROR raw_task_delete(RAW_TASK_OBJ *task_ptr)
 	
 	list_delete(&task_ptr->task_debug_list);
 	
-	RAW_CRITICAL_EXIT();
-
 	TRACE_TASK_DELETE(task_ptr);
 
 	#if (CONFIG_RAW_USER_HOOK > 0)
 	raw_task_delete_hook(task_ptr);
 	#endif
+	
+	RAW_CRITICAL_EXIT();
 
 	raw_sched();
 
@@ -1567,23 +1493,6 @@ RAW_U32 raw_get_system_global_space(void)
 
 	#endif
 	
-	#if (CONFIG_RAW_TASK_0 > 0)
-	
-	data_space += sizeof(task_0_event_end) + sizeof(task_0_event_head)
-				+ sizeof(task_0_events) + sizeof(peak_events)
-				+ sizeof(task_0_events_queue)
-				+ sizeof(raw_task_0_obj) + sizeof(task_0_stack) + sizeof(task_0_exit);
-
-
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-
-	data_space += sizeof(object_int_msg) + sizeof(free_object_int_msg) + sizeof(msg_event_handler)
-				+ sizeof(int_msg_full);
-				
-	#endif
-	
-	#endif
-
 	#if (CONFIG_RAW_IDLE_EVENT > 0)
 	
 	data_space += sizeof(STM_GLOBAL_EVENT) + sizeof(raw_idle_rdy_grp) + sizeof(raw_rdy_tbl)

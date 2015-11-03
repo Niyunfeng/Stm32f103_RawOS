@@ -31,8 +31,8 @@
 #include <raw_work_queue.h>
 
 
-OBJECT_WORK_QUEUE_MSG *free_work_queue_msg;
-
+static OBJECT_WORK_QUEUE_MSG *free_work_queue_msg;
+static RAW_U32 work_queue_msg_size;
 
 
 /*Provide workqueue level system tick process, to impromve interrupt response, refer to example hot to use it*/
@@ -134,7 +134,7 @@ RAW_OS_ERROR work_queue_create(WORK_QUEUE_STRUCT *wq, RAW_U8 work_task_priority,
 
 		return ret;
 	}
-	
+
 	ret = raw_task_create(&wq->work_queue_task_obj, (RAW_U8  *)"work_queue", wq,
 	                         work_task_priority, 0, work_queue_stack_base, 
 	                         work_queue_stack_size, work_queue_task, 1); 
@@ -166,7 +166,7 @@ RAW_OS_ERROR work_queue_create(WORK_QUEUE_STRUCT *wq, RAW_U8 work_task_priority,
 */
 RAW_OS_ERROR sche_work_queue(WORK_QUEUE_STRUCT *wq, RAW_U32 arg, void *msg, WORK_QUEUE_HANDLER handler)
 {
-	void *msg_data;
+	OBJECT_WORK_QUEUE_MSG *msg_data;
 	RAW_OS_ERROR ret;
 
 	RAW_SR_ALLOC();
@@ -192,8 +192,19 @@ RAW_OS_ERROR sche_work_queue(WORK_QUEUE_STRUCT *wq, RAW_U32 arg, void *msg, WORK
 	
 	ret = raw_queue_end_post(&wq->queue, msg_data);
 
+	if (ret == RAW_SUCCESS) {
+
+	}
+
+	else {
+
+		RAW_CPU_DISABLE();
+		msg_data->next = free_work_queue_msg;
+		free_work_queue_msg = msg_data;
+		RAW_CPU_ENABLE();	
+	}
+		
 	return ret;
-	
 }
 
 
@@ -219,7 +230,8 @@ void global_work_queue_init(OBJECT_WORK_QUEUE_MSG *work_queue_msg, RAW_U32 size)
 {
 	OBJECT_WORK_QUEUE_MSG *p_msg1;
 	OBJECT_WORK_QUEUE_MSG *p_msg2;
-	
+
+	work_queue_msg_size = size;
 	free_work_queue_msg = work_queue_msg;
 	
 	/*init the free msg list*/

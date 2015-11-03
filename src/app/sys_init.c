@@ -1,6 +1,9 @@
 #include <raw_api.h>
 #include <debug_uart.h>
+#include "raw_stat.h"
 #include "sys_delay.h"
+#include "port.h"
+
 
 /******************************************************************************/
 #define SYS_INIT_TASK_STK_SIZE 	(128)
@@ -20,6 +23,7 @@ typedef struct init_task_t
 void sys_led_init(RAW_U8 prio);
 void shell_init(RAW_U8 prio);
 void sys_uart_init(RAW_U8 prio);
+void sys_kerneltest_init(RAW_U8 prio);
 //void sys_key_init(RAW_U8 prio);
 
 /******************************************************************************/
@@ -29,6 +33,7 @@ static const init_task_t sys_init_arry[]  =
 	{sys_led_init, 			CONFIG_RAW_PRIO_MAX - 3 }, 		// 系统指示灯
     {shell_init, 			CONFIG_RAW_PRIO_MAX - 10},		// shell
     {sys_uart_init,         CONFIG_RAW_PRIO_MAX - 20},      // uart
+    {sys_kerneltest_init,   CONFIG_RAW_PRIO_MAX - 30},      // kerneltset   
 //    {sys_key_init,          CONFIG_RAW_PRIO_MAX - 20},
 };
 
@@ -42,6 +47,8 @@ static void sys_init_task(void *pdat)
 	debug_serial_init();
 	
     delay_init();
+    
+    cpu_task_init();
     
 	raw_printf("\r\n-------------  raw-os  ----------------\r\n");
 	// 任务初始化
@@ -64,11 +71,11 @@ void create_init_task(void)
 {
 	raw_task_create(&sys_init_task_obj,			/* 任务控制块地址 	*/
 					(RAW_U8  *)"sys_init_task",	/* 任务名 			*/
-					(void *)0,					/* 任务参数 		*/
+					(void *)0,					/* 任务参数 		    */
 					CONFIG_RAW_PRIO_MAX - 2,	/* 优先级 			*/
 					0,							/* 时间片 			*/
-					sys_init_task_stk,			/* 任务栈首地址 	*/
+					sys_init_task_stk,			/* 任务栈首地址 	    */
 					SYS_INIT_TASK_STK_SIZE ,	/* 任务栈大小 		*/
-					sys_init_task,				/* 任务入口地址 	*/
-					1);							/* 是否立即运行 	*/
+					sys_init_task,				/* 任务入口地址 	    */
+					1);							/* 是否立即运行 	    */
 }

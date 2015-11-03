@@ -2,7 +2,7 @@
 #include <raw_api.h>
 
 /******************************************************************************/
-#define SYS_LED_TASK_STK_SIZE 	(128)
+#define SYS_LED_TASK_STK_SIZE 	(256)
 static PORT_STACK 				sys_led_task_stk[SYS_LED_TASK_STK_SIZE];
 static RAW_TASK_OBJ 			sys_led_task_obj;
 /******************************************************************************/

@@ -388,16 +388,6 @@ RAW_OS_ERROR raw_event_set(RAW_EVENT *event_ptr, RAW_U32 flags_to_set, RAW_U8 se
 	
 	#endif
 
-
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-	
-	if (raw_int_nesting) {
-		
-		return int_msg_post(RAW_TYPE_EVENT, event_ptr, 0, 0u, flags_to_set, set_option);
-	}
-	
-	#endif
-
 	return event_set(event_ptr, flags_to_set, set_option);		
 	 
 }
@@ -457,7 +447,7 @@ RAW_OS_ERROR raw_event_delete(RAW_EVENT *event_ptr)
 
 	block_list_head = &event_ptr->common_block_obj.block_list;
 	
-	event_ptr->common_block_obj.object_type = 0u;
+	event_ptr->common_block_obj.object_type = RAW_OBJ_TYPE_NONE;
 	/*All task blocked on this queue is waken up until list is empty*/
 	while (!is_list_empty(block_list_head)) {
 		

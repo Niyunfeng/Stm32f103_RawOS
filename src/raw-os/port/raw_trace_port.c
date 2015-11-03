@@ -102,14 +102,14 @@ void _trace_task_abort(RAW_TASK_OBJ *task)
 }
 
 
-void _trace_task_0_overflow(EVENT_HANLDER *p, TASK_0_EVENT_TYPE ev, void *event_data)
-{
+//void _trace_task_0_overflow(EVENT_HANLDER *p, TASK_0_EVENT_TYPE ev, void *event_data)
+//{
 
-	p = p;
-	ev = ev;
-	event_data = event_data;
+//	p = p;
+//	ev = ev;
+//	event_data = event_data;
 
-}
+//}
 
 void _trace_int_msg_exhausted()
 {

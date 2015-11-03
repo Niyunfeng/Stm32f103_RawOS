@@ -18,7 +18,6 @@ RAW_MUTEX debug_tx_mutex;
 static void debug_usart1_init(void);
 static void debug_usart2_init(void);
 static void debug_usart3_init(void);
-static void debug_usart4_init(void);
 
 static void debug_uart_init(void)
 {
@@ -27,7 +26,7 @@ static void debug_uart_init(void)
     if(DEBUG_UART == USART1)        debug_usart1_init();
     else if(DEBUG_UART == USART2)   debug_usart2_init();
     else if(DEBUG_UART == USART3)   debug_usart3_init();
-    else if(DEBUG_UART == UART4)    debug_usart4_init();
+
 }
 
 static void debug_usart1_init(void)
@@ -60,18 +59,6 @@ static void debug_usart3_init(void)
     Pub_Uart_Hardware_Cfg(USART3,DEBUG_BaudRate);
     Pub_Nvic_Config(USART3_IRQn, 0, 0);
     Pub_Uart_Int_Cfg(USART3,ENABLE);
-}
-
-static void debug_usart4_init(void)
-{
-    RCC_APB1PeriphClockCmd(RCC_APB1Periph_UART4, ENABLE);
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
-    Pub_Gpio_Output_AFPP(GPIOC, GPIO_Pin_10);
-    Pub_Gpio_Input_INFLOATING(GPIOC, GPIO_Pin_11);
-    Pub_Uart_Hardware_Cfg(UART4,DEBUG_BaudRate);
-    Pub_Nvic_Config(UART4_IRQn, 0, 0);
-    Pub_Uart_Int_Cfg(UART4,ENABLE);    
-    
 }
 
 static int debug_fifo_read(unsigned char *buf)
