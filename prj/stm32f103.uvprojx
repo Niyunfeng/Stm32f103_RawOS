@@ -373,7 +373,7 @@
               <MiscControls>--c99</MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\src\app;..\src\raw-os\kernel\include;..\src\raw-os\port;..\src\raw-os\kernel\extension\include;..\src\stm32f103;..\src\stm32f103\driver\inc;..\src\lib;..\src\cli;..\src\app\key;..\src\app\pub</IncludePath>
+              <IncludePath>..\src\app;..\src\raw-os\kernel\include;..\src\raw-os\port;..\src\raw-os\kernel\extension\include;..\src\stm32f103;..\src\stm32f103\driver\inc;..\src\lib;..\src\cli;..\src\app\key;..\src\app\pub;..\src\app\MPU6050;..\src\app\MPU6050\eMPL;..\src\app\pwm;..\src\app\motor</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -452,14 +452,34 @@
               <FilePath>..\src\app\debug_uart.c</FilePath>
             </File>
             <File>
-              <FileName>kerneltest.c</FileName>
+              <FileName>mpu6050.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\src\app\KernelTest\kerneltest.c</FilePath>
+              <FilePath>..\src\app\MPU6050\mpu6050.c</FilePath>
             </File>
             <File>
-              <FileName>key.c</FileName>
+              <FileName>mpuiic.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\src\app\key\key.c</FilePath>
+              <FilePath>..\src\app\MPU6050\mpuiic.c</FilePath>
+            </File>
+            <File>
+              <FileName>inv_mpu.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\app\MPU6050\eMPL\inv_mpu.c</FilePath>
+            </File>
+            <File>
+              <FileName>inv_mpu_dmp_motion_driver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\app\MPU6050\eMPL\inv_mpu_dmp_motion_driver.c</FilePath>
+            </File>
+            <File>
+              <FileName>pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\app\pwm\pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>motor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\app\motor\motor.c</FilePath>
             </File>
           </Files>
         </Group>

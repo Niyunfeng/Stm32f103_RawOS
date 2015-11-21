@@ -59,7 +59,7 @@
 #define CONFIG_SYSTEM_MEMOPT                                        0
 
 /*tick numbers per second*/
-#define RAW_TICKS_PER_SECOND                                        100
+#define RAW_TICKS_PER_SECOND                                        1000
 
 /*timer frequency = RAW_TICKS_PER_SECOND /  RAW_TIMER_RATE*/
 #define RAW_TIMER_RATE                                              1

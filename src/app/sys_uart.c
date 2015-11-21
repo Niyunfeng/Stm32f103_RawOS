@@ -379,7 +379,7 @@ void sys_uart_task(void  * pdat)
 	for(;;)
 	{
         raw_semaphore_get(&Sem2, RAW_WAIT_FOREVER);
-		len = GetCmd(cmd, 128, 1);//超时1个系统TICK，接收数据长度在128个字节
+		len = GetCmd(cmd, 128, 10);//超时1个系统TICK，接收数据长度在128个字节
         if(len)//判断是否接收到数据
         {
             //if(cmd[0] == 0 && cmd[1] == 1)//判断数据有效性

@@ -3,6 +3,7 @@
 #include "raw_stat.h"
 #include "sys_delay.h"
 #include "port.h"
+#include "pwm.h"
 
 
 /******************************************************************************/
@@ -23,18 +24,18 @@ typedef struct init_task_t
 void sys_led_init(RAW_U8 prio);
 void shell_init(RAW_U8 prio);
 void sys_uart_init(RAW_U8 prio);
-void sys_kerneltest_init(RAW_U8 prio);
-//void sys_key_init(RAW_U8 prio);
+void sys_mpu_init(RAW_U8 prio);
+void sys_motor_init(RAW_U8 prio);
 
 /******************************************************************************/
 
 static const init_task_t sys_init_arry[]  = 
 {
 	{sys_led_init, 			CONFIG_RAW_PRIO_MAX - 3 }, 		// 系统指示灯
-    {shell_init, 			CONFIG_RAW_PRIO_MAX - 10},		// shell
-    {sys_uart_init,         CONFIG_RAW_PRIO_MAX - 20},      // uart
-    {sys_kerneltest_init,   CONFIG_RAW_PRIO_MAX - 30},      // kerneltset   
-//    {sys_key_init,          CONFIG_RAW_PRIO_MAX - 20},
+    {shell_init, 			CONFIG_RAW_PRIO_MAX - 20},		// shell
+    {sys_uart_init,         CONFIG_RAW_PRIO_MAX - 10},      // uart
+    {sys_mpu_init,          CONFIG_RAW_PRIO_MAX - 30},      // mpu6050
+    {sys_motor_init,        CONFIG_RAW_PRIO_MAX - 25},      // motor
 };
 
 static void sys_init_task(void *pdat)
@@ -46,6 +47,8 @@ static void sys_init_task(void *pdat)
 	// debug_uart 初始化
 	debug_serial_init();
 	
+    PWM_Config();
+    
     delay_init();
     
     cpu_task_init();
