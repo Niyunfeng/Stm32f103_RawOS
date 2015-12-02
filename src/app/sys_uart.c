@@ -112,8 +112,8 @@ void Uartx_RxInt(void)
 	bb++;
 	len++;
 	fifo_in(&Fifo, aa, len);
-	raw_semaphore_put(&Sem1);
     raw_semaphore_put(&Sem2);
+    raw_semaphore_put(&Sem1);
 }
 
 

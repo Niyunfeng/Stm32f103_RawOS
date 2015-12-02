@@ -8,7 +8,7 @@
 #include "stdio.h"
 #include "pub.h"
 
-#define Sys_SerialPort       2
+#define Sys_SerialPort       1
 
 #define SYS_UART_BAUDRATE  115200
 

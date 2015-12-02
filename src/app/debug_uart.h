@@ -8,7 +8,7 @@
 #include "pub.h"
 
 //使用具体的串口
-#define SerialPort              1
+#define SerialPort              2
 //定义串口波特率
 #define DEBUG_BaudRate          115200
 
