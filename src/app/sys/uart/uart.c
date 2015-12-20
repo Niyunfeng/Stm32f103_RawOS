@@ -1,4 +1,4 @@
-#include "sys_uart.h"
+#include "uart.h"
 #include <stdarg.h>
 
 #define SYS_UART_TASK_STK_SIZE		(512)
@@ -89,11 +89,16 @@ void USARTx_SendBuf(USART_TypeDef* USARTx, RAW_U8 * buf, RAW_U16 len)
 //串口中断函数
 void SYS_UARTX_IRQ_HANDLER(void)                	
 {
+    NVIC_DisableIRQ(SYS_UARTX_IRQ);
+    raw_enter_interrupt();
 	if(USART_GetITStatus(SYS_UARTX,USART_IT_RXNE)!= RESET)//中断产生
 	{
         USART_ClearITPendingBit(SYS_UARTX, USART_IT_RXNE);
 		Uartx_RxInt();
 	}
+	NVIC_EnableIRQ(SYS_UARTX_IRQ);
+	raw_finish_int();    
+    
 }
 
 //*------------------------------------------------------------------------------------------------

@@ -8,28 +8,28 @@
 #include "pub.h"
 
 //使用具体的串口
-#define SerialPort              2
+#define DEBUG_SER              1
 //定义串口波特率
 #define DEBUG_BaudRate          115200
 
 #define DEBUG_UART_TXE 			(1<<7)
 #define DEBUG_UART_RXNE 		(1<<5)
 
-#if SerialPort == 1
+#if DEBUG_SER == 1
 
     #define DEBUG_UART 				USART1
     
     #define DEBUG_UART_IRQ 			USART1_IRQn
     #define DEBUG_UART_IRQ_HANDLER 	USART1_IRQHandler
 
-#elif SerialPort == 2
+#elif DEBUG_SER == 2
 
     #define DEBUG_UART 				USART2
 
     #define DEBUG_UART_IRQ 			USART2_IRQn
     #define DEBUG_UART_IRQ_HANDLER 	USART2_IRQHandler
 
-#elif SerialPort == 3
+#elif DEBUG_SER == 3
 
     #define DEBUG_UART 				USART3
 

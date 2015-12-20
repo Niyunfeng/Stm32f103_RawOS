@@ -1,5 +1,5 @@
-#ifndef _SYS_DELAY_H
-#define _SYS_DELAY_H
+#ifndef _DELAY_H
+#define _DELAY_H
 
 #include "raw_api.h"
 #include "stm32f10x.h"

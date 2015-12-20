@@ -365,7 +365,7 @@
               <MiscControls>--c99</MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\src\app;..\src\raw-os\kernel\include;..\src\raw-os\port;..\src\raw-os\kernel\extension\include;..\src\stm32f103;..\src\stm32f103\driver\inc;..\src\lib;..\src\cli;..\src\app\key;..\src\app\pub;..\src\app\MPU6050;..\src\app\MPU6050\eMPL;..\src\app\pwm;..\src\app\motor</IncludePath>
+              <IncludePath>..\src\raw-os\kernel\include;..\src\raw-os\port;..\src\raw-os\kernel\extension\include;..\src\stm32f103;..\src\stm32f103\driver\inc;..\src\app;..\src\lib;..\src\cli;..\src\app\sys\delay;..\src\app\sys\pub;..\src\app\sys\uart</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -414,34 +414,44 @@
               <FilePath>..\src\app\main.c</FilePath>
             </File>
             <File>
+              <FileName>bsp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\app\bsp.c</FilePath>
+            </File>
+            <File>
               <FileName>sys_init.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\src\app\sys_init.c</FilePath>
             </File>
             <File>
-              <FileName>pub.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\app\pub\pub.c</FilePath>
-            </File>
-            <File>
-              <FileName>sys_delay.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\app\sys_delay.c</FilePath>
-            </File>
-            <File>
-              <FileName>sys_led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\app\sys_led.c</FilePath>
-            </File>
-            <File>
-              <FileName>sys_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\app\sys_uart.c</FilePath>
-            </File>
-            <File>
               <FileName>debug_uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\src\app\debug_uart.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>sys</GroupName>
+          <Files>
+            <File>
+              <FileName>pub.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\app\sys\pub\pub.c</FilePath>
+            </File>
+            <File>
+              <FileName>delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\app\sys\delay\delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\app\sys\uart\uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\app\sys\led.c</FilePath>
             </File>
           </Files>
         </Group>

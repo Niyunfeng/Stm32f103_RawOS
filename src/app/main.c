@@ -2,17 +2,11 @@
 #include <stm32f10x.h>
 
 void create_init_task(void);
-
-void bsp_init(void)
-{
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA| RCC_APB2Periph_GPIOB| RCC_APB2Periph_GPIOC
-                         | RCC_APB2Periph_GPIOD| RCC_APB2Periph_GPIOE| RCC_APB2Periph_GPIOF
-                         | RCC_APB2Periph_GPIOG, ENABLE);
-}
+void BSP_Init(void);
 
 int main(void)
 {   
-    bsp_init();
+    BSP_Init();
     
 	raw_os_init();
 	

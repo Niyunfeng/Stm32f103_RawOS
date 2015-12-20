@@ -1,7 +1,7 @@
 #include <raw_api.h>
 #include <debug_uart.h>
 #include "raw_stat.h"
-#include "sys_delay.h"
+//#include "delay.h"
 #include "port.h"
 
 /******************************************************************************/
@@ -41,7 +41,7 @@ static void sys_init_task(void *pdat)
 	// debug_uart 初始化
 	debug_serial_init();
 	
-    delay_init();
+//    delay_init();
     
 	raw_printf("\r\n-------------  raw-os  ----------------\r\n");
 	// 任务初始化

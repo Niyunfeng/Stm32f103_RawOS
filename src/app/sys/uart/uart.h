@@ -1,32 +1,32 @@
-#ifndef _SYS_UART_H_
-#define _SYS_UART_H_
+#ifndef _UART_H_
+#define _UART_H_
 
-#include "stm32f10x.h"
+#include "pub.h"
 #include "raw_api.h"
 #include "fifo.h"
 #include "string.h"
 #include "stdio.h"
-#include "pub.h"
 
-#define Sys_SerialPort       1
+
+#define SerialPort       2
 
 #define SYS_UART_BAUDRATE  115200
 
-#if Sys_SerialPort == 1
+#if SerialPort == 1
 
     #define SYS_UARTX 				USART1
     
     #define SYS_UARTX_IRQ 			USART1_IRQn
     #define SYS_UARTX_IRQ_HANDLER 	USART1_IRQHandler
 
-#elif Sys_SerialPort == 2
+#elif SerialPort == 2
 
     #define SYS_UARTX 				USART2
 
     #define SYS_UARTX_IRQ 			USART2_IRQn
     #define SYS_UARTX_IRQ_HANDLER 	USART2_IRQHandler
 
-#elif Sys_SerialPort == 3
+#elif SerialPort == 3
 
     #define SYS_UARTX 				USART3
 
