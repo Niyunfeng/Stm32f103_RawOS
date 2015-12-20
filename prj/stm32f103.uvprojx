@@ -10,6 +10,7 @@
       <TargetName>stm32f103</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
+      <pCCUsed>5060061::V5.06 update 1 (build 61)::ARMCC</pCCUsed>
       <TargetOption>
         <TargetCommonOption>
           <Device>STM32F103ZE</Device>
@@ -84,6 +85,8 @@
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
+            <nStopA1X>0</nStopA1X>
+            <nStopA2X>0</nStopA2X>
           </AfterMake>
           <SelectedForBatchBuild>0</SelectedForBatchBuild>
           <SVCSIdString></SVCSIdString>
@@ -171,11 +174,11 @@
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
-            <DriverSelection>4099</DriverSelection>
+            <DriverSelection>4096</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
-          <Flash3></Flash3>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -227,6 +230,7 @@
             <useUlib>1</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
+            <nSecure>0</nSecure>
             <RoSelD>3</RoSelD>
             <RwSelD>3</RwSelD>
             <CodeSel>0</CodeSel>
@@ -361,11 +365,15 @@
             <uSurpInc>0</uSurpInc>
             <uC99>1</uC99>
             <useXO>0</useXO>
+            <v6Lang>0</v6Lang>
+            <v6LangP>0</v6LangP>
+            <vShortEn>0</vShortEn>
+            <vShortWch>0</vShortWch>
             <VariousControls>
               <MiscControls>--c99</MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\src\raw-os\kernel\include;..\src\raw-os\port;..\src\raw-os\kernel\extension\include;..\src\stm32f103;..\src\stm32f103\driver\inc;..\src\app;..\src\lib;..\src\cli;..\src\app\sys\delay;..\src\app\sys\pub;..\src\app\sys\uart</IncludePath>
+              <IncludePath>..\src\raw-os\kernel\include;..\src\raw-os\port;..\src\raw-os\kernel\extension\include;..\src\stm32f103;..\src\stm32f103\driver\inc;..\src\app;..\src\lib;..\src\cli;..\src\app\sys\delay;..\src\app\sys\uart;..\src\app\lcd;..\src\app\adc;..\src\app\sys\pub</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -452,6 +460,11 @@
               <FileName>led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\src\app\sys\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\app\adc\adc.c</FilePath>
             </File>
           </Files>
         </Group>

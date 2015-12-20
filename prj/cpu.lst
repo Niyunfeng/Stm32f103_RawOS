@@ -183,12 +183,12 @@ ARM Macro Assembler    Page 3
               E000ED04 
               00000000 
               00000000 
-Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\obj\cp
-u.d -o.\obj\cpu.o -IC:\Users\Administrator\Desktop\STM32F103_RawOS\prj\RTE -ID:
-\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include -ID:\Keil_v5\ARM\PACK\Keil\STM3
-2F1xx_DFP\1.1.0\Device\Include --predefine="__MICROLIB SETA 1" --predefine="_RT
-E_ SETA 1" --predefine="STM32F10X_HD SETA 1" --list=.\cpu.lst ..\src\raw-os\por
-t\cpu.asm
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
+ork --depend=.\obj\cpu.d -o.\obj\cpu.o -IC:\Users\Administrator\Desktop\STM32F1
+03_RawOS\prj\RTE -Id:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include -Id:\Keil_
+v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include --predefine="__MICROLIB SET
+A 1" --predefine="__UVISION_VERSION SETA 517" --predefine="_RTE_ SETA 1" --pred
+efine="STM32F10X_HD SETA 1" --list=.\cpu.lst ..\src\raw-os\port\cpu.asm
 
 
 
@@ -365,4 +365,4 @@ Symbol: raw_task_active
       At line 127 in file ..\src\raw-os\port\cpu.asm
 
 3 symbols
-353 symbols in table
+354 symbols in table

@@ -1,4 +1,5 @@
-#include <stm32f10x.h>
+#include "pub.h"
+#include "uart.h"
 
 static __inline void RCC_Configuration(void)
 {
@@ -25,10 +26,8 @@ static __inline void RCC_Configuration(void)
     	RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);          //配置系统时钟 = PLL时钟 
     	while(RCC_GetSYSCLKSource() != 0x08);               //检查PLL时钟是否作为系统时钟
   	}    
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1 | RCC_APB2Periph_GPIOA 
-                           |RCC_APB2Periph_GPIOB | RCC_APB2Periph_GPIOC
-                           |RCC_APB2Periph_GPIOD | RCC_APB2Periph_GPIOE
-                           |RCC_APB2Periph_GPIOF, ENABLE);
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOB | RCC_APB2Periph_GPIOC 
+                          |RCC_APB2Periph_GPIOD | RCC_APB2Periph_GPIOE | RCC_APB2Periph_GPIOF, ENABLE);
 }
 
 static __inline void NVIC_Configuration(void)
@@ -42,7 +41,10 @@ static __inline void NVIC_Configuration(void)
   		/* Set the Vector Table base location at 0x08000000 */ 
   		NVIC_SetVectorTable(NVIC_VectTab_FLASH, 0x0);   
 	#endif
-	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);    
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);   
+    
+    Pub_Nvic_Config(SYS_UARTX_IRQ, 0, 0);   //串口1中断配置
+    Pub_Nvic_Config(SYS_UARTX_DMA_IRQ,1,0); //串口1发送DMA中断配置
 }
 
 void BSP_Init(void)
@@ -50,4 +52,5 @@ void BSP_Init(void)
     RCC_Configuration();
     NVIC_Configuration();
 }
+
 

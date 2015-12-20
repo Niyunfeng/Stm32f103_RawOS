@@ -119,7 +119,5 @@ void Pub_Gpio_Input_AIN(GPIO_TypeDef* GPIOx,uint16_t Pin);                  //设
 void Pub_Gpio_Input_IPD(GPIO_TypeDef* GPIOx,uint16_t Pin);                  //设置端口为下拉输入口
 void Pub_Gpio_Input_INFLOATING(GPIO_TypeDef* GPIOx,uint16_t Pin);           //设置端口为浮空输入口
 void Pub_Gpio_Input_IPU(GPIO_TypeDef* GPIOx,uint16_t Pin);                  //设置端口为上拉输入口
-void Pub_Uart_Hardware_Cfg(USART_TypeDef* USARTx,uint32_t Bps);             //设置串口的硬件配置脚
-void Pub_Uart_Int_Cfg(USART_TypeDef* USARTx,FunctionalState NewState);      //设置串口的中断配置
 
 #endif

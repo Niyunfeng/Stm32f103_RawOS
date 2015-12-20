@@ -1,6 +1,8 @@
 #include "raw_api.h"
-#include "stm32f10x.h"
 #include "pub.h"
+#include "lcd.h"
+#include "adc.h"
+#include "string.h"
 
 #define KERNEL_TEST_STK_SIZE    256
 static PORT_STACK               kernel_test_task_stk[KERNEL_TEST_STK_SIZE];
@@ -10,12 +12,14 @@ static RAW_TASK_OBJ             kernel_test_task_obj;
 static PORT_STACK               test_task1_stk[TEST_TASK1];
 static RAW_TASK_OBJ             test_task1_obj;
 
-#define TEST_TASK2          64
+#define TEST_TASK2          512
 static PORT_STACK               test_task2_stk[TEST_TASK2];
 static RAW_TASK_OBJ             test_task2_obj;
 
 #define Task1_Msg_Size  64
 //RAW_SEMAPHORE Semaphore1;
+
+extern RAW_U16 AdcVaule[3];
 
 RAW_QUEUE_SIZE  Task1_Q;
 RAW_MSG_SIZE    Task1_Msg[Task1_Msg_Size];
@@ -107,13 +111,31 @@ void task_1(void *pdat)
 
 void task_2(void *pdat)
 {
-    (void)pdat;   
+    (void)pdat;
     
-    RAW_U32 msg_2 = 0x1;
-
+    RAW_U8 str[5] = "12345";
+    RAW_U32 tmp_ad = 0;
+    RAW_U8 i = 0;
+    RAW_U8 tmp = 0;
+    
+    LCD_Init();
+    Init_Adc();
+//    RAW_U32 msg_2 = 0x1;
+    POINT_COLOR=RED;
+    LCD_Clear(BLUE);
+//    LCD_ShowString(32,32,16,16,5,str);
+    LCD_ShowString(64,64,240,32,16,str);
+    tmp = sizeof(str);
+    LCD_ShowxNum(32,360,tmp,4,24,1);
     for(;;)
     {
-        raw_sleep(RAW_TICKS_PER_SECOND>>1);
+        for(i=0;i<=2;i++)
+        {
+            tmp_ad = Adc_Filter(i);
+            LCD_ShowxNum(32,128+i*64,tmp_ad,4,24,0);
+            raw_sleep(5);
+        }
+        raw_sleep(500);
     }    
 }
 
@@ -129,7 +151,7 @@ void sys_kerneltest_init(RAW_U8 prio)
                     KERNEL_TEST_STK_SIZE,
                     kerneltest_task, 
                     1);
-    */
+    
     raw_task_create(&test_task1_obj,
                     (RAW_U8  *)"test_task1",
                     0, 
@@ -138,7 +160,7 @@ void sys_kerneltest_init(RAW_U8 prio)
                     test_task1_stk, 
                     TEST_TASK1,
                     task_1, 
-                    1);    
+                    1);    */
     raw_task_create(&test_task2_obj,
                     (RAW_U8  *)"test_task2",
                     0, 
