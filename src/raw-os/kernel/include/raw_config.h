@@ -183,7 +183,7 @@
 #define RAW_CONFIG_CPU_TIME                                         0
 #define RAW_SCHE_LOCK_MEASURE_CHECK                                 0
 #define RAW_CPU_INT_DIS_MEASURE_CHECK                               0
-#define RAW_CONFIG_CPU_TASK                                         1
+#define RAW_CONFIG_CPU_TASK                                         0
 #define CPU_TASK_PRIORITY                                           (CONFIG_RAW_PRIO_MAX - 2)
 #define CPU_STACK_SIZE                                              256
 

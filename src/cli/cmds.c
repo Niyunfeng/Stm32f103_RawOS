@@ -50,35 +50,11 @@ static int do_stack(struct cmd_tbl_s *cmdtp, int flag, int argc, char * const ar
 	return 0;
 }
 
-//static int do_date(struct cmd_tbl_s *cmdtp, int flag, int argc, char * const argv[])
-//{
-//	if(1 != argc)
-//	{
-//		return -1;
-//	}
-//	
-//	char *w[] = {"日", "一", "二", "三", "四", "五", "六"};
-//	
-//	raw_printf("%4d年 %02d月 %02d日 星期%s %2d:%02d:%02d\n",
-//		2014, 10, 1, w[3], 0, 0, 0);
-//	
-//	return 0;
-//}
-
 static int do_version(struct cmd_tbl_s *cmdtp, int flag, int argc, char * const argv[])
 {
     raw_printf("version: %d \t build_time: %s \n",RAW_OS_VERSION,RAW_OS_BUILD_TIME);
     return 0;
 }
-
-static int do_state(struct cmd_tbl_s *cmdtp, int flag, int argc, char * const argv[])
-{
-    RAW_U8 temp_usuage          = cpu_usuage/100;
-    RAW_U8 temp_usuage_tmp      = cpu_usuage_max/100;
-    raw_printf("cpu_usuage: %d% \t temp_usuage_tmp: %d% \r\n",temp_usuage,temp_usuage_tmp);
-    return 0;
-}
-
 
 /******************************************************************************/
 
@@ -110,13 +86,6 @@ static cmd_tbl_t __cmd_list[] =
 		"\n"
 		"    - print all task stack status\n"
 	),
-//	U_BOOT_CMD_MKENT
-//	(
-//		date, 1, 0,  do_date,
-//		"print date and time",
-//		"\n"
-//		"    - print date and time\n"
-//	),
 	U_BOOT_CMD_MKENT
 	(
 		version, 1, 0,  do_version,
@@ -124,14 +93,6 @@ static cmd_tbl_t __cmd_list[] =
 		"\n"
 		"    - print raw_os_version and raw_os_build_time\n"
 	), 
-	U_BOOT_CMD_MKENT
-	(
-		state, 1, 1,  do_state,
-		"print rawos_cpu_usuage and rawos_cpu_usuage_max",
-		"\n"
-		"    - print rawos_cpu_usuage and rawos_cpu_usuage_max\n"
-	),    
-    
 
 };
 
