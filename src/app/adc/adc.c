@@ -82,7 +82,7 @@ static void AdcChannelSelect(void)
 ** 函数名称: Adc_Filter(void)
 ** 功能描述: ADC软件滤波
 ------------------------------------------------------------*/
-uint16_t Adc_Filter(uint8_t Ch)
+uint16_t ADC_Filter(uint8_t ch)
 {
 	#define N 	ADC_CHK_CNT
 		
@@ -100,11 +100,11 @@ uint16_t Adc_Filter(uint8_t Ch)
 	{
 		for (i=0;i<N-j;i++)
 		{
-			if ( PubTmpAdc[i][Ch] > PubTmpAdc[i+1][Ch])
+			if ( PubTmpAdc[i][ch] > PubTmpAdc[i+1][ch])
 			{
-				ValueTemp 			= 	PubTmpAdc[i][Ch];
-				PubTmpAdc[i][Ch]	= 	PubTmpAdc[i+1][Ch]; 
-				PubTmpAdc[i+1][Ch] 	= 	ValueTemp;
+				ValueTemp 			= 	PubTmpAdc[i][ch];
+				PubTmpAdc[i][ch]	= 	PubTmpAdc[i+1][ch]; 
+				PubTmpAdc[i+1][ch] 	= 	ValueTemp;
 			}
 		}
 	}
@@ -115,7 +115,7 @@ uint16_t Adc_Filter(uint8_t Ch)
 //    avr[Ch] = sum[Ch]/k;
 //    
 //    return avr[Ch];
-	return (PubTmpAdc[(N-1)>>1][Ch]);
+	return (PubTmpAdc[(N-1)>>1][ch]);
 }
 
 void ADC_InitConfiguration(void)

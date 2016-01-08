@@ -3,7 +3,7 @@
 #include "cli.h"
 #include "cli_simple.h"
 
-#include "raw_api.h"
+//#include "raw_api.h"
 
 /*
  * Run a command using the selected parser.

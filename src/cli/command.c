@@ -4,7 +4,7 @@
 #include "cli.h"
 #include "cli_readline.h"
 
-#include "raw_api.h"
+//#include "raw_api.h"
 
 #define isblank(c)	(c == ' ' || c == '\t')
 #if 0

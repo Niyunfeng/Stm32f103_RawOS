@@ -43,8 +43,8 @@ static __inline void NVIC_Configuration(void)
 	#endif
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);   
     
-    Pub_Nvic_Config(SYS_UARTX_IRQ, 0, 0);   //串口1中断配置
-    Pub_Nvic_Config(SYS_UARTX_DMA_IRQ,1,0); //串口1发送DMA中断配置
+    Pub_Nvic_Config(UARTX_IRQ, 0, 0);   //串口1中断配置
+    Pub_Nvic_Config(UARTX_DMA_IRQ,1,0); //串口1发送DMA中断配置
 }
 
 void BSP_Init(void)

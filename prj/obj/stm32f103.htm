@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\obj\stm32f103.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\obj\stm32f103.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Sat Dec 26 22:55:21 2015
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Fri Jan 08 20:20:03 2016
 <BR><P>
 <H3>Maximum Stack Usage =        460 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -12,8 +12,8 @@ debug_shell_task &rArr; cli_loop &rArr; cli_simple_loop &rArr; cli_readline &rAr
 <H3>
 Functions with no stack information
 </H3><UL>
- <LI><a href="#[ab]">OS_CPU_SR_Save</a>
- <LI><a href="#[ad]">OS_CPU_SR_Restore</a>
+ <LI><a href="#[aa]">OS_CPU_SR_Save</a>
+ <LI><a href="#[ac]">OS_CPU_SR_Restore</a>
  <LI><a href="#[13c]">CPU_IntDis</a>
  <LI><a href="#[13d]">CPU_IntEn</a>
  <LI><a href="#[10c]">raw_start_first_task</a>
@@ -25,14 +25,16 @@ Functions with no stack information
 <P>
 <H3>
 Mutually Recursive functions
-</H3> <LI><a href="#[3]">MemManage_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[3]">MemManage_Handler</a><BR>
+</H3> <LI><a href="#[1]">NMI_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[1]">NMI_Handler</a><BR>
+ <LI><a href="#[2]">HardFault_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[2]">HardFault_Handler</a><BR>
+ <LI><a href="#[3]">MemManage_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[3]">MemManage_Handler</a><BR>
  <LI><a href="#[4]">BusFault_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[4]">BusFault_Handler</a><BR>
  <LI><a href="#[5]">UsageFault_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[5]">UsageFault_Handler</a><BR>
  <LI><a href="#[6]">SVC_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[6]">SVC_Handler</a><BR>
  <LI><a href="#[7]">DebugMon_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[7]">DebugMon_Handler</a><BR>
  <LI><a href="#[1c]">ADC1_2_IRQHandler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[1c]">ADC1_2_IRQHandler</a><BR>
- <LI><a href="#[b3]">mtx_chg_pri</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[b0]">change_internal_task_priority</a><BR>
- <LI><a href="#[f6]">release_mutex</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[b0]">change_internal_task_priority</a><BR>
+ <LI><a href="#[b2]">mtx_chg_pri</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[af]">change_internal_task_priority</a><BR>
+ <LI><a href="#[f6]">release_mutex</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[af]">change_internal_task_priority</a><BR>
 </UL>
 <P>
 <H3>
@@ -46,10 +48,10 @@ Function Pointers
  <LI><a href="#[15]">DMA1_Channel1_IRQHandler</a> from startup_stm32f10x_hd.o(.text) referenced from startup_stm32f10x_hd.o(RESET)
  <LI><a href="#[16]">DMA1_Channel2_IRQHandler</a> from startup_stm32f10x_hd.o(.text) referenced from startup_stm32f10x_hd.o(RESET)
  <LI><a href="#[17]">DMA1_Channel3_IRQHandler</a> from startup_stm32f10x_hd.o(.text) referenced from startup_stm32f10x_hd.o(RESET)
- <LI><a href="#[18]">DMA1_Channel4_IRQHandler</a> from startup_stm32f10x_hd.o(.text) referenced from startup_stm32f10x_hd.o(RESET)
+ <LI><a href="#[18]">DMA1_Channel4_IRQHandler</a> from uart.o(i.DMA1_Channel4_IRQHandler) referenced from startup_stm32f10x_hd.o(RESET)
  <LI><a href="#[19]">DMA1_Channel5_IRQHandler</a> from startup_stm32f10x_hd.o(.text) referenced from startup_stm32f10x_hd.o(RESET)
  <LI><a href="#[1a]">DMA1_Channel6_IRQHandler</a> from startup_stm32f10x_hd.o(.text) referenced from startup_stm32f10x_hd.o(RESET)
- <LI><a href="#[1b]">DMA1_Channel7_IRQHandler</a> from uart.o(i.DMA1_Channel7_IRQHandler) referenced from startup_stm32f10x_hd.o(RESET)
+ <LI><a href="#[1b]">DMA1_Channel7_IRQHandler</a> from startup_stm32f10x_hd.o(.text) referenced from startup_stm32f10x_hd.o(RESET)
  <LI><a href="#[42]">DMA2_Channel1_IRQHandler</a> from startup_stm32f10x_hd.o(.text) referenced from startup_stm32f10x_hd.o(RESET)
  <LI><a href="#[43]">DMA2_Channel2_IRQHandler</a> from startup_stm32f10x_hd.o(.text) referenced from startup_stm32f10x_hd.o(RESET)
  <LI><a href="#[44]">DMA2_Channel3_IRQHandler</a> from startup_stm32f10x_hd.o(.text) referenced from startup_stm32f10x_hd.o(RESET)
@@ -64,13 +66,13 @@ Function Pointers
  <LI><a href="#[21]">EXTI9_5_IRQHandler</a> from startup_stm32f10x_hd.o(.text) referenced from startup_stm32f10x_hd.o(RESET)
  <LI><a href="#[e]">FLASH_IRQHandler</a> from startup_stm32f10x_hd.o(.text) referenced from startup_stm32f10x_hd.o(RESET)
  <LI><a href="#[3a]">FSMC_IRQHandler</a> from startup_stm32f10x_hd.o(.text) referenced from startup_stm32f10x_hd.o(RESET)
- <LI><a href="#[2]">HardFault_Handler</a> from stm32f10x_it.o(i.HardFault_Handler) referenced from startup_stm32f10x_hd.o(RESET)
+ <LI><a href="#[2]">HardFault_Handler</a> from startup_stm32f10x_hd.o(.text) referenced from startup_stm32f10x_hd.o(RESET)
  <LI><a href="#[2a]">I2C1_ER_IRQHandler</a> from startup_stm32f10x_hd.o(.text) referenced from startup_stm32f10x_hd.o(RESET)
  <LI><a href="#[29]">I2C1_EV_IRQHandler</a> from startup_stm32f10x_hd.o(.text) referenced from startup_stm32f10x_hd.o(RESET)
  <LI><a href="#[2c]">I2C2_ER_IRQHandler</a> from startup_stm32f10x_hd.o(.text) referenced from startup_stm32f10x_hd.o(RESET)
  <LI><a href="#[2b]">I2C2_EV_IRQHandler</a> from startup_stm32f10x_hd.o(.text) referenced from startup_stm32f10x_hd.o(RESET)
  <LI><a href="#[3]">MemManage_Handler</a> from startup_stm32f10x_hd.o(.text) referenced from startup_stm32f10x_hd.o(RESET)
- <LI><a href="#[1]">NMI_Handler</a> from stm32f10x_it.o(i.NMI_Handler) referenced from startup_stm32f10x_hd.o(RESET)
+ <LI><a href="#[1]">NMI_Handler</a> from startup_stm32f10x_hd.o(.text) referenced from startup_stm32f10x_hd.o(RESET)
  <LI><a href="#[b]">PVD_IRQHandler</a> from startup_stm32f10x_hd.o(.text) referenced from startup_stm32f10x_hd.o(RESET)
  <LI><a href="#[8]">PendSV_Handler</a> from cpu.o(.text) referenced from startup_stm32f10x_hd.o(RESET)
  <LI><a href="#[f]">RCC_IRQHandler</a> from startup_stm32f10x_hd.o(.text) referenced from startup_stm32f10x_hd.o(RESET)
@@ -101,8 +103,8 @@ Function Pointers
  <LI><a href="#[36]">TIM8_UP_IRQHandler</a> from startup_stm32f10x_hd.o(.text) referenced from startup_stm32f10x_hd.o(RESET)
  <LI><a href="#[3e]">UART4_IRQHandler</a> from startup_stm32f10x_hd.o(.text) referenced from startup_stm32f10x_hd.o(RESET)
  <LI><a href="#[3f]">UART5_IRQHandler</a> from startup_stm32f10x_hd.o(.text) referenced from startup_stm32f10x_hd.o(RESET)
- <LI><a href="#[2f]">USART1_IRQHandler</a> from debug_uart.o(i.USART1_IRQHandler) referenced from startup_stm32f10x_hd.o(RESET)
- <LI><a href="#[30]">USART2_IRQHandler</a> from uart.o(i.USART2_IRQHandler) referenced from startup_stm32f10x_hd.o(RESET)
+ <LI><a href="#[2f]">USART1_IRQHandler</a> from uart.o(i.USART1_IRQHandler) referenced from startup_stm32f10x_hd.o(RESET)
+ <LI><a href="#[30]">USART2_IRQHandler</a> from debug_uart.o(i.USART2_IRQHandler) referenced from startup_stm32f10x_hd.o(RESET)
  <LI><a href="#[31]">USART3_IRQHandler</a> from startup_stm32f10x_hd.o(.text) referenced from startup_stm32f10x_hd.o(RESET)
  <LI><a href="#[34]">USBWakeUp_IRQHandler</a> from startup_stm32f10x_hd.o(.text) referenced from startup_stm32f10x_hd.o(RESET)
  <LI><a href="#[1d]">USB_HP_CAN1_TX_IRQHandler</a> from startup_stm32f10x_hd.o(.text) referenced from startup_stm32f10x_hd.o(RESET)
@@ -114,7 +116,7 @@ Function Pointers
  <LI><a href="#[54]">cli_putc</a> from cli_port.o(i.cli_putc) referenced from cli_port.o(.data)
  <LI><a href="#[56]">cli_putnstr</a> from cli_port.o(i.cli_putnstr) referenced from cli_port.o(.data)
  <LI><a href="#[55]">cli_puts</a> from cli_port.o(i.cli_puts) referenced from cli_port.o(.data)
- <LI><a href="#[49]">debug_fifo_read</a> from debug_uart.o(i.debug_fifo_read) referenced from debug_uart.o(i.USART1_IRQHandler)
+ <LI><a href="#[49]">debug_fifo_read</a> from debug_uart.o(i.debug_fifo_read) referenced from debug_uart.o(i.USART2_IRQHandler)
  <LI><a href="#[4d]">debug_shell_task</a> from debug_uart.o(i.debug_shell_task) referenced from debug_uart.o(i.shell_init)
  <LI><a href="#[59]">do_help</a> from cmds.o(i.do_help) referenced from cmds.o(.data)
  <LI><a href="#[5a]">do_reboot</a> from cmds.o(i.do_reboot) referenced from cmds.o(.data)
@@ -159,7 +161,98 @@ Global Symbols
 
 <P><STRONG><a name="[13b]"></a>__rt_final_exit</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry11a.o(.ARM.Collect$$$$0000000F))
 
+<P><STRONG><a name="[aa]"></a>OS_CPU_SR_Save</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, cpu.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_block_release
+<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_block_allocate
+<LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_semaphore_get
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sleep
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_fifo_init
+<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_queue_size_get_information
+<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_mutex_put
+<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_mutex_get
+<LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_finish_int
+<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_enter_interrupt
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_write
+<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_cahce_empty
+<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_fifo_init
+<LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_create
+<LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;semaphore_put
+<LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_semaphore_set
+<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calculate_time_slice
+<LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_queue_size_receive
+<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;msg_size_post
+<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;port_system_error_process
+<LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_idle_task
+<LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sched
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;block_state_post_process
+<LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_task
+<LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tick_list_update
+<LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;task_suspend
+<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;task_resume
+</UL>
+
+<P><STRONG><a name="[ac]"></a>OS_CPU_SR_Restore</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, cpu.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_block_release
+<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_block_allocate
+<LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_semaphore_get
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sleep
+<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_queue_size_get_information
+<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_mutex_put
+<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_mutex_get
+<LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_finish_int
+<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_enter_interrupt
+<LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_create
+<LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;semaphore_put
+<LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_semaphore_set
+<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calculate_time_slice
+<LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_queue_size_receive
+<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;msg_size_post
+<LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_idle_task
+<LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sched
+<LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tick_list_update
+<LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;task_suspend
+<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;task_resume
+</UL>
+
+<P><STRONG><a name="[13c]"></a>CPU_IntDis</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, cpu.o(.text), UNUSED)
+
+<P><STRONG><a name="[13d]"></a>CPU_IntEn</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, cpu.o(.text), UNUSED)
+
+<P><STRONG><a name="[10c]"></a>raw_start_first_task</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, cpu.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_os_start
+</UL>
+
+<P><STRONG><a name="[112]"></a>port_task_switch</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, cpu.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sched
+</UL>
+
+<P><STRONG><a name="[102]"></a>raw_int_switch</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, cpu.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_finish_int
+</UL>
+
+<P><STRONG><a name="[8]"></a>PendSV_Handler</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, cpu.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 64 + Unknown Stack Size
+<LI>Call Chain = PendSV_Handler &rArr; raw_stack_check &rArr; port_system_error_process
+</UL>
+<BR>[Calls]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_stack_check
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
+</UL>
 <P><STRONG><a name="[0]"></a>Reset_Handler</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, startup_stm32f10x_hd.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
+</UL>
+<P><STRONG><a name="[1]"></a>NMI_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, startup_stm32f10x_hd.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMI_Handler
+</UL>
+<BR>[Called By]<UL><LI><a href="#[1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMI_Handler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
+</UL>
+<P><STRONG><a name="[2]"></a>HardFault_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, startup_stm32f10x_hd.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HardFault_Handler
+</UL>
+<BR>[Called By]<UL><LI><a href="#[2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HardFault_Handler
+</UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
 </UL>
 <P><STRONG><a name="[3]"></a>MemManage_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, startup_stm32f10x_hd.o(.text))
@@ -222,13 +315,13 @@ Global Symbols
 <P><STRONG><a name="[17]"></a>DMA1_Channel3_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_stm32f10x_hd.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
 </UL>
-<P><STRONG><a name="[18]"></a>DMA1_Channel4_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_stm32f10x_hd.o(.text))
-<BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
-</UL>
 <P><STRONG><a name="[19]"></a>DMA1_Channel5_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_stm32f10x_hd.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
 </UL>
 <P><STRONG><a name="[1a]"></a>DMA1_Channel6_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_stm32f10x_hd.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
+</UL>
+<P><STRONG><a name="[1b]"></a>DMA1_Channel7_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_stm32f10x_hd.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
 </UL>
 <P><STRONG><a name="[42]"></a>DMA2_Channel1_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_stm32f10x_hd.o(.text))
@@ -372,142 +465,65 @@ Global Symbols
 <P><STRONG><a name="[a]"></a>WWDG_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_stm32f10x_hd.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
 </UL>
-<P><STRONG><a name="[ab]"></a>OS_CPU_SR_Save</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, cpu.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_semaphore_get
-<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sleep
-<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_fifo_init
-<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_queue_size_get_information
-<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_mutex_put
-<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_mutex_get
-<LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_finish_int
-<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_enter_interrupt
-<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_write
-<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_cahce_empty
-<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_fifo_init
-<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_create
-<LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;task_suspend
-<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;task_resume
-<LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;semaphore_put
-<LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_semaphore_set
-<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calculate_time_slice
-<LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_queue_size_receive
-<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;msg_size_post
-<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;port_system_error_process
-<LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_idle_task
-<LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sched
-<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;block_state_post_process
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_block_release
-<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_block_allocate
-<LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_task
-<LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tick_list_update
-</UL>
-
-<P><STRONG><a name="[ad]"></a>OS_CPU_SR_Restore</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, cpu.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_semaphore_get
-<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sleep
-<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_queue_size_get_information
-<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_mutex_put
-<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_mutex_get
-<LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_finish_int
-<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_enter_interrupt
-<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_create
-<LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;task_suspend
-<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;task_resume
-<LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;semaphore_put
-<LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_semaphore_set
-<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calculate_time_slice
-<LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_queue_size_receive
-<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;msg_size_post
-<LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_idle_task
-<LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sched
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_block_release
-<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_block_allocate
-<LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tick_list_update
-</UL>
-
-<P><STRONG><a name="[13c]"></a>CPU_IntDis</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, cpu.o(.text), UNUSED)
-
-<P><STRONG><a name="[13d]"></a>CPU_IntEn</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, cpu.o(.text), UNUSED)
-
-<P><STRONG><a name="[10c]"></a>raw_start_first_task</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, cpu.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_os_start
-</UL>
-
-<P><STRONG><a name="[112]"></a>port_task_switch</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, cpu.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sched
-</UL>
-
-<P><STRONG><a name="[102]"></a>raw_int_switch</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, cpu.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_finish_int
-</UL>
-
-<P><STRONG><a name="[8]"></a>PendSV_Handler</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, cpu.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 64 + Unknown Stack Size
-<LI>Call Chain = PendSV_Handler &rArr; raw_stack_check &rArr; port_system_error_process
-</UL>
-<BR>[Calls]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_stack_check
-</UL>
-<BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
-</UL>
 <P><STRONG><a name="[13e]"></a>___aeabi_memcpy4$move</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, memmovea.o(.text), UNUSED)
 
 <P><STRONG><a name="[13f]"></a>___aeabi_memcpy8$move</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, memmovea.o(.text), UNUSED)
 
 <P><STRONG><a name="[140]"></a>__aeabi_memcpy</STRONG> (Thumb, 64 bytes, Stack size 8 bytes, memmovea.o(.text), UNUSED)
 
-<P><STRONG><a name="[d4]"></a>__aeabi_memmove</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, memmovea.o(.text))
+<P><STRONG><a name="[d3]"></a>__aeabi_memmove</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, memmovea.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __aeabi_memmove
 </UL>
-<BR>[Called By]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_line
-<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_add_char
+<BR>[Called By]<UL><LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_line
+<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_add_char
 </UL>
 
 <P><STRONG><a name="[141]"></a>__aeabi_memmove4</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, memmovea.o(.text), UNUSED)
 
 <P><STRONG><a name="[142]"></a>__aeabi_memmove8</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, memmovea.o(.text), UNUSED)
 
-<P><STRONG><a name="[d1]"></a>strchr</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, strchr.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_cmd_tbl
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;complete_cmdv
+<P><STRONG><a name="[d0]"></a>strchr</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, strchr.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_cmd_tbl
+<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;complete_cmdv
 </UL>
 
-<P><STRONG><a name="[b9]"></a>strlen</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, strlen.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_cmd_tbl
-<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_argv
-<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_common_prefix
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;complete_cmdv
-<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process_macros
-<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_auto_complete
-<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_line
-<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_puts
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_simple_run_command
+<P><STRONG><a name="[b8]"></a>strlen</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, strlen.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_puts
+<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_simple_run_command
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_cmd_tbl
+<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_argv
+<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_common_prefix
+<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;complete_cmdv
+<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process_macros
+<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_auto_complete
+<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_line
 </UL>
 
-<P><STRONG><a name="[9f]"></a>strcmp</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, strcmp.o(.text))
+<P><STRONG><a name="[9e]"></a>strcmp</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, strcmp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = strcmp
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_do_help
-<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_auto_complete
+<BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_do_help
+<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_auto_complete
 </UL>
 
-<P><STRONG><a name="[d2]"></a>memcmp</STRONG> (Thumb, 26 bytes, Stack size 12 bytes, memcmp.o(.text))
+<P><STRONG><a name="[d1]"></a>memcmp</STRONG> (Thumb, 26 bytes, Stack size 12 bytes, memcmp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = memcmp
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;complete_cmdv
+<BR>[Called By]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;complete_cmdv
 </UL>
 
-<P><STRONG><a name="[bf]"></a>strcpy</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, strcpy.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_auto_complete
-<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_line
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_add_to_hist
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_simple_run_command
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_simple_loop
+<P><STRONG><a name="[be]"></a>strcpy</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, strcpy.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_simple_run_command
+<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_simple_loop
+<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_auto_complete
+<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_line
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_add_to_hist
 </UL>
 
 <P><STRONG><a name="[ee]"></a>strncmp</STRONG> (Thumb, 30 bytes, Stack size 12 bytes, strncmp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = strncmp
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_cmd_tbl
+<BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_cmd_tbl
 </UL>
 
 <P><STRONG><a name="[5e]"></a>__scatterload</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, init.o(.text))
@@ -529,9 +545,9 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[1b]"></a>DMA1_Channel7_IRQHandler</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, uart.o(i.DMA1_Channel7_IRQHandler))
+<P><STRONG><a name="[18]"></a>DMA1_Channel4_IRQHandler</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, uart.o(i.DMA1_Channel4_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72 + Unknown Stack Size
-<LI>Call Chain = DMA1_Channel7_IRQHandler &rArr; raw_enter_interrupt &rArr; port_system_error_process
+<LI>Call Chain = DMA1_Channel4_IRQHandler &rArr; raw_enter_interrupt &rArr; port_system_error_process
 </UL>
 <BR>[Calls]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_GetITStatus
 <LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_Cmd
@@ -544,37 +560,37 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
 </UL>
 <P><STRONG><a name="[69]"></a>DMA_ClearFlag</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f10x_dma.o(i.DMA_ClearFlag))
-<BR><BR>[Called By]<UL><LI><a href="#[1b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA1_Channel7_IRQHandler
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_DMA_Configuration
+<BR><BR>[Called By]<UL><LI><a href="#[18]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA1_Channel4_IRQHandler
+<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_DMA_Configuration
 </UL>
 
 <P><STRONG><a name="[6a]"></a>DMA_Cmd</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f10x_dma.o(i.DMA_Cmd))
-<BR><BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USARTx_SendBuf
-<LI><a href="#[30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_IRQHandler
-<LI><a href="#[1b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA1_Channel7_IRQHandler
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_DMA_Configuration
+<BR><BR>[Called By]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USARTx_SendBuf
+<LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_IRQHandler
+<LI><a href="#[18]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA1_Channel4_IRQHandler
+<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_DMA_Configuration
 </UL>
 
-<P><STRONG><a name="[91]"></a>DMA_DeInit</STRONG> (Thumb, 324 bytes, Stack size 0 bytes, stm32f10x_dma.o(i.DMA_DeInit))
-<BR><BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_DMA_Configuration
+<P><STRONG><a name="[8d]"></a>DMA_DeInit</STRONG> (Thumb, 324 bytes, Stack size 0 bytes, stm32f10x_dma.o(i.DMA_DeInit))
+<BR><BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_DMA_Configuration
 </UL>
 
-<P><STRONG><a name="[94]"></a>DMA_GetCurrDataCounter</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, stm32f10x_dma.o(i.DMA_GetCurrDataCounter))
-<BR><BR>[Called By]<UL><LI><a href="#[30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_IRQHandler
+<P><STRONG><a name="[91]"></a>DMA_GetCurrDataCounter</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, stm32f10x_dma.o(i.DMA_GetCurrDataCounter))
+<BR><BR>[Called By]<UL><LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_IRQHandler
 </UL>
 
 <P><STRONG><a name="[68]"></a>DMA_GetITStatus</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, stm32f10x_dma.o(i.DMA_GetITStatus))
-<BR><BR>[Called By]<UL><LI><a href="#[1b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA1_Channel7_IRQHandler
+<BR><BR>[Called By]<UL><LI><a href="#[18]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA1_Channel4_IRQHandler
 </UL>
 
-<P><STRONG><a name="[93]"></a>DMA_ITConfig</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f10x_dma.o(i.DMA_ITConfig))
-<BR><BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_DMA_Configuration
+<P><STRONG><a name="[8f]"></a>DMA_ITConfig</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f10x_dma.o(i.DMA_ITConfig))
+<BR><BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_DMA_Configuration
 </UL>
 
-<P><STRONG><a name="[92]"></a>DMA_Init</STRONG> (Thumb, 60 bytes, Stack size 8 bytes, stm32f10x_dma.o(i.DMA_Init))
+<P><STRONG><a name="[8e]"></a>DMA_Init</STRONG> (Thumb, 60 bytes, Stack size 8 bytes, stm32f10x_dma.o(i.DMA_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = DMA_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_DMA_Configuration
+<BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_DMA_Configuration
 </UL>
 
 <P><STRONG><a name="[7b]"></a>FLASH_PrefetchBufferCmd</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, stm32f10x_flash.o(i.FLASH_PrefetchBufferCmd))
@@ -589,21 +605,15 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = GPIO_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_len_init
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_Config
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_Config
 <LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pub_Gpio_Output_AFPP
 <LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pub_Gpio_Input_INFLOATING
 </UL>
 
-<P><STRONG><a name="[2]"></a>HardFault_Handler</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f10x_it.o(i.HardFault_Handler))
-<BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
-</UL>
-<P><STRONG><a name="[1]"></a>NMI_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f10x_it.o(i.NMI_Handler))
-<BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
-</UL>
 <P><STRONG><a name="[70]"></a>NVIC_Init</STRONG> (Thumb, 100 bytes, Stack size 16 bytes, misc.o(i.NVIC_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = NVIC_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_Config
+<BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_Config
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pub_Nvic_Config
 </UL>
 
@@ -620,7 +630,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_usart1_init
+<BR>[Called By]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_usart2_init
 </UL>
 
 <P><STRONG><a name="[6f]"></a>Pub_Gpio_Output_AFPP</STRONG> (Thumb, 32 bytes, Stack size 16 bytes, pub.o(i.Pub_Gpio_Output_AFPP))
@@ -628,7 +638,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_usart1_init
+<BR>[Called By]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_usart2_init
 </UL>
 
 <P><STRONG><a name="[65]"></a>Pub_Nvic_Config</STRONG> (Thumb, 34 bytes, Stack size 24 bytes, pub.o(i.Pub_Nvic_Config))
@@ -636,7 +646,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_usart1_init
+<BR>[Called By]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_usart2_init
 <LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_Init
 </UL>
 
@@ -646,7 +656,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Init
 <LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ClockInit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_usart1_init
+<BR>[Called By]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_usart2_init
 </UL>
 
 <P><STRONG><a name="[74]"></a>Pub_Uart_Int_Cfg</STRONG> (Thumb, 36 bytes, Stack size 16 bytes, pub.o(i.Pub_Uart_Int_Cfg))
@@ -656,36 +666,36 @@ Global Symbols
 <LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Cmd
 <LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ClearFlag
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_usart1_init
+<BR>[Called By]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_usart2_init
 </UL>
 
-<P><STRONG><a name="[90]"></a>RCC_AHBPeriphClockCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_AHBPeriphClockCmd))
-<BR><BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_DMA_Configuration
+<P><STRONG><a name="[8c]"></a>RCC_AHBPeriphClockCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_AHBPeriphClockCmd))
+<BR><BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_DMA_Configuration
 </UL>
 
-<P><STRONG><a name="[8c]"></a>RCC_APB1PeriphClockCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_APB1PeriphClockCmd))
-<BR><BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_Config
+<P><STRONG><a name="[ea]"></a>RCC_APB1PeriphClockCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_APB1PeriphClockCmd))
+<BR><BR>[Called By]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_usart2_init
 </UL>
 
-<P><STRONG><a name="[9a]"></a>RCC_APB1PeriphResetCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_APB1PeriphResetCmd))
-<BR><BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_DeInit
+<P><STRONG><a name="[99]"></a>RCC_APB1PeriphResetCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_APB1PeriphResetCmd))
+<BR><BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_DeInit
 </UL>
 
 <P><STRONG><a name="[85]"></a>RCC_APB2PeriphClockCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_APB2PeriphClockCmd))
-<BR><BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_Config
-<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_usart1_init
+<BR><BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_Config
+<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_usart2_init
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_Configuration
 </UL>
 
-<P><STRONG><a name="[99]"></a>RCC_APB2PeriphResetCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_APB2PeriphResetCmd))
-<BR><BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_DeInit
+<P><STRONG><a name="[98]"></a>RCC_APB2PeriphResetCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_APB2PeriphResetCmd))
+<BR><BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_DeInit
 </UL>
 
 <P><STRONG><a name="[78]"></a>RCC_DeInit</STRONG> (Thumb, 64 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_DeInit))
 <BR><BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_Configuration
 </UL>
 
-<P><STRONG><a name="[9b]"></a>RCC_GetClocksFreq</STRONG> (Thumb, 192 bytes, Stack size 12 bytes, stm32f10x_rcc.o(i.RCC_GetClocksFreq))
+<P><STRONG><a name="[9a]"></a>RCC_GetClocksFreq</STRONG> (Thumb, 192 bytes, Stack size 12 bytes, stm32f10x_rcc.o(i.RCC_GetClocksFreq))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = RCC_GetClocksFreq
 </UL>
 <BR>[Called By]<UL><LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Init
@@ -755,37 +765,37 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(.text)
 </UL>
-<P><STRONG><a name="[2f]"></a>USART1_IRQHandler</STRONG> (Thumb, 94 bytes, Stack size 8 bytes, debug_uart.o(i.USART1_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 196 + Unknown Stack Size
-<LI>Call Chain = USART1_IRQHandler &rArr; serial_fifo_int_recv &rArr; serial_append &rArr; raw_queue_size_end_post &rArr; msg_size_post &rArr; wake_send_msg_size &rArr; pend_task_wake_up &rArr; add_ready_list &rArr; add_ready_list_head &rArr; bit_set
-</UL>
-<BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_fifo_int_recv
-<LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_finish_int
-<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_enter_interrupt
-<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_GetITStatus
-</UL>
-<BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
-</UL>
-<P><STRONG><a name="[30]"></a>USART2_IRQHandler</STRONG> (Thumb, 126 bytes, Stack size 16 bytes, uart.o(i.USART2_IRQHandler))
+<P><STRONG><a name="[2f]"></a>USART1_IRQHandler</STRONG> (Thumb, 126 bytes, Stack size 16 bytes, uart.o(i.USART1_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 124 + Unknown Stack Size
-<LI>Call Chain = USART2_IRQHandler &rArr; raw_semaphore_put &rArr; semaphore_put &rArr; raw_wake_object &rArr; pend_task_wake_up &rArr; add_ready_list &rArr; add_ready_list_head &rArr; bit_set
+<LI>Call Chain = USART1_IRQHandler &rArr; raw_semaphore_put &rArr; semaphore_put &rArr; raw_wake_object &rArr; pend_task_wake_up &rArr; add_ready_list &rArr; add_ready_list_head &rArr; bit_set
 </UL>
-<BR>[Calls]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_semaphore_put
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ReceiveData
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_GetFlagStatus
-<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_GetCurrDataCounter
+<BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_semaphore_put
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ReceiveData
+<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_GetFlagStatus
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_GetCurrDataCounter
 <LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_Cmd
 <LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_EnableIRQ
 <LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_DisableIRQ
 <LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ClearFlag
 <LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_finish_int
 <LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_enter_interrupt
-<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_GetITStatus
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_GetITStatus
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
+</UL>
+<P><STRONG><a name="[30]"></a>USART2_IRQHandler</STRONG> (Thumb, 94 bytes, Stack size 8 bytes, debug_uart.o(i.USART2_IRQHandler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 196 + Unknown Stack Size
+<LI>Call Chain = USART2_IRQHandler &rArr; serial_fifo_int_recv &rArr; serial_append &rArr; raw_queue_size_end_post &rArr; msg_size_post &rArr; wake_send_msg_size &rArr; pend_task_wake_up &rArr; add_ready_list &rArr; add_ready_list_head &rArr; bit_set
+</UL>
+<BR>[Calls]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_fifo_int_recv
+<LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_finish_int
+<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_enter_interrupt
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_GetITStatus
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
 </UL>
 <P><STRONG><a name="[77]"></a>USART_ClearFlag</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f10x_usart.o(i.USART_ClearFlag))
-<BR><BR>[Called By]<UL><LI><a href="#[30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_IRQHandler
+<BR><BR>[Called By]<UL><LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_IRQHandler
 <LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pub_Uart_Int_Cfg
 </UL>
 
@@ -796,76 +806,85 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[76]"></a>USART_Cmd</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f10x_usart.o(i.USART_Cmd))
-<BR><BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_Config
+<BR><BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_Config
 <LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pub_Uart_Int_Cfg
 </UL>
 
-<P><STRONG><a name="[8e]"></a>USART_DMACmd</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f10x_usart.o(i.USART_DMACmd))
-<BR><BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USARTx_SendBuf
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_Config
+<P><STRONG><a name="[96]"></a>USART_Configuration</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, uart.o(i.USART_Configuration))
+<BR><BR>[Stack]<UL><LI>Max Depth = 108<LI>Call Chain = USART_Configuration &rArr; USART1_Config &rArr; USART_Init &rArr; RCC_GetClocksFreq
+</UL>
+<BR>[Calls]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_DMA_Configuration
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_Config
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_DeInit
+</UL>
+<BR>[Called By]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_uart_task
 </UL>
 
-<P><STRONG><a name="[8d]"></a>USART_DeInit</STRONG> (Thumb, 134 bytes, Stack size 8 bytes, stm32f10x_usart.o(i.USART_DeInit))
+<P><STRONG><a name="[8a]"></a>USART_DMACmd</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f10x_usart.o(i.USART_DMACmd))
+<BR><BR>[Called By]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USARTx_SendBuf
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_Config
+</UL>
+
+<P><STRONG><a name="[97]"></a>USART_DeInit</STRONG> (Thumb, 134 bytes, Stack size 8 bytes, stm32f10x_usart.o(i.USART_DeInit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = USART_DeInit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphResetCmd
-<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphResetCmd
+<BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphResetCmd
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphResetCmd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Configuration
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_Config
-<LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_uart_init
-</UL>
-
-<P><STRONG><a name="[96]"></a>USART_GetFlagStatus</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f10x_usart.o(i.USART_GetFlagStatus))
-<BR><BR>[Called By]<UL><LI><a href="#[30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_IRQHandler
+<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Configuration
+<LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_uart_init
 </UL>
 
-<P><STRONG><a name="[89]"></a>USART_GetITStatus</STRONG> (Thumb, 84 bytes, Stack size 16 bytes, stm32f10x_usart.o(i.USART_GetITStatus))
+<P><STRONG><a name="[93]"></a>USART_GetFlagStatus</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f10x_usart.o(i.USART_GetFlagStatus))
+<BR><BR>[Called By]<UL><LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_IRQHandler
+</UL>
+
+<P><STRONG><a name="[90]"></a>USART_GetITStatus</STRONG> (Thumb, 84 bytes, Stack size 16 bytes, stm32f10x_usart.o(i.USART_GetITStatus))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = USART_GetITStatus
 </UL>
-<BR>[Called By]<UL><LI><a href="#[30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_IRQHandler
-<LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_IRQHandler
+<BR>[Called By]<UL><LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_IRQHandler
+<LI><a href="#[30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_IRQHandler
 </UL>
 
 <P><STRONG><a name="[75]"></a>USART_ITConfig</STRONG> (Thumb, 74 bytes, Stack size 20 bytes, stm32f10x_usart.o(i.USART_ITConfig))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = USART_ITConfig
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_Config
+<BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_Config
 <LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pub_Uart_Int_Cfg
 </UL>
 
 <P><STRONG><a name="[73]"></a>USART_Init</STRONG> (Thumb, 210 bytes, Stack size 56 bytes, stm32f10x_usart.o(i.USART_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = USART_Init &rArr; RCC_GetClocksFreq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_GetClocksFreq
+<BR>[Calls]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_GetClocksFreq
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_Config
+<BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_Config
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pub_Uart_Hardware_Cfg
 </UL>
 
-<P><STRONG><a name="[97]"></a>USART_ReceiveData</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32f10x_usart.o(i.USART_ReceiveData))
-<BR><BR>[Called By]<UL><LI><a href="#[30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_IRQHandler
+<P><STRONG><a name="[94]"></a>USART_ReceiveData</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32f10x_usart.o(i.USART_ReceiveData))
+<BR><BR>[Called By]<UL><LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_IRQHandler
 </UL>
 
-<P><STRONG><a name="[9c]"></a>USARTx_SendBuf</STRONG> (Thumb, 72 bytes, Stack size 24 bytes, uart.o(i.USARTx_SendBuf))
-<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = USARTx_SendBuf
+<P><STRONG><a name="[9b]"></a>USARTx_SendBuf</STRONG> (Thumb, 70 bytes, Stack size 16 bytes, uart.o(i.USARTx_SendBuf))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = USARTx_SendBuf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_DMACmd
+<BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_DMACmd
 <LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_Cmd
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_uart_task
 </UL>
 
-<P><STRONG><a name="[d0]"></a>__ll_entry_count</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, cmds.o(i.__ll_entry_count))
+<P><STRONG><a name="[cf]"></a>__ll_entry_count</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, cmds.o(i.__ll_entry_count))
 <BR><BR>[Called By]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_help
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_cmd
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;complete_cmdv
+<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_cmd
+<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;complete_cmdv
 </UL>
 
-<P><STRONG><a name="[cf]"></a>__ll_entry_start</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, cmds.o(i.__ll_entry_start))
+<P><STRONG><a name="[ce]"></a>__ll_entry_start</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, cmds.o(i.__ll_entry_start))
 <BR><BR>[Called By]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_help
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_cmd
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;complete_cmdv
+<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_cmd
+<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;complete_cmdv
 </UL>
 
 <P><STRONG><a name="[144]"></a>__scatterload_copy</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_copy), UNUSED)
@@ -874,309 +893,309 @@ Global Symbols
 
 <P><STRONG><a name="[146]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
 
-<P><STRONG><a name="[9d]"></a>_do_help</STRONG> (Thumb, 280 bytes, Stack size 56 bytes, command.o(i._do_help))
+<P><STRONG><a name="[9c]"></a>_do_help</STRONG> (Thumb, 280 bytes, Stack size 56 bytes, command.o(i._do_help))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120 + Unknown Stack Size
 <LI>Call Chain = _do_help &rArr; ctrlc &rArr; tstc &rArr; debug_cahce_empty &rArr; raw_queue_size_get_information
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_cmd_tbl
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_usage
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ctrlc
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
-<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;free
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
+<BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_cmd_tbl
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_usage
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ctrlc
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
+<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;free
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
 </UL>
 <BR>[Called By]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_help
 </UL>
 
-<P><STRONG><a name="[a4]"></a>add_ready_list</STRONG> (Thumb, 38 bytes, Stack size 16 bytes, raw_pend.o(i.add_ready_list))
+<P><STRONG><a name="[a3]"></a>add_ready_list</STRONG> (Thumb, 38 bytes, Stack size 16 bytes, raw_pend.o(i.add_ready_list))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = add_ready_list &rArr; add_ready_list_head &rArr; bit_set
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_ready_list_head
-<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_ready_list_end
+<BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_ready_list_head
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_ready_list_end
 </UL>
-<BR>[Called By]<UL><LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;task_resume
-<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pend_task_wake_up
+<BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pend_task_wake_up
 <LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tick_list_update
+<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;task_resume
 </UL>
 
-<P><STRONG><a name="[a5]"></a>add_ready_list_end</STRONG> (Thumb, 40 bytes, Stack size 16 bytes, raw_pend.o(i.add_ready_list_end))
+<P><STRONG><a name="[a4]"></a>add_ready_list_end</STRONG> (Thumb, 40 bytes, Stack size 16 bytes, raw_pend.o(i.add_ready_list_end))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = add_ready_list_end &rArr; bit_set
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;list_insert
-<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bit_set
+<BR>[Calls]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;list_insert
+<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bit_set
 </UL>
-<BR>[Called By]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_create
-<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_ready_list
-<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_internal_task_priority
+<BR>[Called By]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_create
+<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_ready_list
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_internal_task_priority
 </UL>
 
-<P><STRONG><a name="[a6]"></a>add_ready_list_head</STRONG> (Thumb, 40 bytes, Stack size 16 bytes, raw_pend.o(i.add_ready_list_head))
+<P><STRONG><a name="[a5]"></a>add_ready_list_head</STRONG> (Thumb, 40 bytes, Stack size 16 bytes, raw_pend.o(i.add_ready_list_head))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = add_ready_list_head &rArr; bit_set
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;list_insert
-<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bit_set
+<BR>[Calls]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;list_insert
+<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bit_set
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_ready_list
-<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_internal_task_priority
+<BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_ready_list
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_internal_task_priority
 </UL>
 
 <P><STRONG><a name="[123]"></a>bit_search_first_one</STRONG> (Thumb, 146 bytes, Stack size 20 bytes, raw_system.o(i.bit_search_first_one))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = bit_search_first_one
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remove_ready_list
+<BR>[Called By]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remove_ready_list
 </UL>
 
-<P><STRONG><a name="[aa]"></a>block_state_post_process</STRONG> (Thumb, 74 bytes, Stack size 24 bytes, raw_system.o(i.block_state_post_process))
+<P><STRONG><a name="[a9]"></a>block_state_post_process</STRONG> (Thumb, 74 bytes, Stack size 24 bytes, raw_system.o(i.block_state_post_process))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24 + Unknown Stack Size
 <LI>Call Chain = block_state_post_process
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
+<BR>[Calls]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 </UL>
 <BR>[Called By]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_semaphore_get
-<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sleep
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sleep
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_mutex_get
 <LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_queue_size_receive
 </UL>
 
-<P><STRONG><a name="[ac]"></a>calculate_time_slice</STRONG> (Thumb, 150 bytes, Stack size 24 bytes, raw_sched.o(i.calculate_time_slice))
+<P><STRONG><a name="[ab]"></a>calculate_time_slice</STRONG> (Thumb, 150 bytes, Stack size 24 bytes, raw_sched.o(i.calculate_time_slice))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40 + Unknown Stack Size
 <LI>Call Chain = calculate_time_slice &rArr; move_to_ready_list_end
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
-<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_to_ready_list_end
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
+<BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
+<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_to_ready_list_end
 </UL>
 <BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_time_tick
 </UL>
 
-<P><STRONG><a name="[af]"></a>call_timer_task</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, raw_timer.o(i.call_timer_task))
+<P><STRONG><a name="[ae]"></a>call_timer_task</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, raw_timer.o(i.call_timer_task))
 <BR><BR>[Stack]<UL><LI>Max Depth = 116 + Unknown Stack Size
 <LI>Call Chain = call_timer_task &rArr; raw_semaphore_put &rArr; semaphore_put &rArr; raw_wake_object &rArr; pend_task_wake_up &rArr; add_ready_list &rArr; add_ready_list_head &rArr; bit_set
 </UL>
-<BR>[Calls]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_semaphore_put
+<BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_semaphore_put
 </UL>
 <BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_time_tick
 </UL>
 
-<P><STRONG><a name="[b0]"></a>change_internal_task_priority</STRONG> (Thumb, 112 bytes, Stack size 16 bytes, raw_task.o(i.change_internal_task_priority))
+<P><STRONG><a name="[af]"></a>change_internal_task_priority</STRONG> (Thumb, 112 bytes, Stack size 16 bytes, raw_task.o(i.change_internal_task_priority))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88 + Unknown Stack Size
 <LI>Call Chain = change_internal_task_priority &rArr; remove_ready_list &rArr; port_system_error_process
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remove_ready_list
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_pend_list_priority
-<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_ready_list_head
-<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_ready_list_end
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mtx_chg_pri
+<BR>[Calls]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remove_ready_list
+<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_pend_list_priority
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_ready_list_head
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_ready_list_end
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mtx_chg_pri
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_mutex_put
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_mutex_get
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mtx_chg_pri
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mtx_chg_pri
 <LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;release_mutex
 </UL>
 
-<P><STRONG><a name="[b2]"></a>change_pend_list_priority</STRONG> (Thumb, 26 bytes, Stack size 16 bytes, raw_pend.o(i.change_pend_list_priority))
+<P><STRONG><a name="[b1]"></a>change_pend_list_priority</STRONG> (Thumb, 26 bytes, Stack size 16 bytes, raw_pend.o(i.change_pend_list_priority))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = change_pend_list_priority &rArr; add_to_priority_list
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;list_delete
-<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_to_priority_list
+<BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;list_delete
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_to_priority_list
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_internal_task_priority
-</UL>
-
-<P><STRONG><a name="[c2]"></a>clear_ctrlc</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, cli_port.o(i.clear_ctrlc))
-<BR><BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_simple_run_command
+<BR>[Called By]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_internal_task_priority
 </UL>
 
-<P><STRONG><a name="[e7]"></a>cli_init</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, cli.o(i.cli_init))
+<P><STRONG><a name="[c1]"></a>clear_ctrlc</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, cli_port.o(i.clear_ctrlc))
+<BR><BR>[Called By]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_simple_run_command
+</UL>
+
+<P><STRONG><a name="[e6]"></a>cli_init</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, cli.o(i.cli_init))
 <BR><BR>[Called By]<UL><LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_shell_task
 </UL>
 
-<P><STRONG><a name="[b6]"></a>cli_loop</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, cli.o(i.cli_loop))
+<P><STRONG><a name="[b5]"></a>cli_loop</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, cli.o(i.cli_loop))
 <BR><BR>[Stack]<UL><LI>Max Depth = 460 + Unknown Stack Size
 <LI>Call Chain = cli_loop &rArr; cli_simple_loop &rArr; cli_readline &rArr; cli_readline_into_buffer &rArr; cread_line &rArr; cmd_auto_complete &rArr; complete_cmdv &rArr; find_cmd &rArr; find_cmd_tbl &rArr; strncmp
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_simple_loop
+<BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_simple_loop
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_shell_task
 </UL>
 
-<P><STRONG><a name="[ba]"></a>cli_readline</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, cli_readline.o(i.cli_readline))
+<P><STRONG><a name="[b9]"></a>cli_readline</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, cli_readline.o(i.cli_readline))
 <BR><BR>[Stack]<UL><LI>Max Depth = 452 + Unknown Stack Size
 <LI>Call Chain = cli_readline &rArr; cli_readline_into_buffer &rArr; cread_line &rArr; cmd_auto_complete &rArr; complete_cmdv &rArr; find_cmd &rArr; find_cmd_tbl &rArr; strncmp
 </UL>
-<BR>[Calls]<UL><LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_readline_into_buffer
+<BR>[Calls]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_readline_into_buffer
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_simple_loop
+<BR>[Called By]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_simple_loop
 </UL>
 
-<P><STRONG><a name="[bb]"></a>cli_readline_into_buffer</STRONG> (Thumb, 70 bytes, Stack size 32 bytes, cli_readline.o(i.cli_readline_into_buffer))
+<P><STRONG><a name="[ba]"></a>cli_readline_into_buffer</STRONG> (Thumb, 70 bytes, Stack size 32 bytes, cli_readline.o(i.cli_readline_into_buffer))
 <BR><BR>[Stack]<UL><LI>Max Depth = 444 + Unknown Stack Size
 <LI>Call Chain = cli_readline_into_buffer &rArr; cread_line &rArr; cmd_auto_complete &rArr; complete_cmdv &rArr; find_cmd &rArr; find_cmd_tbl &rArr; strncmp
 </UL>
-<BR>[Calls]<UL><LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hist_init
-<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_line
+<BR>[Calls]<UL><LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hist_init
+<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_line
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_readline
+<BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_readline
 </UL>
 
-<P><STRONG><a name="[b7]"></a>cli_simple_loop</STRONG> (Thumb, 78 bytes, Stack size 0 bytes, cli_simple.o(i.cli_simple_loop))
+<P><STRONG><a name="[b6]"></a>cli_simple_loop</STRONG> (Thumb, 78 bytes, Stack size 0 bytes, cli_simple.o(i.cli_simple_loop))
 <BR><BR>[Stack]<UL><LI>Max Depth = 452 + Unknown Stack Size
 <LI>Call Chain = cli_simple_loop &rArr; cli_readline &rArr; cli_readline_into_buffer &rArr; cread_line &rArr; cmd_auto_complete &rArr; complete_cmdv &rArr; find_cmd &rArr; find_cmd_tbl &rArr; strncmp
 </UL>
-<BR>[Calls]<UL><LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bootretry_reset_cmd_timeout
-<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_readline
-<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;run_command_repeatable
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
+<BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;run_command_repeatable
+<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bootretry_reset_cmd_timeout
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_readline
+<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_loop
+<BR>[Called By]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_loop
 </UL>
 
-<P><STRONG><a name="[c4]"></a>cli_simple_parse_line</STRONG> (Thumb, 106 bytes, Stack size 16 bytes, cli_simple.o(i.cli_simple_parse_line))
+<P><STRONG><a name="[c3]"></a>cli_simple_parse_line</STRONG> (Thumb, 106 bytes, Stack size 16 bytes, cli_simple.o(i.cli_simple_parse_line))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = cli_simple_parse_line
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_simple_run_command
+<BR>[Called By]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_simple_run_command
 </UL>
 
-<P><STRONG><a name="[c1]"></a>cli_simple_run_command</STRONG> (Thumb, 244 bytes, Stack size 232 bytes, cli_simple.o(i.cli_simple_run_command))
+<P><STRONG><a name="[c0]"></a>cli_simple_run_command</STRONG> (Thumb, 244 bytes, Stack size 232 bytes, cli_simple.o(i.cli_simple_run_command))
 <BR><BR>[Stack]<UL><LI>Max Depth = 352<LI>Call Chain = cli_simple_run_command &rArr; process_macros
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_process
-<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_simple_parse_line
-<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process_macros
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;had_ctrlc
-<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_ctrlc
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
-<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_process
+<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_simple_parse_line
+<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process_macros
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;had_ctrlc
+<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_ctrlc
+<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
+<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;run_command_repeatable
+<BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;run_command_repeatable
 </UL>
 
-<P><STRONG><a name="[c7]"></a>cmd_auto_complete</STRONG> (Thumb, 400 bytes, Stack size 184 bytes, command.o(i.cmd_auto_complete))
+<P><STRONG><a name="[c6]"></a>cmd_auto_complete</STRONG> (Thumb, 400 bytes, Stack size 184 bytes, command.o(i.cmd_auto_complete))
 <BR><BR>[Stack]<UL><LI>Max Depth = 324<LI>Call Chain = cmd_auto_complete &rArr; complete_cmdv &rArr; find_cmd &rArr; find_cmd_tbl &rArr; strncmp
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_argv
-<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;make_argv
-<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_common_prefix
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;complete_cmdv
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
-<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<BR>[Calls]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_argv
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;make_argv
+<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_common_prefix
+<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;complete_cmdv
+<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
+<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
-<BR>[Called By]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_line
+<BR>[Called By]<UL><LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_line
 </UL>
 
-<P><STRONG><a name="[c5]"></a>cmd_process</STRONG> (Thumb, 128 bytes, Stack size 32 bytes, command.o(i.cmd_process))
+<P><STRONG><a name="[c4]"></a>cmd_process</STRONG> (Thumb, 128 bytes, Stack size 32 bytes, command.o(i.cmd_process))
 <BR><BR>[Stack]<UL><LI>Max Depth = 100<LI>Call Chain = cmd_process &rArr; find_cmd &rArr; find_cmd_tbl &rArr; strncmp
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_cmd
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_usage
-<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_timer
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_call
+<BR>[Calls]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_cmd
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_usage
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_timer
+<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_call
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_simple_run_command
+<BR>[Called By]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_simple_run_command
 </UL>
 
-<P><STRONG><a name="[a3]"></a>cmd_usage</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, command.o(i.cmd_usage))
+<P><STRONG><a name="[a2]"></a>cmd_usage</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, command.o(i.cmd_usage))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = cmd_usage
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_do_help
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_process
+<BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_do_help
+<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_process
 </UL>
 
-<P><STRONG><a name="[db]"></a>create_init_task</STRONG> (Thumb, 40 bytes, Stack size 24 bytes, sys_init.o(i.create_init_task))
+<P><STRONG><a name="[da]"></a>create_init_task</STRONG> (Thumb, 40 bytes, Stack size 24 bytes, sys_init.o(i.create_init_task))
 <BR><BR>[Stack]<UL><LI>Max Depth = 108 + Unknown Stack Size
 <LI>Call Chain = create_init_task &rArr; raw_task_create &rArr; add_ready_list_end &rArr; bit_set
 </UL>
-<BR>[Calls]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_create
+<BR>[Calls]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_create
 </UL>
 <BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[a0]"></a>ctrlc</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, cli_port.o(i.ctrlc))
+<P><STRONG><a name="[9f]"></a>ctrlc</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, cli_port.o(i.ctrlc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64 + Unknown Stack Size
 <LI>Call Chain = ctrlc &rArr; tstc &rArr; debug_cahce_empty &rArr; raw_queue_size_get_information
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tstc
+<BR>[Calls]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tstc
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_do_help
+<BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_do_help
 </UL>
 
-<P><STRONG><a name="[dd]"></a>debug_cahce_empty</STRONG> (Thumb, 58 bytes, Stack size 24 bytes, debug_uart.o(i.debug_cahce_empty))
+<P><STRONG><a name="[dc]"></a>debug_cahce_empty</STRONG> (Thumb, 58 bytes, Stack size 24 bytes, debug_uart.o(i.debug_cahce_empty))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48 + Unknown Stack Size
 <LI>Call Chain = debug_cahce_empty &rArr; raw_queue_size_get_information
 </UL>
-<BR>[Calls]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_queue_size_get_information
-<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
+<BR>[Calls]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_queue_size_get_information
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tstc
+<BR>[Called By]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tstc
 </UL>
 
-<P><STRONG><a name="[e2]"></a>debug_putc</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, debug_uart.o(i.debug_putc))
+<P><STRONG><a name="[e1]"></a>debug_putc</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, debug_uart.o(i.debug_putc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = debug_putc
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_putchar
+<BR>[Calls]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_putchar
 </UL>
 <BR>[Called By]<UL><LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;printchar
 </UL>
 
-<P><STRONG><a name="[b5]"></a>debug_read</STRONG> (Thumb, 18 bytes, Stack size 16 bytes, debug_uart.o(i.debug_read))
+<P><STRONG><a name="[b4]"></a>debug_read</STRONG> (Thumb, 18 bytes, Stack size 16 bytes, debug_uart.o(i.debug_read))
 <BR><BR>[Stack]<UL><LI>Max Depth = 224 + Unknown Stack Size
 <LI>Call Chain = debug_read &rArr; serial_read &rArr; serial_read_noblock &rArr; serial_fifo_cache_refresh &rArr; raw_queue_size_receive &rArr; raw_pend_object &rArr; remove_ready_list &rArr; port_system_error_process
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_read
+<BR>[Calls]<UL><LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_read
 </UL>
 <BR>[Called By]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_getc
 </UL>
 
-<P><STRONG><a name="[e5]"></a>debug_serial_init</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, debug_uart.o(i.debug_serial_init))
+<P><STRONG><a name="[e4]"></a>debug_serial_init</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, debug_uart.o(i.debug_serial_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 132 + Unknown Stack Size
-<LI>Call Chain = debug_serial_init &rArr; debug_uart_init &rArr; debug_usart1_init &rArr; Pub_Uart_Hardware_Cfg &rArr; USART_Init &rArr; RCC_GetClocksFreq
+<LI>Call Chain = debug_serial_init &rArr; debug_uart_init &rArr; debug_usart2_init &rArr; Pub_Uart_Hardware_Cfg &rArr; USART_Init &rArr; RCC_GetClocksFreq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_uart_init
-<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_fifo_init
+<BR>[Calls]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_uart_init
+<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_fifo_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_init_task
 </UL>
 
-<P><STRONG><a name="[b8]"></a>debug_write</STRONG> (Thumb, 86 bytes, Stack size 32 bytes, debug_uart.o(i.debug_write))
+<P><STRONG><a name="[b7]"></a>debug_write</STRONG> (Thumb, 86 bytes, Stack size 32 bytes, debug_uart.o(i.debug_write))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160 + Unknown Stack Size
 <LI>Call Chain = debug_write &rArr; raw_mutex_get &rArr; change_internal_task_priority &rArr; remove_ready_list &rArr; port_system_error_process
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_mutex_put
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_mutex_get
-<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
-<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_putchar
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
+<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_putchar
 </UL>
 <BR>[Called By]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_puts
 <LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_putnstr
 </UL>
 
-<P><STRONG><a name="[cc]"></a>find_cmd</STRONG> (Thumb, 28 bytes, Stack size 16 bytes, command.o(i.find_cmd))
+<P><STRONG><a name="[cb]"></a>find_cmd</STRONG> (Thumb, 28 bytes, Stack size 16 bytes, command.o(i.find_cmd))
 <BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = find_cmd &rArr; find_cmd_tbl &rArr; strncmp
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ll_entry_start
-<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ll_entry_count
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_cmd_tbl
+<BR>[Calls]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ll_entry_start
+<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ll_entry_count
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_cmd_tbl
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;complete_cmdv
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_process
+<BR>[Called By]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;complete_cmdv
+<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_process
 </UL>
 
-<P><STRONG><a name="[a2]"></a>find_cmd_tbl</STRONG> (Thumb, 112 bytes, Stack size 40 bytes, command.o(i.find_cmd_tbl))
+<P><STRONG><a name="[a1]"></a>find_cmd_tbl</STRONG> (Thumb, 112 bytes, Stack size 40 bytes, command.o(i.find_cmd_tbl))
 <BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = find_cmd_tbl &rArr; strncmp
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strncmp
-<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
-<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strchr
+<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strchr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_cmd
-<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_do_help
+<BR>[Called By]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_cmd
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_do_help
 </UL>
 
-<P><STRONG><a name="[a1]"></a>free</STRONG> (Thumb, 76 bytes, Stack size 8 bytes, malloc.o(i.free))
+<P><STRONG><a name="[a0]"></a>free</STRONG> (Thumb, 76 bytes, Stack size 8 bytes, malloc.o(i.free))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = free
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_do_help
+<BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_do_help
 </UL>
 
 <P><STRONG><a name="[101]"></a>get_ready_task</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, raw_pend.o(i.get_ready_task))
@@ -1191,8 +1210,8 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_init_task
 </UL>
 
-<P><STRONG><a name="[c6]"></a>had_ctrlc</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, cli_port.o(i.had_ctrlc))
-<BR><BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_simple_run_command
+<P><STRONG><a name="[c5]"></a>had_ctrlc</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, cli_port.o(i.had_ctrlc))
+<BR><BR>[Called By]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_simple_run_command
 </UL>
 
 <P><STRONG><a name="[46]"></a>main</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, main.o(i.main))
@@ -1201,50 +1220,50 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_os_start
 <LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_os_init
-<LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;create_init_task
+<LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;create_init_task
 <LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_Init
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
-<P><STRONG><a name="[9e]"></a>malloc</STRONG> (Thumb, 92 bytes, Stack size 20 bytes, malloc.o(i.malloc))
+<P><STRONG><a name="[9d]"></a>malloc</STRONG> (Thumb, 92 bytes, Stack size 20 bytes, malloc.o(i.malloc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = malloc
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_do_help
+<BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_do_help
 </UL>
 
-<P><STRONG><a name="[ae]"></a>move_to_ready_list_end</STRONG> (Thumb, 30 bytes, Stack size 16 bytes, raw_pend.o(i.move_to_ready_list_end))
+<P><STRONG><a name="[ad]"></a>move_to_ready_list_end</STRONG> (Thumb, 30 bytes, Stack size 16 bytes, raw_pend.o(i.move_to_ready_list_end))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = move_to_ready_list_end
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;list_insert
-<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;list_delete
+<BR>[Calls]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;list_insert
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;list_delete
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sleep
-<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calculate_time_slice
+<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sleep
+<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calculate_time_slice
 </UL>
 
 <P><STRONG><a name="[f1]"></a>msg_size_post</STRONG> (Thumb, 242 bytes, Stack size 40 bytes, raw_queue_size.o(i.msg_size_post))
 <BR><BR>[Stack]<UL><LI>Max Depth = 124 + Unknown Stack Size
 <LI>Call Chain = msg_size_post &rArr; wake_send_msg_size &rArr; pend_task_wake_up &rArr; add_ready_list &rArr; add_ready_list_head &rArr; bit_set
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
+<BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 <LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;is_list_empty
 <LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wake_send_msg_size
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sched
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
 </UL>
 <BR>[Called By]<UL><LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_queue_size_end_post
 </UL>
 
-<P><STRONG><a name="[b3]"></a>mtx_chg_pri</STRONG> (Thumb, 128 bytes, Stack size 32 bytes, raw_mutex.o(i.mtx_chg_pri))
+<P><STRONG><a name="[b2]"></a>mtx_chg_pri</STRONG> (Thumb, 128 bytes, Stack size 32 bytes, raw_mutex.o(i.mtx_chg_pri))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72 + Unknown Stack Size
  + In Cycle
 <LI>Call Chain = mtx_chg_pri &rArr;  change_internal_task_priority (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;port_system_error_process
-<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_internal_task_priority
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_internal_task_priority
 <LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;release_mutex
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_internal_task_priority
+<BR>[Called By]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_internal_task_priority
 </UL>
 
 <P><STRONG><a name="[f7]"></a>mutex_state_change</STRONG> (Thumb, 38 bytes, Stack size 16 bytes, raw_mutex.o(i.mutex_state_change))
@@ -1262,21 +1281,21 @@ Global Symbols
 <P><STRONG><a name="[118]"></a>port_stack_init</STRONG> (Thumb, 168 bytes, Stack size 20 bytes, port.o(i.port_stack_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = port_stack_init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_create
+<BR>[Called By]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_create
 </UL>
 
 <P><STRONG><a name="[f5]"></a>port_system_error_process</STRONG> (Thumb, 140 bytes, Stack size 40 bytes, port_error_process.o(i.port_system_error_process))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40 + Unknown Stack Size
 <LI>Call Chain = port_system_error_process
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
+<BR>[Calls]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 </UL>
 <BR>[Called By]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_mutex_get
 <LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_enter_interrupt
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_stack_check
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remove_ready_list
+<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remove_ready_list
 <LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pend_task_wake_up
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mtx_chg_pri
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mtx_chg_pri
 <LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tick_list_update
 </UL>
 
@@ -1284,8 +1303,8 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 24 + Unknown Stack Size
 <LI>Call Chain = raw_block_allocate
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
+<BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 </UL>
 <BR>[Called By]<UL><LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_alloc
 </UL>
@@ -1293,15 +1312,15 @@ Global Symbols
 <P><STRONG><a name="[128]"></a>raw_block_pool_create</STRONG> (Thumb, 126 bytes, Stack size 28 bytes, raw_block.o(i.raw_block_pool_create))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = raw_block_pool_create
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_fifo_init
+<BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_fifo_init
 </UL>
 
 <P><STRONG><a name="[ff]"></a>raw_block_release</STRONG> (Thumb, 72 bytes, Stack size 24 bytes, raw_block.o(i.raw_block_release))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24 + Unknown Stack Size
 <LI>Call Chain = raw_block_release
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
+<BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 </UL>
 <BR>[Called By]<UL><LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_fifo_cache_refresh
 </UL>
@@ -1310,13 +1329,13 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 64 + Unknown Stack Size
 <LI>Call Chain = raw_enter_interrupt &rArr; port_system_error_process
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
+<BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;port_system_error_process
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
 </UL>
-<BR>[Called By]<UL><LI><a href="#[30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_IRQHandler
-<LI><a href="#[1b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA1_Channel7_IRQHandler
-<LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_IRQHandler
+<BR>[Called By]<UL><LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_IRQHandler
+<LI><a href="#[18]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA1_Channel4_IRQHandler
+<LI><a href="#[30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_IRQHandler
 <LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 </UL>
 
@@ -1324,15 +1343,15 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 24 + Unknown Stack Size
 <LI>Call Chain = raw_finish_int &rArr; get_ready_task
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
+<BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 <LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_int_switch
 <LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;port_isr_stack_check
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_ready_task
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
 </UL>
-<BR>[Called By]<UL><LI><a href="#[30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_IRQHandler
-<LI><a href="#[1b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA1_Channel7_IRQHandler
-<LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_IRQHandler
+<BR>[Called By]<UL><LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_IRQHandler
+<LI><a href="#[18]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA1_Channel4_IRQHandler
+<LI><a href="#[30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_IRQHandler
 <LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 </UL>
 
@@ -1341,23 +1360,23 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[4b]"></a>raw_idle_task</STRONG> (Thumb, 42 bytes, Stack size 0 bytes, raw_idle.o(i.raw_idle_task))
-<BR><BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
+<BR><BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 <LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_idle_coroutine_hook
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> raw_sched.o(i.raw_os_init)
 </UL>
 <P><STRONG><a name="[117]"></a>raw_memset</STRONG> (Thumb, 70 bytes, Stack size 20 bytes, user_extension.o(i.raw_memset))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = raw_memset
 </UL>
-<BR>[Called By]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_create
+<BR>[Called By]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_create
 </UL>
 
-<P><STRONG><a name="[e0]"></a>raw_mutex_create</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, raw_mutex.o(i.raw_mutex_create))
+<P><STRONG><a name="[df]"></a>raw_mutex_create</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, raw_mutex.o(i.raw_mutex_create))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = raw_mutex_create
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_fifo_init
-<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_fifo_init
+<BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_fifo_init
+<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_fifo_init
 <LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_os_init
 </UL>
 
@@ -1365,16 +1384,16 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 128 + Unknown Stack Size
 <LI>Call Chain = raw_mutex_get &rArr; change_internal_task_priority &rArr; remove_ready_list &rArr; port_system_error_process
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
+<BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;port_system_error_process
-<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_internal_task_priority
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_internal_task_priority
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sched
 <LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_pend_object
-<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;block_state_post_process
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;block_state_post_process
 </UL>
 <BR>[Called By]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_read_noblock
-<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_write
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_write
 <LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;simple_printf_lock
 <LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_task
 </UL>
@@ -1383,16 +1402,16 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 112 + Unknown Stack Size
 <LI>Call Chain = raw_mutex_put &rArr; change_internal_task_priority &rArr; remove_ready_list &rArr; port_system_error_process
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
-<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_internal_task_priority
+<BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_internal_task_priority
 <LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;release_mutex
 <LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;is_list_empty
 <LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_wake_object
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sched
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
 </UL>
 <BR>[Called By]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_read_noblock
-<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_write
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_write
 <LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;simple_printf_unlock
 <LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_task
 </UL>
@@ -1401,8 +1420,8 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 132 + Unknown Stack Size
 <LI>Call Chain = raw_os_init &rArr; tick_task_start &rArr; raw_task_create &rArr; add_ready_list_end &rArr; bit_set
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_mutex_create
-<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_create
+<BR>[Calls]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_mutex_create
+<LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_create
 <LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tick_task_start
 <LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tick_list_init
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_timer_init
@@ -1431,9 +1450,9 @@ Global Symbols
 <LI>Call Chain = raw_pend_object &rArr; remove_ready_list &rArr; port_system_error_process
 </UL>
 <BR>[Calls]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tick_list_insert
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remove_ready_list
-<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;list_insert
-<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_to_priority_list
+<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remove_ready_list
+<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;list_insert
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_to_priority_list
 </UL>
 <BR>[Called By]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_semaphore_get
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_mutex_get
@@ -1460,7 +1479,7 @@ Global Symbols
 <P><STRONG><a name="[127]"></a>raw_queue_size_create</STRONG> (Thumb, 88 bytes, Stack size 16 bytes, raw_queue_size.o(i.raw_queue_size_create))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = raw_queue_size_create
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_fifo_init
+<BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_fifo_init
 </UL>
 
 <P><STRONG><a name="[110]"></a>raw_queue_size_end_post</STRONG> (Thumb, 38 bytes, Stack size 24 bytes, raw_queue_size.o(i.raw_queue_size_end_post))
@@ -1472,25 +1491,25 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_append
 </UL>
 
-<P><STRONG><a name="[de]"></a>raw_queue_size_get_information</STRONG> (Thumb, 96 bytes, Stack size 24 bytes, raw_queue_size.o(i.raw_queue_size_get_information))
+<P><STRONG><a name="[dd]"></a>raw_queue_size_get_information</STRONG> (Thumb, 96 bytes, Stack size 24 bytes, raw_queue_size.o(i.raw_queue_size_get_information))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24 + Unknown Stack Size
 <LI>Call Chain = raw_queue_size_get_information
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
+<BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 </UL>
-<BR>[Called By]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_cahce_empty
+<BR>[Called By]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_cahce_empty
 </UL>
 
 <P><STRONG><a name="[111]"></a>raw_queue_size_receive</STRONG> (Thumb, 266 bytes, Stack size 32 bytes, raw_queue_size.o(i.raw_queue_size_receive))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120 + Unknown Stack Size
 <LI>Call Chain = raw_queue_size_receive &rArr; raw_pend_object &rArr; remove_ready_list &rArr; port_system_error_process
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
+<BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sched
 <LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_pend_object
-<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;block_state_post_process
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;block_state_post_process
 </UL>
 <BR>[Called By]<UL><LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_fifo_cache_refresh
 </UL>
@@ -1499,80 +1518,80 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 16 + Unknown Stack Size
 <LI>Call Chain = raw_sched &rArr; get_ready_task
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
+<BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 <LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;port_task_switch
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_ready_task
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
 </UL>
 <BR>[Called By]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_semaphore_get
-<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sleep
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sleep
 <LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_mutex_put
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_mutex_get
-<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_create
-<LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;task_suspend
-<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;task_resume
+<LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_create
 <LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;semaphore_put
 <LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_queue_size_receive
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;msg_size_post
+<LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;task_suspend
+<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;task_resume
 </UL>
 
 <P><STRONG><a name="[11d]"></a>raw_semaphore_create</STRONG> (Thumb, 44 bytes, Stack size 0 bytes, raw_sem.o(i.raw_semaphore_create))
 <BR><BR>[Called By]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_uart_task
-<LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_semaphore_create
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_timer_init
+<LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_semaphore_create
 </UL>
 
 <P><STRONG><a name="[113]"></a>raw_semaphore_get</STRONG> (Thumb, 164 bytes, Stack size 24 bytes, raw_sem.o(i.raw_semaphore_get))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112 + Unknown Stack Size
 <LI>Call Chain = raw_semaphore_get &rArr; raw_pend_object &rArr; remove_ready_list &rArr; port_system_error_process
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
+<BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sched
 <LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_pend_object
-<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;block_state_post_process
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;block_state_post_process
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_uart_task
-<LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_semaphore_get
 <LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_task
+<LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_semaphore_get
 </UL>
 
-<P><STRONG><a name="[95]"></a>raw_semaphore_put</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, raw_sem.o(i.raw_semaphore_put))
+<P><STRONG><a name="[92]"></a>raw_semaphore_put</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, raw_sem.o(i.raw_semaphore_put))
 <BR><BR>[Stack]<UL><LI>Max Depth = 108 + Unknown Stack Size
 <LI>Call Chain = raw_semaphore_put &rArr; semaphore_put &rArr; raw_wake_object &rArr; pend_task_wake_up &rArr; add_ready_list &rArr; add_ready_list_head &rArr; bit_set
 </UL>
 <BR>[Calls]<UL><LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;semaphore_put
 </UL>
-<BR>[Called By]<UL><LI><a href="#[30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_IRQHandler
+<BR>[Called By]<UL><LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_IRQHandler
 <LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_semaphore_put
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;call_timer_task
+<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;call_timer_task
 </UL>
 
 <P><STRONG><a name="[115]"></a>raw_semaphore_set</STRONG> (Thumb, 108 bytes, Stack size 24 bytes, raw_sem.o(i.raw_semaphore_set))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24 + Unknown Stack Size
 <LI>Call Chain = raw_semaphore_set
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
+<BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 <LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;is_list_empty
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_task
 </UL>
 
-<P><STRONG><a name="[d7]"></a>raw_sleep</STRONG> (Thumb, 130 bytes, Stack size 16 bytes, raw_task.o(i.raw_sleep))
+<P><STRONG><a name="[d6]"></a>raw_sleep</STRONG> (Thumb, 130 bytes, Stack size 16 bytes, raw_task.o(i.raw_sleep))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88 + Unknown Stack Size
 <LI>Call Chain = raw_sleep &rArr; remove_ready_list &rArr; port_system_error_process
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
+<BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 <LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tick_list_insert
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remove_ready_list
-<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_to_ready_list_end
+<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remove_ready_list
+<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_to_ready_list_end
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sched
-<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;block_state_post_process
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;block_state_post_process
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_led_task
-<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_line
+<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_line
 </UL>
 
 <P><STRONG><a name="[5f]"></a>raw_stack_check</STRONG> (Thumb, 68 bytes, Stack size 24 bytes, raw_stat.o(i.raw_stack_check))
@@ -1584,34 +1603,34 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PendSV_Handler
 </UL>
 
-<P><STRONG><a name="[12b]"></a>raw_sys_tick_init</STRONG> (Thumb, 84 bytes, Stack size 12 bytes, port.o(i.raw_sys_tick_init))
+<P><STRONG><a name="[12b]"></a>raw_sys_tick_init</STRONG> (Thumb, 82 bytes, Stack size 12 bytes, port.o(i.raw_sys_tick_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = raw_sys_tick_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_init_task
 </UL>
 
-<P><STRONG><a name="[dc]"></a>raw_task_create</STRONG> (Thumb, 322 bytes, Stack size 56 bytes, raw_task.o(i.raw_task_create))
+<P><STRONG><a name="[db]"></a>raw_task_create</STRONG> (Thumb, 322 bytes, Stack size 56 bytes, raw_task.o(i.raw_task_create))
 <BR><BR>[Stack]<UL><LI>Max Depth = 84 + Unknown Stack Size
 <LI>Call Chain = raw_task_create &rArr; add_ready_list_end &rArr; bit_set
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
+<BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_ready_list_end
+<LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sched
 <LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;task_create_hook
 <LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_memset
 <LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;port_stack_init
-<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_ready_list_end
-<LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sched
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
 </UL>
 <BR>[Called By]<UL><LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_uart_init
 <LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_led_init
 <LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shell_init
 <LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_os_init
-<LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;create_init_task
+<LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;create_init_task
 <LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tick_task_start
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_timer_init
 </UL>
 
-<P><STRONG><a name="[e8]"></a>raw_task_identify</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, raw_task.o(i.raw_task_identify))
+<P><STRONG><a name="[e7]"></a>raw_task_identify</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, raw_task.o(i.raw_task_identify))
 <BR><BR>[Called By]<UL><LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_shell_task
 <LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_init_task
 </UL>
@@ -1646,7 +1665,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 116 + Unknown Stack Size
 <LI>Call Chain = raw_task_semaphore_put &rArr; raw_semaphore_put &rArr; semaphore_put &rArr; raw_wake_object &rArr; pend_task_wake_up &rArr; add_ready_list &rArr; add_ready_list_head &rArr; bit_set
 </UL>
-<BR>[Calls]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_semaphore_put
+<BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_semaphore_put
 </UL>
 <BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_time_tick
 </UL>
@@ -1657,7 +1676,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_stack
 </UL>
 
-<P><STRONG><a name="[e9]"></a>raw_task_suspend</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, raw_task.o(i.raw_task_suspend))
+<P><STRONG><a name="[e8]"></a>raw_task_suspend</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, raw_task.o(i.raw_task_suspend))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96 + Unknown Stack Size
 <LI>Call Chain = raw_task_suspend &rArr; task_suspend &rArr; remove_ready_list &rArr; port_system_error_process
 </UL>
@@ -1677,8 +1696,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_tick_hook
 <LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_semaphore_put
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;call_timer_task
-<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calculate_time_slice
+<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;call_timer_task
+<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calculate_time_slice
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 </UL>
@@ -1688,7 +1707,7 @@ Global Symbols
 <LI>Call Chain = raw_timer_init &rArr; raw_task_create &rArr; add_ready_list_end &rArr; bit_set
 </UL>
 <BR>[Calls]<UL><LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_semaphore_create
-<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_create
+<LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_create
 <LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_list_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_os_init
@@ -1704,26 +1723,26 @@ Global Symbols
 <LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;semaphore_put
 </UL>
 
-<P><STRONG><a name="[b1]"></a>remove_ready_list</STRONG> (Thumb, 124 bytes, Stack size 32 bytes, raw_pend.o(i.remove_ready_list))
+<P><STRONG><a name="[b0]"></a>remove_ready_list</STRONG> (Thumb, 124 bytes, Stack size 32 bytes, raw_pend.o(i.remove_ready_list))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72 + Unknown Stack Size
 <LI>Call Chain = remove_ready_list &rArr; port_system_error_process
 </UL>
 <BR>[Calls]<UL><LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bit_search_first_one
-<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;list_delete
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;list_delete
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;port_system_error_process
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sleep
-<LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;task_suspend
-<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_internal_task_priority
+<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sleep
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_internal_task_priority
 <LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_pend_object
+<LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;task_suspend
 </UL>
 
-<P><STRONG><a name="[c0]"></a>run_command_repeatable</STRONG> (Thumb, 16 bytes, Stack size 16 bytes, cli.o(i.run_command_repeatable))
+<P><STRONG><a name="[bf]"></a>run_command_repeatable</STRONG> (Thumb, 16 bytes, Stack size 16 bytes, cli.o(i.run_command_repeatable))
 <BR><BR>[Stack]<UL><LI>Max Depth = 368<LI>Call Chain = run_command_repeatable &rArr; cli_simple_run_command &rArr; process_macros
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_simple_run_command
+<BR>[Calls]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_simple_run_command
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_simple_loop
+<BR>[Called By]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_simple_loop
 </UL>
 
 <P><STRONG><a name="[107]"></a>run_queue_init</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, raw_pend.o(i.run_queue_init))
@@ -1734,13 +1753,13 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 100 + Unknown Stack Size
 <LI>Call Chain = semaphore_put &rArr; raw_wake_object &rArr; pend_task_wake_up &rArr; add_ready_list &rArr; add_ready_list_head &rArr; bit_set
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
+<BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 <LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;is_list_empty
 <LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_wake_object
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sched
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
 </UL>
-<BR>[Called By]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_semaphore_put
+<BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_semaphore_put
 </UL>
 
 <P><STRONG><a name="[124]"></a>serial_alloc</STRONG> (Thumb, 28 bytes, Stack size 16 bytes, serial_fifo.o(i.serial_alloc))
@@ -1749,7 +1768,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_block_allocate
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_fifo_int_recv
+<BR>[Called By]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_fifo_int_recv
 </UL>
 
 <P><STRONG><a name="[125]"></a>serial_append</STRONG> (Thumb, 32 bytes, Stack size 16 bytes, serial_fifo.o(i.serial_append))
@@ -1758,38 +1777,38 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_queue_size_end_post
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_fifo_int_recv
+<BR>[Called By]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_fifo_int_recv
 </UL>
 
-<P><STRONG><a name="[e1]"></a>serial_fifo_init</STRONG> (Thumb, 196 bytes, Stack size 40 bytes, serial_fifo.o(i.serial_fifo_init))
+<P><STRONG><a name="[e0]"></a>serial_fifo_init</STRONG> (Thumb, 196 bytes, Stack size 40 bytes, serial_fifo.o(i.serial_fifo_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 68 + Unknown Stack Size
 <LI>Call Chain = serial_fifo_init &rArr; raw_block_pool_create
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_mutex_create
-<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
+<BR>[Calls]<UL><LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_block_pool_create
+<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_mutex_create
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_queue_size_create
-<LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_block_pool_create
 </UL>
-<BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_fifo_init
+<BR>[Called By]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_fifo_init
 </UL>
 
-<P><STRONG><a name="[8a]"></a>serial_fifo_int_recv</STRONG> (Thumb, 40 bytes, Stack size 24 bytes, serial_fifo.o(i.serial_fifo_int_recv))
+<P><STRONG><a name="[95]"></a>serial_fifo_int_recv</STRONG> (Thumb, 40 bytes, Stack size 24 bytes, serial_fifo.o(i.serial_fifo_int_recv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 188 + Unknown Stack Size
 <LI>Call Chain = serial_fifo_int_recv &rArr; serial_append &rArr; raw_queue_size_end_post &rArr; msg_size_post &rArr; wake_send_msg_size &rArr; pend_task_wake_up &rArr; add_ready_list &rArr; add_ready_list_head &rArr; bit_set
 </UL>
 <BR>[Calls]<UL><LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_append
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_alloc
 </UL>
-<BR>[Called By]<UL><LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_IRQHandler
+<BR>[Called By]<UL><LI><a href="#[30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_IRQHandler
 </UL>
 
-<P><STRONG><a name="[e4]"></a>serial_read</STRONG> (Thumb, 24 bytes, Stack size 16 bytes, serial_fifo.o(i.serial_read))
+<P><STRONG><a name="[e3]"></a>serial_read</STRONG> (Thumb, 24 bytes, Stack size 16 bytes, serial_fifo.o(i.serial_read))
 <BR><BR>[Stack]<UL><LI>Max Depth = 208 + Unknown Stack Size
 <LI>Call Chain = serial_read &rArr; serial_read_noblock &rArr; serial_fifo_cache_refresh &rArr; raw_queue_size_receive &rArr; raw_pend_object &rArr; remove_ready_list &rArr; port_system_error_process
 </UL>
 <BR>[Calls]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_read_noblock
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_read
+<BR>[Called By]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_read
 </UL>
 
 <P><STRONG><a name="[129]"></a>serial_read_noblock</STRONG> (Thumb, 156 bytes, Stack size 40 bytes, serial_fifo.o(i.serial_read_noblock))
@@ -1801,14 +1820,14 @@ Global Symbols
 <LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_fifo_cache_refresh
 <LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;copy2buf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_read
+<BR>[Called By]<UL><LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_read
 </UL>
 
 <P><STRONG><a name="[52]"></a>shell_init</STRONG> (Thumb, 42 bytes, Stack size 32 bytes, debug_uart.o(i.shell_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 116 + Unknown Stack Size
 <LI>Call Chain = shell_init &rArr; raw_task_create &rArr; add_ready_list_end &rArr; bit_set
 </UL>
-<BR>[Calls]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_create
+<BR>[Calls]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_create
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> sys_init.o(.constdata)
 </UL>
@@ -1834,7 +1853,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 116 + Unknown Stack Size
 <LI>Call Chain = sys_led_init &rArr; raw_task_create &rArr; add_ready_list_end &rArr; bit_set
 </UL>
-<BR>[Calls]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_create
+<BR>[Calls]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_create
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> sys_init.o(.constdata)
 </UL>
@@ -1842,34 +1861,34 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 116 + Unknown Stack Size
 <LI>Call Chain = sys_uart_init &rArr; raw_task_create &rArr; add_ready_list_end &rArr; bit_set
 </UL>
-<BR>[Calls]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_create
+<BR>[Calls]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_create
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> sys_init.o(.constdata)
 </UL>
-<P><STRONG><a name="[4f]"></a>sys_uart_task</STRONG> (Thumb, 56 bytes, Stack size 0 bytes, uart.o(i.sys_uart_task))
+<P><STRONG><a name="[4f]"></a>sys_uart_task</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, uart.o(i.sys_uart_task))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216 + Unknown Stack Size
 <LI>Call Chain = sys_uart_task &rArr; raw_printf &rArr; print &rArr; printi &rArr; prints &rArr; printchar &rArr; debug_putc
 </UL>
 <BR>[Calls]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_semaphore_get
 <LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_semaphore_create
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USARTx_SendBuf
-<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Configuration
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USARTx_SendBuf
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Configuration
 <LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_printf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> uart.o(i.sys_uart_init)
 </UL>
 <P><STRONG><a name="[119]"></a>task_create_hook</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, port_hook.o(i.task_create_hook))
-<BR><BR>[Called By]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_create
+<BR><BR>[Called By]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_create
 </UL>
 
 <P><STRONG><a name="[11b]"></a>task_resume</STRONG> (Thumb, 170 bytes, Stack size 16 bytes, raw_task.o(i.task_resume))
 <BR><BR>[Stack]<UL><LI>Max Depth = 60 + Unknown Stack Size
 <LI>Call Chain = task_resume &rArr; add_ready_list &rArr; add_ready_list_head &rArr; bit_set
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
-<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_ready_list
+<BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
+<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_ready_list
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sched
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
 </UL>
 <BR>[Called By]<UL><LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_resume
 </UL>
@@ -1878,12 +1897,12 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 88 + Unknown Stack Size
 <LI>Call Chain = task_suspend &rArr; remove_ready_list &rArr; port_system_error_process
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remove_ready_list
+<BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
+<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remove_ready_list
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sched
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_suspend
+<BR>[Called By]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_suspend
 </UL>
 
 <P><STRONG><a name="[108]"></a>tick_list_init</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, raw_tick.o(i.tick_list_init))
@@ -1895,7 +1914,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tick_list_priority_insert
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sleep
+<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sleep
 <LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_pend_object
 </UL>
 
@@ -1912,13 +1931,13 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 96 + Unknown Stack Size
 <LI>Call Chain = tick_list_update &rArr; mutex_state_change &rArr; release_mutex &rArr;  change_internal_task_priority (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
-<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;list_delete
+<BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 <LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tick_list_remove
-<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_ready_list
+<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_ready_list
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;port_system_error_process
 <LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mutex_state_change
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
+<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;list_delete
 </UL>
 <BR>[Called By]<UL><LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tick_task_process
 </UL>
@@ -1927,7 +1946,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 108 + Unknown Stack Size
 <LI>Call Chain = tick_task_start &rArr; raw_task_create &rArr; add_ready_list_end &rArr; bit_set
 </UL>
-<BR>[Calls]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_create
+<BR>[Calls]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_create
 <LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_semaphore_create
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_os_init
@@ -1940,21 +1959,21 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_semaphore_get
 <LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_mutex_put
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_mutex_get
-<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 <LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_semaphore_set
 <LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_list_remove
 <LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_list_priority_insert
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> raw_timer.o(i.raw_timer_init)
 </UL>
-<P><STRONG><a name="[d8]"></a>tstc</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, cli_port.o(i.tstc))
+<P><STRONG><a name="[d7]"></a>tstc</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, cli_port.o(i.tstc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56 + Unknown Stack Size
 <LI>Call Chain = tstc &rArr; debug_cahce_empty &rArr; raw_queue_size_get_information
 </UL>
-<BR>[Calls]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_cahce_empty
+<BR>[Calls]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_cahce_empty
 </UL>
-<BR>[Called By]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_line
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ctrlc
+<BR>[Called By]<UL><LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_line
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ctrlc
 </UL>
 
 <P><STRONG><a name="[f3]"></a>wake_send_msg_size</STRONG> (Thumb, 20 bytes, Stack size 16 bytes, raw_pend.o(i.wake_send_msg_size))
@@ -1994,118 +2013,107 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 216 + Unknown Stack Size
 <LI>Call Chain = sys_init_task &rArr; raw_printf &rArr; print &rArr; printi &rArr; prints &rArr; printchar &rArr; debug_putc
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_suspend
+<BR>[Calls]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_suspend
 <LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_resume
-<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_identify
+<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_identify
 <LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sys_tick_init
 <LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_printf
 <LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_shell_task_obj
-<LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_serial_init
+<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_serial_init
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> sys_init.o(i.create_init_task)
 </UL>
-<P><STRONG><a name="[df]"></a>debug_fifo_init</STRONG> (Thumb, 68 bytes, Stack size 24 bytes, debug_uart.o(i.debug_fifo_init))
+<P><STRONG><a name="[de]"></a>debug_fifo_init</STRONG> (Thumb, 68 bytes, Stack size 24 bytes, debug_uart.o(i.debug_fifo_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 92 + Unknown Stack Size
 <LI>Call Chain = debug_fifo_init &rArr; serial_fifo_init &rArr; raw_block_pool_create
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_fifo_init
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_mutex_create
-<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
+<BR>[Calls]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_fifo_init
+<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_mutex_create
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_serial_init
+<BR>[Called By]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_serial_init
 </UL>
 
 <P><STRONG><a name="[49]"></a>debug_fifo_read</STRONG> (Thumb, 64 bytes, Stack size 8 bytes, debug_uart.o(i.debug_fifo_read))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = debug_fifo_read
 </UL>
-<BR>[Address Reference Count : 1]<UL><LI> debug_uart.o(i.USART1_IRQHandler)
+<BR>[Address Reference Count : 1]<UL><LI> debug_uart.o(i.USART2_IRQHandler)
 </UL>
-<P><STRONG><a name="[e3]"></a>debug_putchar</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, debug_uart.o(i.debug_putchar))
-<BR><BR>[Called By]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_write
-<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_putc
+<P><STRONG><a name="[e2]"></a>debug_putchar</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, debug_uart.o(i.debug_putchar))
+<BR><BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_write
+<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_putc
 </UL>
 
 <P><STRONG><a name="[4d]"></a>debug_shell_task</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, debug_uart.o(i.debug_shell_task))
 <BR><BR>[Stack]<UL><LI>Max Depth = 460 + Unknown Stack Size
 <LI>Call Chain = debug_shell_task &rArr; cli_loop &rArr; cli_simple_loop &rArr; cli_readline &rArr; cli_readline_into_buffer &rArr; cread_line &rArr; cmd_auto_complete &rArr; complete_cmdv &rArr; find_cmd &rArr; find_cmd_tbl &rArr; strncmp
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_loop
-<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_init
-<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_suspend
-<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_identify
+<BR>[Calls]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_loop
+<LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_init
+<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_suspend
+<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_identify
 <LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_printf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> debug_uart.o(i.shell_init)
 </UL>
-<P><STRONG><a name="[e6]"></a>debug_uart_init</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, debug_uart.o(i.debug_uart_init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 124<LI>Call Chain = debug_uart_init &rArr; debug_usart1_init &rArr; Pub_Uart_Hardware_Cfg &rArr; USART_Init &rArr; RCC_GetClocksFreq
+<P><STRONG><a name="[e5]"></a>debug_uart_init</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, debug_uart.o(i.debug_uart_init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 124<LI>Call Chain = debug_uart_init &rArr; debug_usart2_init &rArr; Pub_Uart_Hardware_Cfg &rArr; USART_Init &rArr; RCC_GetClocksFreq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_DeInit
-<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_usart1_init
+<BR>[Calls]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_DeInit
+<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_usart2_init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_serial_init
+<BR>[Called By]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_serial_init
 </UL>
 
-<P><STRONG><a name="[ea]"></a>debug_usart1_init</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, debug_uart.o(i.debug_usart1_init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 116<LI>Call Chain = debug_usart1_init &rArr; Pub_Uart_Hardware_Cfg &rArr; USART_Init &rArr; RCC_GetClocksFreq
+<P><STRONG><a name="[e9]"></a>debug_usart2_init</STRONG> (Thumb, 64 bytes, Stack size 8 bytes, debug_uart.o(i.debug_usart2_init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 116<LI>Call Chain = debug_usart2_init &rArr; Pub_Uart_Hardware_Cfg &rArr; USART_Init &rArr; RCC_GetClocksFreq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pub_Uart_Int_Cfg
+<BR>[Calls]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
+<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pub_Uart_Int_Cfg
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pub_Uart_Hardware_Cfg
 <LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pub_Gpio_Output_AFPP
 <LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pub_Gpio_Input_INFLOATING
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pub_Nvic_Config
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_uart_init
+<BR>[Called By]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_uart_init
 </UL>
 
 <P><STRONG><a name="[66]"></a>NVIC_DisableIRQ</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, uart.o(i.NVIC_DisableIRQ))
-<BR><BR>[Called By]<UL><LI><a href="#[30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_IRQHandler
-<LI><a href="#[1b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA1_Channel7_IRQHandler
+<BR><BR>[Called By]<UL><LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_IRQHandler
+<LI><a href="#[18]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA1_Channel4_IRQHandler
 </UL>
 
 <P><STRONG><a name="[6b]"></a>NVIC_EnableIRQ</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, uart.o(i.NVIC_EnableIRQ))
-<BR><BR>[Called By]<UL><LI><a href="#[30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_IRQHandler
-<LI><a href="#[1b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA1_Channel7_IRQHandler
+<BR><BR>[Called By]<UL><LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_IRQHandler
+<LI><a href="#[18]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA1_Channel4_IRQHandler
 </UL>
 
-<P><STRONG><a name="[8b]"></a>USART2_Config</STRONG> (Thumb, 182 bytes, Stack size 32 bytes, uart.o(i.USART2_Config))
-<BR><BR>[Stack]<UL><LI>Max Depth = 100<LI>Call Chain = USART2_Config &rArr; USART_Init &rArr; RCC_GetClocksFreq
+<P><STRONG><a name="[89]"></a>USART1_Config</STRONG> (Thumb, 176 bytes, Stack size 32 bytes, uart.o(i.USART1_Config))
+<BR><BR>[Stack]<UL><LI>Max Depth = 100<LI>Call Chain = USART1_Config &rArr; USART_Init &rArr; RCC_GetClocksFreq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_DMACmd
+<BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_DMACmd
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Init
 <LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ITConfig
 <LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Cmd
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_DeInit
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Configuration
+<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Configuration
 </UL>
 
-<P><STRONG><a name="[8f]"></a>USART2_DMA_Configuration</STRONG> (Thumb, 188 bytes, Stack size 48 bytes, uart.o(i.USART2_DMA_Configuration))
-<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = USART2_DMA_Configuration &rArr; DMA_Init
+<P><STRONG><a name="[8b]"></a>USART1_DMA_Configuration</STRONG> (Thumb, 188 bytes, Stack size 48 bytes, uart.o(i.USART1_DMA_Configuration))
+<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = USART1_DMA_Configuration &rArr; DMA_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHBPeriphClockCmd
-<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_Init
-<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_ITConfig
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_DeInit
+<BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHBPeriphClockCmd
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_Init
+<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_ITConfig
+<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_DeInit
 <LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_Cmd
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_ClearFlag
 </UL>
-<BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Configuration
-</UL>
-
-<P><STRONG><a name="[98]"></a>USART_Configuration</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, uart.o(i.USART_Configuration))
-<BR><BR>[Stack]<UL><LI>Max Depth = 108<LI>Call Chain = USART_Configuration &rArr; USART2_Config &rArr; USART_Init &rArr; RCC_GetClocksFreq
-</UL>
-<BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_DMA_Configuration
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_Config
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_DeInit
-</UL>
-<BR>[Called By]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_uart_task
+<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Configuration
 </UL>
 
 <P><STRONG><a name="[12f]"></a>sys_led_off</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, led.o(i.sys_led_off))
@@ -2123,7 +2131,7 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_len_init
 <LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_led_on
 <LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_led_off
-<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sleep
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sleep
 <LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_printf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> led.o(i.sys_led_init)
@@ -2136,20 +2144,6 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_led_task
 </UL>
 
-<P><STRONG><a name="[86]"></a>SetSysClock</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, system_stm32f10x.o(i.SetSysClock))
-<BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = SetSysClock &rArr; SetSysClockTo72
-</UL>
-<BR>[Calls]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetSysClockTo72
-</UL>
-<BR>[Called By]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemInit
-</UL>
-
-<P><STRONG><a name="[87]"></a>SetSysClockTo72</STRONG> (Thumb, 214 bytes, Stack size 12 bytes, system_stm32f10x.o(i.SetSysClockTo72))
-<BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = SetSysClockTo72
-</UL>
-<BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetSysClock
-</UL>
-
 <P><STRONG><a name="[105]"></a>is_list_empty</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, raw_mutex.o(i.is_list_empty))
 <BR><BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_mutex_put
 <LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;release_mutex
@@ -2159,42 +2153,42 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 40 + In Cycle
 <LI>Call Chain = release_mutex &rArr;  change_internal_task_priority (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_internal_task_priority
+<BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_internal_task_priority
 <LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;is_list_empty
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_mutex_put
 <LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mutex_state_change
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mtx_chg_pri
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mtx_chg_pri
 </UL>
 
-<P><STRONG><a name="[a9]"></a>add_to_priority_list</STRONG> (Thumb, 50 bytes, Stack size 32 bytes, raw_pend.o(i.add_to_priority_list))
+<P><STRONG><a name="[a8]"></a>add_to_priority_list</STRONG> (Thumb, 50 bytes, Stack size 32 bytes, raw_pend.o(i.add_to_priority_list))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = add_to_priority_list
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;list_insert
+<BR>[Calls]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;list_insert
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_pend_list_priority
+<BR>[Called By]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_pend_list_priority
 <LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_pend_object
 </UL>
 
-<P><STRONG><a name="[a8]"></a>bit_set</STRONG> (Thumb, 26 bytes, Stack size 12 bytes, raw_pend.o(i.bit_set))
+<P><STRONG><a name="[a7]"></a>bit_set</STRONG> (Thumb, 26 bytes, Stack size 12 bytes, raw_pend.o(i.bit_set))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = bit_set
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_ready_list_head
-<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_ready_list_end
+<BR>[Called By]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_ready_list_head
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_ready_list_end
 </UL>
 
-<P><STRONG><a name="[b4]"></a>list_delete</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, raw_pend.o(i.list_delete))
-<BR><BR>[Called By]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remove_ready_list
-<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_to_ready_list_end
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_pend_list_priority
+<P><STRONG><a name="[b3]"></a>list_delete</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, raw_pend.o(i.list_delete))
+<BR><BR>[Called By]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remove_ready_list
+<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_to_ready_list_end
+<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_pend_list_priority
 <LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pend_task_wake_up
 </UL>
 
-<P><STRONG><a name="[a7]"></a>list_insert</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, raw_pend.o(i.list_insert))
-<BR><BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_to_ready_list_end
-<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_ready_list_head
-<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_ready_list_end
-<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_to_priority_list
+<P><STRONG><a name="[a6]"></a>list_insert</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, raw_pend.o(i.list_insert))
+<BR><BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_to_ready_list_end
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_ready_list_head
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_ready_list_end
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_to_priority_list
 <LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_pend_object
 </UL>
 
@@ -2203,8 +2197,8 @@ Local Symbols
 <LI>Call Chain = pend_task_wake_up &rArr; add_ready_list &rArr; add_ready_list_head &rArr; bit_set
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tick_list_remove
-<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_ready_list
-<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;list_delete
+<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_ready_list
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;list_delete
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;port_system_error_process
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wake_send_msg_size
@@ -2235,8 +2229,8 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 120 + Unknown Stack Size
 <LI>Call Chain = tick_task_process &rArr; raw_task_semaphore_get &rArr; raw_semaphore_get &rArr; raw_pend_object &rArr; remove_ready_list &rArr; port_system_error_process
 </UL>
-<BR>[Calls]<UL><LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_semaphore_get
-<LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tick_list_update
+<BR>[Calls]<UL><LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tick_list_update
+<LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_task_semaphore_get
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> raw_tick.o(i.tick_task_start)
 </UL>
@@ -2275,7 +2269,7 @@ Local Symbols
 <P><STRONG><a name="[fd]"></a>printchar</STRONG> (Thumb, 28 bytes, Stack size 16 bytes, simple_printf.o(i.printchar))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = printchar &rArr; debug_putc
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_putc
+<BR>[Calls]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_putc
 </UL>
 <BR>[Called By]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prints
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;printi
@@ -2310,8 +2304,8 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 152 + Unknown Stack Size
 <LI>Call Chain = serial_fifo_cache_refresh &rArr; raw_queue_size_receive &rArr; raw_pend_object &rArr; remove_ready_list &rArr; port_system_error_process
 </UL>
-<BR>[Calls]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_queue_size_receive
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_block_release
+<BR>[Calls]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_block_release
+<LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_queue_size_receive
 </UL>
 <BR>[Called By]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_read_noblock
 </UL>
@@ -2320,7 +2314,7 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 232 + Unknown Stack Size
 <LI>Call Chain = cli_getc &rArr; debug_read &rArr; serial_read &rArr; serial_read_noblock &rArr; serial_fifo_cache_refresh &rArr; raw_queue_size_receive &rArr; raw_pend_object &rArr; remove_ready_list &rArr; port_system_error_process
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_read
+<BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_read
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> cli_port.o(.data)
 </UL>
@@ -2331,7 +2325,7 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 176 + Unknown Stack Size
 <LI>Call Chain = cli_putnstr &rArr; debug_write &rArr; raw_mutex_get &rArr; change_internal_task_priority &rArr; remove_ready_list &rArr; port_system_error_process
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_write
+<BR>[Calls]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_write
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> cli_port.o(.data)
 </UL>
@@ -2339,135 +2333,135 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 176 + Unknown Stack Size
 <LI>Call Chain = cli_puts &rArr; debug_write &rArr; raw_mutex_get &rArr; change_internal_task_priority &rArr; remove_ready_list &rArr; port_system_error_process
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_write
-<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<BR>[Calls]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_write
+<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> cli_port.o(.data)
 </UL>
-<P><STRONG><a name="[d3]"></a>cread_add_char</STRONG> (Thumb, 176 bytes, Stack size 32 bytes, cli_readline.o(i.cread_add_char))
+<P><STRONG><a name="[d2]"></a>cread_add_char</STRONG> (Thumb, 176 bytes, Stack size 32 bytes, cli_readline.o(i.cread_add_char))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = cread_add_char &rArr; __aeabi_memmove
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memmove
+<BR>[Calls]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memmove
 </UL>
-<BR>[Called By]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_line
-<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_add_str
+<BR>[Called By]<UL><LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_line
+<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_add_str
 </UL>
 
-<P><STRONG><a name="[d5]"></a>cread_add_str</STRONG> (Thumb, 52 bytes, Stack size 40 bytes, cli_readline.o(i.cread_add_str))
+<P><STRONG><a name="[d4]"></a>cread_add_str</STRONG> (Thumb, 52 bytes, Stack size 40 bytes, cli_readline.o(i.cread_add_str))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = cread_add_str &rArr; cread_add_char &rArr; __aeabi_memmove
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_add_char
+<BR>[Calls]<UL><LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_add_char
 </UL>
-<BR>[Called By]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_line
+<BR>[Called By]<UL><LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_line
 </UL>
 
-<P><STRONG><a name="[d6]"></a>cread_add_to_hist</STRONG> (Thumb, 70 bytes, Stack size 8 bytes, cli_readline.o(i.cread_add_to_hist))
+<P><STRONG><a name="[d5]"></a>cread_add_to_hist</STRONG> (Thumb, 70 bytes, Stack size 8 bytes, cli_readline.o(i.cread_add_to_hist))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = cread_add_to_hist
 </UL>
-<BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
+<BR>[Calls]<UL><LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
 </UL>
-<BR>[Called By]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_line
+<BR>[Called By]<UL><LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_line
 </UL>
 
-<P><STRONG><a name="[bd]"></a>cread_line</STRONG> (Thumb, 1302 bytes, Stack size 88 bytes, cli_readline.o(i.cread_line))
+<P><STRONG><a name="[bc]"></a>cread_line</STRONG> (Thumb, 1302 bytes, Stack size 88 bytes, cli_readline.o(i.cread_line))
 <BR><BR>[Stack]<UL><LI>Max Depth = 412 + Unknown Stack Size
 <LI>Call Chain = cread_line &rArr; cmd_auto_complete &rArr; complete_cmdv &rArr; find_cmd &rArr; find_cmd_tbl &rArr; strncmp
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sleep
-<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_auto_complete
-<LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hist_prev
-<LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hist_next
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_add_to_hist
-<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_add_str
-<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_add_char
-<LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tstc
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
-<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memmove
+<BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sleep
+<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_auto_complete
+<LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hist_prev
+<LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hist_next
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_add_to_hist
+<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_add_str
+<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_add_char
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tstc
+<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
+<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memmove
 </UL>
-<BR>[Called By]<UL><LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_readline_into_buffer
-</UL>
-
-<P><STRONG><a name="[bc]"></a>hist_init</STRONG> (Thumb, 60 bytes, Stack size 0 bytes, cli_readline.o(i.hist_init))
-<BR><BR>[Called By]<UL><LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_readline_into_buffer
+<BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_readline_into_buffer
 </UL>
 
-<P><STRONG><a name="[da]"></a>hist_next</STRONG> (Thumb, 82 bytes, Stack size 0 bytes, cli_readline.o(i.hist_next))
-<BR><BR>[Called By]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_line
+<P><STRONG><a name="[bb]"></a>hist_init</STRONG> (Thumb, 60 bytes, Stack size 0 bytes, cli_readline.o(i.hist_init))
+<BR><BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_readline_into_buffer
 </UL>
 
-<P><STRONG><a name="[d9]"></a>hist_prev</STRONG> (Thumb, 68 bytes, Stack size 0 bytes, cli_readline.o(i.hist_prev))
-<BR><BR>[Called By]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_line
+<P><STRONG><a name="[d9]"></a>hist_next</STRONG> (Thumb, 82 bytes, Stack size 0 bytes, cli_readline.o(i.hist_next))
+<BR><BR>[Called By]<UL><LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_line
 </UL>
 
-<P><STRONG><a name="[be]"></a>bootretry_reset_cmd_timeout</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, cli_simple.o(i.bootretry_reset_cmd_timeout))
-<BR><BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_simple_loop
+<P><STRONG><a name="[d8]"></a>hist_prev</STRONG> (Thumb, 68 bytes, Stack size 0 bytes, cli_readline.o(i.hist_prev))
+<BR><BR>[Called By]<UL><LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cread_line
 </UL>
 
-<P><STRONG><a name="[c3]"></a>process_macros</STRONG> (Thumb, 324 bytes, Stack size 120 bytes, cli_simple.o(i.process_macros))
+<P><STRONG><a name="[bd]"></a>bootretry_reset_cmd_timeout</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, cli_simple.o(i.bootretry_reset_cmd_timeout))
+<BR><BR>[Called By]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_simple_loop
+</UL>
+
+<P><STRONG><a name="[c2]"></a>process_macros</STRONG> (Thumb, 324 bytes, Stack size 120 bytes, cli_simple.o(i.process_macros))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = process_macros
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_simple_run_command
+<BR>[Called By]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_simple_run_command
 </UL>
 
-<P><STRONG><a name="[ce]"></a>cmd_call</STRONG> (Thumb, 34 bytes, Stack size 24 bytes, command.o(i.cmd_call))
+<P><STRONG><a name="[cd]"></a>cmd_call</STRONG> (Thumb, 34 bytes, Stack size 24 bytes, command.o(i.cmd_call))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = cmd_call
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_process
+<BR>[Called By]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_process
 </UL>
 
-<P><STRONG><a name="[c9]"></a>complete_cmdv</STRONG> (Thumb, 302 bytes, Stack size 72 bytes, command.o(i.complete_cmdv))
+<P><STRONG><a name="[c8]"></a>complete_cmdv</STRONG> (Thumb, 302 bytes, Stack size 72 bytes, command.o(i.complete_cmdv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 140<LI>Call Chain = complete_cmdv &rArr; find_cmd &rArr; find_cmd_tbl &rArr; strncmp
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ll_entry_start
-<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ll_entry_count
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_cmd
-<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memcmp
-<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
-<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strchr
+<BR>[Calls]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ll_entry_start
+<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ll_entry_count
+<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_cmd
+<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memcmp
+<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strchr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_auto_complete
+<BR>[Called By]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_auto_complete
 </UL>
 
-<P><STRONG><a name="[ca]"></a>find_common_prefix</STRONG> (Thumb, 78 bytes, Stack size 32 bytes, command.o(i.find_common_prefix))
+<P><STRONG><a name="[c9]"></a>find_common_prefix</STRONG> (Thumb, 78 bytes, Stack size 32 bytes, command.o(i.find_common_prefix))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = find_common_prefix
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_auto_complete
-</UL>
-
-<P><STRONG><a name="[cd]"></a>get_timer</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, command.o(i.get_timer))
-<BR><BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_process
+<BR>[Called By]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_auto_complete
 </UL>
 
-<P><STRONG><a name="[c8]"></a>make_argv</STRONG> (Thumb, 86 bytes, Stack size 12 bytes, command.o(i.make_argv))
+<P><STRONG><a name="[cc]"></a>get_timer</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, command.o(i.get_timer))
+<BR><BR>[Called By]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_process
+</UL>
+
+<P><STRONG><a name="[c7]"></a>make_argv</STRONG> (Thumb, 86 bytes, Stack size 12 bytes, command.o(i.make_argv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = make_argv
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_auto_complete
+<BR>[Called By]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_auto_complete
 </UL>
 
-<P><STRONG><a name="[cb]"></a>print_argv</STRONG> (Thumb, 150 bytes, Stack size 40 bytes, command.o(i.print_argv))
+<P><STRONG><a name="[ca]"></a>print_argv</STRONG> (Thumb, 150 bytes, Stack size 40 bytes, command.o(i.print_argv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = print_argv
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_auto_complete
+<BR>[Called By]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_auto_complete
 </UL>
 
 <P><STRONG><a name="[59]"></a>do_help</STRONG> (Thumb, 44 bytes, Stack size 40 bytes, cmds.o(i.do_help))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160 + Unknown Stack Size
 <LI>Call Chain = do_help &rArr; _do_help &rArr; ctrlc &rArr; tstc &rArr; debug_cahce_empty &rArr; raw_queue_size_get_information
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ll_entry_start
-<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ll_entry_count
-<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_do_help
+<BR>[Calls]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ll_entry_start
+<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ll_entry_count
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_do_help
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> cmds.o(.data)
 </UL>
-<P><STRONG><a name="[5a]"></a>do_reboot</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, cmds.o(i.do_reboot))
+<P><STRONG><a name="[5a]"></a>do_reboot</STRONG> (Thumb, 60 bytes, Stack size 0 bytes, cmds.o(i.do_reboot))
 <BR>[Address Reference Count : 1]<UL><LI> cmds.o(.data)
 </UL>
 <P><STRONG><a name="[5b]"></a>do_stack</STRONG> (Thumb, 68 bytes, Stack size 48 bytes, cmds.o(i.do_stack))
@@ -2486,7 +2480,21 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_printf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> cmds.o(.data)
-</UL><P>
+</UL>
+<P><STRONG><a name="[86]"></a>SetSysClock</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, system_stm32f10x.o(i.SetSysClock))
+<BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = SetSysClock &rArr; SetSysClockTo72
+</UL>
+<BR>[Calls]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetSysClockTo72
+</UL>
+<BR>[Called By]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemInit
+</UL>
+
+<P><STRONG><a name="[87]"></a>SetSysClockTo72</STRONG> (Thumb, 214 bytes, Stack size 12 bytes, system_stm32f10x.o(i.SetSysClockTo72))
+<BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = SetSysClockTo72
+</UL>
+<BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetSysClock
+</UL>
+<P>
 <H3>
 Undefined Global Symbols
 </H3><HR></body></html>

@@ -22,7 +22,6 @@ typedef struct init_task_t
 void sys_led_init(RAW_U8 prio);
 void shell_init(RAW_U8 prio);
 void sys_uart_init(RAW_U8 prio);
-//void sys_kerneltest_init(RAW_U8 prio);
 
 /******************************************************************************/
 
@@ -31,7 +30,6 @@ static const init_task_t sys_init_arry[]  =
     {sys_led_init, 		    CONFIG_RAW_PRIO_MAX - 5 }, 		// 系统指示灯
     {shell_init, 		    CONFIG_RAW_PRIO_MAX - 10},		// shell
     {sys_uart_init,         CONFIG_RAW_PRIO_MAX - 20},      // uart
-//    {sys_kerneltest_init,   CONFIG_RAW_PRIO_MAX - 25},      // kerneltest
 };
 
 static void sys_init_task(void *pdat)

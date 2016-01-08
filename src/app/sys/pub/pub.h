@@ -120,4 +120,7 @@ void Pub_Gpio_Input_IPD(GPIO_TypeDef* GPIOx,uint16_t Pin);                  //设
 void Pub_Gpio_Input_INFLOATING(GPIO_TypeDef* GPIOx,uint16_t Pin);           //设置端口为浮空输入口
 void Pub_Gpio_Input_IPU(GPIO_TypeDef* GPIOx,uint16_t Pin);                  //设置端口为上拉输入口
 
+void Pub_Uart_Hardware_Cfg(USART_TypeDef* USARTx,uint32_t Bps);
+void Pub_Uart_Int_Cfg(USART_TypeDef* USARTx,FunctionalState NewState);
+
 #endif

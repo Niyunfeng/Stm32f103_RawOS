@@ -5,6 +5,6 @@
 #include "raw_api.h"
 
 void ADC_InitConfiguration(void);
-uint16_t Adc_Filter(uint8_t Ch);
+uint16_t ADC_Filter(uint8_t ch);
 
 #endif

@@ -119,7 +119,7 @@ void task_2(void *pdat)
     RAW_U8 tmp = 0;
     
     LCD_Init();
-    Init_Adc();
+    ADC_InitConfiguration();
 //    RAW_U32 msg_2 = 0x1;
     POINT_COLOR=RED;
     LCD_Clear(BLUE);
@@ -131,7 +131,7 @@ void task_2(void *pdat)
     {
         for(i=0;i<=2;i++)
         {
-            tmp_ad = Adc_Filter(i);
+            tmp_ad = ADC_Filter(i);
             LCD_ShowxNum(32,128+i*64,tmp_ad,4,24,0);
             raw_sleep(5);
         }
